@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeArea.cs" />
-    <Compile Include="CodeBlock.cs" />
     <Compile Include="Hacking.cs" />
     <Compile Include="InformationArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +93,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\code_error.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\code0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
