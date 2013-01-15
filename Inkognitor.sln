@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLbot", "AIMLbot\AIMLbot.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hacking", "Hacking\Hacking.csproj", "{9276E761-D5B3-4A07-BC37-213CE62C66F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingTest", "HackingTest\HackingTest.csproj", "{42D5D5B1-9E05-4533-B39E-5D08062CFA17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{9276E761-D5B3-4A07-BC37-213CE62C66F2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9276E761-D5B3-4A07-BC37-213CE62C66F2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9276E761-D5B3-4A07-BC37-213CE62C66F2}.Release|x86.ActiveCfg = Release|Any CPU
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Debug|x86.ActiveCfg = Debug|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Debug|x86.Build.0 = Debug|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Release|Any CPU.ActiveCfg = Release|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Release|Mixed Platforms.Build.0 = Release|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Release|x86.ActiveCfg = Release|x86
+		{42D5D5B1-9E05-4533-B39E-5D08062CFA17}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
