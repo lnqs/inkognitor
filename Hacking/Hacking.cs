@@ -14,6 +14,8 @@ namespace Hacking
         private static readonly string WindowName = "Inkognitor";
         private static readonly int CodeBlockColumns = 6;
         private static readonly int CodeBlockRows = 4;
+        private static readonly int MaxErrorsPerCodeBlockRow = 3;
+        private static readonly float ErrorCodeBlockProbability = 0.25f;
         private static readonly float InfoAreaHeight = 0.25f;
         private static readonly Rectangle CodeAreaRectangle = new Rectangle(
                 new Point(0, (int)(WindowSize.Height * InfoAreaHeight)),
@@ -28,6 +30,7 @@ namespace Hacking
         {
             codeBlocks = new CodeBlockGrid(CodeBlockColumns, CodeBlockRows, CodeAreaRectangle.Size);
             cursor = new Cursor(codeBlocks.BlockPixelSize);
+            InitializeCodeBlocks();
 
             Video.SetVideoMode(WindowSize.Width, WindowSize.Height);
             Video.WindowCaption = WindowName;
@@ -83,6 +86,31 @@ namespace Hacking
             if (cursor.GridY > 1)
             {
                 cursor.GridY -= 1;
+            }
+        }
+
+        private void InitializeCodeBlocks()
+        {
+            for (int i = 0; i < codeBlocks.Rows; i++)
+            {
+                InitializeCodeBlockRow(codeBlocks[i]);
+            }
+        }
+
+        private void InitializeCodeBlockRow(CodeBlockGrid.Row blocks)
+        {
+            foreach (CodeBlock block in blocks)
+            {
+                int errors = 0;
+                if (errors < MaxErrorsPerCodeBlockRow && random.NextDouble() < ErrorCodeBlockProbability)
+                {
+                    block.Personality = CodeBlock.PersonalityError;
+                    errors += 1;
+                }
+                else
+                {
+                    block.Personality = random.Next(CodeBlock.Personalities);
+                }
             }
         }
     }
