@@ -26,7 +26,7 @@ namespace Hacking
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    this[i][j] = new CodeBlock(BlockPixelSize);
+                    this[i, j] = new CodeBlock(BlockPixelSize);
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace Hacking
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    CodeBlock block = this[i][j];
+                    CodeBlock block = this[i, j];
                     block.X = i * BlockPixelSize.Width;
                     block.Y = j * BlockPixelSize.Height - PixelOffset;
                 }
@@ -63,7 +63,7 @@ namespace Hacking
                 for (int j = 0; j < codeBlockGrid.Columns; j++)
                 {
                     int offset = codeBlockGrid.PixelOffset;
-                    CodeBlock block = codeBlockGrid[i][j];
+                    CodeBlock block = codeBlockGrid[i, j];
                     surface.Blit(block.Surface, block.Position);
                 }
             }

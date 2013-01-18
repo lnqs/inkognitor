@@ -10,6 +10,7 @@ namespace Hacking
         public int Rows { get { return rows.Length; } }
 
         public Row this[int i] { get { return rows[i]; } }
+        public T this[int x, int y] { get { return rows[x][y]; } set { rows[x][y] = value; } }
 
         public RotateableGrid(int columnCount, int rowCount)
         {
