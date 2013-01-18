@@ -58,14 +58,10 @@ namespace Hacking
     {
         public static Rectangle Blit(this Surface surface, CodeBlockGrid codeBlockGrid)
         {
-            for (int i = 0; i < codeBlockGrid.Rows; i++)
+            foreach (CodeBlock block in codeBlockGrid)
             {
-                for (int j = 0; j < codeBlockGrid.Columns; j++)
-                {
-                    int offset = codeBlockGrid.PixelOffset;
-                    CodeBlock block = codeBlockGrid[i, j];
-                    surface.Blit(block.Surface, block.Position);
-                }
+                int offset = codeBlockGrid.PixelOffset;
+                surface.Blit(block.Surface, block.Position);
             }
 
             return new Rectangle(0, 0, codeBlockGrid.PixelSize.Width, codeBlockGrid.PixelSize.Height);
