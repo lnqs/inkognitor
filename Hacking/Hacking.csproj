@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CodeBlock.cs" />
     <Compile Include="CodeBlockGrid.cs" />
+    <Compile Include="Cursor.cs" />
     <Compile Include="RotateableGrid.cs" />
     <Compile Include="Hacking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
