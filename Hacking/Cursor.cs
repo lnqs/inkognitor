@@ -18,7 +18,7 @@ namespace Hacking
             Surface = new Surface(filename); // TODO: Resize
 
             GridX = 0;
-            GridY = 0;
+            GridY = 1;
         }
     }
 }

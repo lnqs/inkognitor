@@ -14,13 +14,19 @@ namespace Hacking
         private static readonly string WindowName = "Inkognitor";
         private static readonly int CodeBlockColumns = 6;
         private static readonly int CodeBlockRows = 4;
+        private static readonly float InfoAreaHeight = 0.25f;
+        private static readonly Rectangle CodeAreaRectangle = new Rectangle(
+                new Point(0, (int)(WindowSize.Height * InfoAreaHeight)),
+                new Size(WindowSize.Width, (int)(WindowSize.Height * (1.0 - InfoAreaHeight))));
+
+        private Random random = new Random();
 
         private CodeBlockGrid codeBlocks;
         private Cursor cursor;
 
         public void start()
         {
-            codeBlocks = new CodeBlockGrid(CodeBlockColumns, CodeBlockRows, WindowSize);
+            codeBlocks = new CodeBlockGrid(CodeBlockColumns, CodeBlockRows, CodeAreaRectangle.Size);
             cursor = new Cursor(codeBlocks.BlockPixelSize);
 
             Video.SetVideoMode(WindowSize.Width, WindowSize.Height);
@@ -39,9 +45,11 @@ namespace Hacking
         {
             codeBlocks.Update(e);
             cursor.Position = codeBlocks[cursor.GridX, cursor.GridY].Position;
+            cursor.X += CodeAreaRectangle.X;
+            cursor.Y += CodeAreaRectangle.Y;
 
-            Video.Screen.Blit(codeBlocks);
-            Video.Screen.Blit(cursor);
+            Video.Screen.Blit(codeBlocks, CodeAreaRectangle.Location);
+            Video.Screen.Blit(cursor.Surface, cursor.Position, cursor.CalcClippingRectangle());
 
             Video.Screen.Update();
         }

@@ -63,17 +63,23 @@ namespace Hacking
         }
     }
 
-    public static class SurfaceExtensions
+    public static class CodeBlockGridSurfaceExtensions
     {
-        public static Rectangle Blit(this Surface surface, CodeBlockGrid codeBlockGrid)
+        public static Rectangle Blit(this Surface surface, CodeBlockGrid codeBlockGrid, Point destinationPoint)
         {
             foreach (CodeBlock block in codeBlockGrid)
             {
                 int offset = codeBlockGrid.PixelOffset;
-                surface.Blit(block.Surface, block.Position);
+
+                Point destination = new Point();
+                destination.X = destinationPoint.X + block.Position.X;
+                destination.Y = destinationPoint.Y + block.Position.Y;
+
+                surface.Blit(block.Surface, destination, block.CalcClippingRectangle());
             }
 
-            return new Rectangle(0, 0, codeBlockGrid.PixelSize.Width, codeBlockGrid.PixelSize.Height);
+            return new Rectangle(destinationPoint.X, destinationPoint.Y, codeBlockGrid.PixelSize.Width, codeBlockGrid.PixelSize.Height);
         }
+
     }
 }

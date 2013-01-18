@@ -55,6 +55,7 @@
     <Compile Include="RotateableGrid.cs" />
     <Compile Include="Hacking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpriteExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\code_area.png">
