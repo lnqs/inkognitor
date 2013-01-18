@@ -43,7 +43,7 @@ namespace Hacking
             return new Enumerator(this);
         }
 
-        public class Row
+        public class Row : IEnumerable, IEnumerable<T>
         {
             private T[] members;
             private int count;
@@ -55,6 +55,41 @@ namespace Hacking
             {
                 count = length;
                 members = new T[length];
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return new Enumerator(this);
+            }
+
+            IEnumerator<T> IEnumerable<T>.GetEnumerator()
+            {
+                return new Enumerator(this);
+            }
+
+            public class Enumerator : IEnumerator, IEnumerator<T>
+            {
+                private IEnumerator enumerator;
+
+                object IEnumerator.Current { get { return enumerator.Current; } }
+                T IEnumerator<T>.Current { get { return (T)enumerator.Current; } }
+
+                public Enumerator(RotateableGrid<T>.Row enumeratable)
+                {
+                    enumerator = enumeratable.members.GetEnumerator();
+                }
+
+                public bool MoveNext()
+                {
+                    return enumerator.MoveNext();
+                }
+
+                public void Reset()
+                {
+                    enumerator.Reset();
+                }
+
+                public void Dispose() { }
             }
         }
 
