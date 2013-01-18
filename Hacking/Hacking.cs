@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
@@ -29,12 +30,14 @@ namespace Hacking
             Events.KeyboardDown += HandleKeyboardDown;
             Events.Quit += HandleQuit;
 
+            codeBlocks.Rotated += HandleCodeBlocksRotated;
+
             Events.Run();
         }
 
-        private void HandleTick(object sender, TickEventArgs args)
+        private void HandleTick(object sender, TickEventArgs e)
         {
-            codeBlocks.Update(args);
+            codeBlocks.Update(e);
             cursor.Position = codeBlocks[cursor.GridX, cursor.GridY].Position;
 
             Video.Screen.Blit(codeBlocks);
@@ -43,9 +46,9 @@ namespace Hacking
             Video.Screen.Update();
         }
 
-        private void HandleKeyboardDown(object sender, KeyboardEventArgs args)
+        private void HandleKeyboardDown(object sender, KeyboardEventArgs e)
         {
-            switch (args.Key)
+            switch (e.Key)
             {
                 case Key.LeftArrow:
                     cursor.GridX = cursor.GridX > 0 ? cursor.GridX - 1 : cursor.GridX;
@@ -54,10 +57,10 @@ namespace Hacking
                     cursor.GridX = cursor.GridX < codeBlocks.Rows - 1 ? cursor.GridX + 1 : cursor.GridX;
                     break;
                 case Key.UpArrow:
-                    cursor.GridY = cursor.GridY > 0 ? cursor.GridY - 1 : cursor.GridY;
+                    cursor.GridY = cursor.GridY > 1 ? cursor.GridY - 1 : cursor.GridY;
                     break;
                 case Key.DownArrow:
-                    cursor.GridY = cursor.GridY < codeBlocks.Columns - 1 ? cursor.GridY + 1 : cursor.GridY;
+                    cursor.GridY = cursor.GridY < codeBlocks.Columns - 2 ? cursor.GridY + 1 : cursor.GridY;
                     break;
             }
         }
@@ -65,6 +68,14 @@ namespace Hacking
         private void HandleQuit(object sender, QuitEventArgs e)
         {
             Events.QuitApplication();
+        }
+
+        private void HandleCodeBlocksRotated(object sender, EventArgs e)
+        {
+            if (cursor.GridY > 1)
+            {
+                cursor.GridY -= 1;
+            }
         }
     }
 }

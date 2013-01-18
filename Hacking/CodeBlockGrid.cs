@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 
@@ -7,6 +8,9 @@ namespace Hacking
     public class CodeBlockGrid : RotateableGrid<CodeBlock>
     {
         static private readonly float ScrollingSpeed = 100.0f;
+
+        public delegate void RotatedEventHandler(object sender, EventArgs e);
+        public event RotatedEventHandler Rotated;
 
         public Size PixelSize { get { return pixelSize; } }
         public Size BlockPixelSize { get { return blockPixelSize; } }
@@ -40,6 +44,11 @@ namespace Hacking
             {
                 rotate();
                 pixelOffset = 0.0f;
+
+                if (Rotated != null)
+                {
+                    Rotated.Invoke(this, EventArgs.Empty);
+                }
             }
 
             for (int i = 0; i < Rows; i++)
