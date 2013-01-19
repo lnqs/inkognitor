@@ -75,26 +75,27 @@ namespace Hacking
 
         private void HandleKeyboardDown(object sender, KeyboardEventArgs e)
         {
+            // TODO: refactor this method
             switch (e.Key)
             {
                 case Key.LeftArrow:
                     cursor.GridX = cursor.GridX > 0 ? cursor.GridX - 1 : cursor.GridX;
+                    CheckErrorCodeFound();
                     break;
                 case Key.RightArrow:
                     cursor.GridX = cursor.GridX < codeBlocks.Width - 1 ? cursor.GridX + 1 : cursor.GridX;
+                    CheckErrorCodeFound();
                     break;
                 case Key.UpArrow:
                     cursor.GridY = cursor.GridY > 1 ? cursor.GridY - 1 : cursor.GridY;
+                    CheckErrorCodeFound();
                     break;
                 case Key.DownArrow:
                     cursor.GridY = cursor.GridY < codeBlocks.Height - 2 ? cursor.GridY + 1 : cursor.GridY;
+                    CheckErrorCodeFound();
                     break;
                 case Key.Space:
-                    if (codeBlocks[cursor.GridX, cursor.GridY].Personality == searchedCodeBlock)
-                    {
-                        level += 1;
-                        searchedCodeBlock = random.Next(CodeBlock.Personalities);
-                    }
+                    CheckCodeBlockFound();
                     break;
             }
         }
@@ -110,6 +111,8 @@ namespace Hacking
             {
                 cursor.GridY -= 1;
             }
+
+            CheckErrorCodeFound();
 
             InitializeCodeBlockRow(CodeBlockRows - 1);
         }
@@ -139,6 +142,27 @@ namespace Hacking
                 {
                     block.Personality = random.Next(CodeBlock.Personalities);
                 }
+            }
+        }
+
+        private void CheckCodeBlockFound()
+        {
+            if (searchedCodeBlock == codeBlocks[cursor.GridX, cursor.GridY].Personality)
+            {
+                level += 1;
+                levelDisplaySprite = new TextSprite(level.ToString(), font);
+                searchedCodeBlock = random.Next(CodeBlock.Personalities);
+            }
+        }
+
+        private void CheckErrorCodeFound()
+        {
+            if (codeBlocks[cursor.GridX, cursor.GridY].Personality == CodeBlock.PersonalityError)
+            {
+                level -= 1;
+                levelDisplaySprite = new TextSprite(level.ToString(), font);
+                searchedCodeBlock = random.Next(CodeBlock.Personalities);
+                InitializeCodeBlocks();
             }
         }
     }
