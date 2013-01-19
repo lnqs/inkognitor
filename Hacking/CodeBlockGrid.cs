@@ -5,7 +5,7 @@ using SdlDotNet.Graphics;
 
 namespace Hacking
 {
-    public class CodeBlockGrid : RotateableGrid<CodeBlock>
+    public class CodeBlockGrid : RotateableGrid<CodeBlock>, IDisposable
     {
         static private readonly float ScrollingSpeed = 100.0f;
 
@@ -20,6 +20,8 @@ namespace Hacking
         private Size pixelSize;
         private Size blockPixelSize;
 
+        private bool disposed = false;
+
         public CodeBlockGrid(int width, int height, Size pixelSize_)
             : base(width, height)
         {
@@ -33,6 +35,26 @@ namespace Hacking
                     this[x, y] = new CodeBlock(BlockPixelSize);
                 }
             }
+        }
+
+        ~CodeBlockGrid()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            if (!disposed)
+            {
+                foreach (CodeBlock member in this)
+                {
+                    member.Dispose();
+                }
+
+                disposed = true;
+            }
+
+            GC.SuppressFinalize(this);
         }
 
         public void Update(TickEventArgs args)
