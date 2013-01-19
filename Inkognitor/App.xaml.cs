@@ -19,7 +19,9 @@ namespace Inkognitor
         {
             if (args.Text == "hack")
             {
+                window.Hide();
                 hackingMode.start();
+                window.Show();
             }
             else
             {
