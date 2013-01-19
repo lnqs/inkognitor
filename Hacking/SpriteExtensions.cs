@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using SdlDotNet.Graphics.Sprites;
 
 namespace Hacking

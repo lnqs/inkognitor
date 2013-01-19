@@ -2,7 +2,9 @@
 using System.Drawing;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
+using SdlDotNet.Graphics.Sprites;
 using SdlDotNet.Input;
+using System.IO;
 
 namespace Hacking
 {
@@ -16,22 +18,33 @@ namespace Hacking
         private static readonly int CodeBlockColumns = 4;
         private static readonly int CodeBlockRows = 6;
         private static readonly int MaxErrorsPerCodeBlockRow = 3;
-        private static readonly float ErrorCodeBlockProbability = 0.25f;
+        private static readonly float ErrorCodeBlockProbability = 0.1f;
         private static readonly float InfoAreaHeight = 0.25f;
         private static readonly Rectangle CodeAreaRectangle = new Rectangle(
                 new Point(0, (int)(WindowSize.Height * InfoAreaHeight)),
                 new Size(WindowSize.Width, (int)(WindowSize.Height * (1.0f - InfoAreaHeight))));
+        private static readonly Point LevelDisplayPosition = new Point(WindowSize.Width - 50, 0);
+        private static readonly Point SearchedCodeBlockDisplayPosition = new Point(0, 0);
 
         private Random random = new Random();
+        SdlDotNet.Graphics.Font font = new SdlDotNet.Graphics.Font(
+                Path.Combine(System.Environment.GetEnvironmentVariable("windir"), "fonts", "arial.ttf"), 40);
 
         private CodeBlockGrid codeBlocks;
         private Cursor cursor;
+
+        private int level = 1;
+        TextSprite levelDisplaySprite;
+
+        private int searchedCodeBlock = 0;
 
         public void start()
         {
             codeBlocks = new CodeBlockGrid(CodeBlockColumns, CodeBlockRows, CodeAreaRectangle.Size);
             cursor = new Cursor(codeBlocks.BlockPixelSize);
             InitializeCodeBlocks();
+
+            levelDisplaySprite = new TextSprite(level.ToString(), font);
 
             Video.SetVideoMode(WindowSize.Width, WindowSize.Height);
             Video.WindowCaption = WindowName;
@@ -54,6 +67,8 @@ namespace Hacking
 
             Video.Screen.Blit(codeBlocks, CodeAreaRectangle.Location);
             Video.Screen.Blit(cursor.Surface, cursor.Position, cursor.CalcClippingRectangle());
+            Video.Screen.Blit(CodeBlock.Surfaces[searchedCodeBlock], SearchedCodeBlockDisplayPosition);
+            Video.Screen.Blit(levelDisplaySprite, LevelDisplayPosition);
 
             Video.Screen.Update();
         }
@@ -74,6 +89,13 @@ namespace Hacking
                 case Key.DownArrow:
                     cursor.GridY = cursor.GridY < codeBlocks.Height - 2 ? cursor.GridY + 1 : cursor.GridY;
                     break;
+                case Key.Space:
+                    if (codeBlocks[cursor.GridX, cursor.GridY].Personality == searchedCodeBlock)
+                    {
+                        level += 1;
+                        searchedCodeBlock = random.Next(CodeBlock.Personalities);
+                    }
+                    break;
             }
         }
 
@@ -88,6 +110,8 @@ namespace Hacking
             {
                 cursor.GridY -= 1;
             }
+
+            InitializeCodeBlockRow(CodeBlockRows - 1);
         }
 
         private void InitializeCodeBlocks()
