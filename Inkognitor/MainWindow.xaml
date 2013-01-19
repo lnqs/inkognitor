@@ -1,8 +1,8 @@
 ﻿<Window x:Class="Inkognitor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Inkognitor" Height="350" Width="525">
+        Title="Inkognitor" Cursor="None" WindowStyle="None" Topmost="True" WindowState="Maximized">
     <Grid>
-        <TextBox Height="23" HorizontalAlignment="Stretch" Name="inputBox" VerticalAlignment="Bottom" KeyDown="inputBox_KeyDown" />
+        <TextBox Height="23" HorizontalAlignment="Stretch" Name="inputBox" VerticalAlignment="Bottom" KeyDown="inputBox_KeyDown" Cursor="None" />
     </Grid>
 </Window>
