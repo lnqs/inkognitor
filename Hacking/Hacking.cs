@@ -150,7 +150,7 @@ namespace Hacking
             if (searchedCodeBlock == codeBlocks[cursor.GridX, cursor.GridY].Personality)
             {
                 level += 1;
-                levelDisplaySprite = new TextSprite(level.ToString(), font);
+                levelDisplaySprite.Text = level.ToString();
                 searchedCodeBlock = random.Next(CodeBlock.Personalities);
             }
         }
@@ -160,7 +160,7 @@ namespace Hacking
             if (codeBlocks[cursor.GridX, cursor.GridY].Personality == CodeBlock.PersonalityError)
             {
                 level -= 1;
-                levelDisplaySprite = new TextSprite(level.ToString(), font);
+                levelDisplaySprite.Text = level.ToString();
                 searchedCodeBlock = random.Next(CodeBlock.Personalities);
                 InitializeCodeBlocks();
             }
