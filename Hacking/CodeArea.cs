@@ -42,6 +42,7 @@ namespace Hacking
         public Cursor Cursor { get { return cursor; } }
         public int MaxErrorsPerCodeBlockRow { get; set; }
         public float ErrorCodeBlockProbability { get; set; }
+        public float ScrollingSpeed { get { return codeBlocks.ScrollingSpeed; } set { codeBlocks.ScrollingSpeed = value; } }
 
         public void Update(TickEventArgs e)
         {

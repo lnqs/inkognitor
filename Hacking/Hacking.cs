@@ -10,9 +10,7 @@ namespace Hacking
         public static readonly string ResourceDirectory = "Resources";
 
         private static readonly string WindowName = "Inkognitor";
-
-        private static readonly int MaxErrorsPerCodeBlockRow = 3;
-        private static readonly float ErrorCodeBlockProbability = 0.1f;
+        private static readonly int LevelCount = 10;
 
         private InformationArea informationArea = new InformationArea(
                 Layout.LevelIndicatorPosition, Layout.CodeBlockIndicatorPosition);
@@ -21,6 +19,7 @@ namespace Hacking
                 Layout.CodeArea, Layout.CodeBlockSize);
 
         private int level = 1;
+        private Difficulty difficulty = new Difficulty(LevelCount);
 
         public HackingMode()
         {
@@ -37,30 +36,30 @@ namespace Hacking
 
         public void start()
         {
-            level = 1;
-            codeArea.SetRandomSearchedBlock();
-            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[codeArea.SearchedCodeBlock];
-
-            codeArea.ErrorCodeBlockProbability = ErrorCodeBlockProbability; // TODO: Make this changeable
-            codeArea.MaxErrorsPerCodeBlockRow = MaxErrorsPerCodeBlockRow; // TODO: Make this changeable
-
+            SetLevel(1);
             Events.Run();
+        }
+
+        private void SetLevel(int level_)
+        {
+            level = level_;
+            difficulty.SetForLevel(level);
+            codeArea.SetRandomSearchedBlock();
+            codeArea.ErrorCodeBlockProbability = difficulty.ErrorCodeBlockProbability;
+            codeArea.MaxErrorsPerCodeBlockRow = difficulty.MaxErrorsPerCodeBlockRow;
+            codeArea.ScrollingSpeed = difficulty.ScrollingSpeed;
+            informationArea.DisplayedLevel.Text = level.ToString();
+            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[codeArea.SearchedCodeBlock];
         }
 
         private void HandleSearchedBlockFound(object sender, EventArgs e)
         {
-            level += 1;
-            codeArea.SetRandomSearchedBlock();
-            informationArea.DisplayedLevel.Text = level.ToString();
-            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[codeArea.SearchedCodeBlock];
+            SetLevel(level + 1);
         }
 
         private void HandleErrorBlockTouched(object sender, EventArgs e)
         {
-            level -= 1;
-            codeArea.SetRandomSearchedBlock();
-            informationArea.DisplayedLevel.Text = level.ToString();
-            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[codeArea.SearchedCodeBlock];
+            SetLevel(level - 1);
         }
 
         private void HandleTick(object sender, TickEventArgs e)

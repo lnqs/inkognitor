@@ -53,6 +53,7 @@
     <Compile Include="CodeBlock.cs" />
     <Compile Include="CodeBlockGrid.cs" />
     <Compile Include="Cursor.cs" />
+    <Compile Include="Difficulty.cs" />
     <Compile Include="InformationArea.cs" />
     <Compile Include="Layout.cs" />
     <Compile Include="RotateableGrid.cs" />
