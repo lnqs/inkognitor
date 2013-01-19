@@ -1,35 +1,12 @@
-﻿using System;
-using System.IO;
-
-namespace Inkognitor
+﻿namespace Inkognitor
 {
-    class DataCorruptingWaveMemoryStream : MemoryStream
+    class DataCorruptingWaveMemoryStream : EffectApplyingWaveMemoryStream
     {
-        private static readonly int HeaderSize = 45;
-
-        public override void Write(byte[] buffer, int offset, int count)
+        protected override void ApplyEffect(byte[] buffer)
         {
-            if (Position < HeaderSize)
+            for (int i = 1; i < buffer.Length; i++)
             {
-                int toWrite = Math.Min(count, HeaderSize - (int)Position);
-
-                base.Write(buffer, offset, toWrite);
-
-                offset += toWrite;
-                count -= toWrite;
-            }
-
-            if (count > 0)
-            {
-                byte[] broken = new byte[count];
-                Buffer.BlockCopy(buffer, offset, broken, 0, count);
-
-                for (int i = 1; i < broken.Length; i++)
-                {
-                    broken[i] += broken[i - 1];
-                }
-
-                base.Write(broken, 0, broken.Length);
+                buffer[i] += buffer[i - 1];
             }
         }
     }
