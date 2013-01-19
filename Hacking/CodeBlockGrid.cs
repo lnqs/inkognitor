@@ -9,21 +9,13 @@ namespace Hacking
     {
         static private readonly float ScrollingSpeed = 100.0f;
 
-        public delegate void RotatedEventHandler(object sender, EventArgs e);
-        public event RotatedEventHandler Rotated;
-
-        public Size PixelSize { get { return pixelSize; } }
-        public Size BlockPixelSize { get { return blockPixelSize; } }
-        public int PixelOffset { get { return (int)pixelOffset; } }
-
         private float pixelOffset = 0.0f;
         private Size pixelSize;
         private Size blockPixelSize;
 
         private bool disposed = false;
 
-        public CodeBlockGrid(int width, int height, Size pixelSize_)
-            : base(width, height)
+        public CodeBlockGrid(int width, int height, Size pixelSize_) : base(width, height)
         {
             pixelSize = pixelSize_;
             blockPixelSize = new Size(pixelSize.Width / Width, pixelSize.Height / (Height - 1));
@@ -42,20 +34,12 @@ namespace Hacking
             Dispose();
         }
 
-        public void Dispose()
-        {
-            if (!disposed)
-            {
-                foreach (CodeBlock member in this)
-                {
-                    member.Dispose();
-                }
+        public delegate void RotatedEventHandler(object sender, EventArgs e);
+        public event RotatedEventHandler Rotated;
 
-                disposed = true;
-            }
-
-            GC.SuppressFinalize(this);
-        }
+        public Size PixelSize { get { return pixelSize; } }
+        public Size BlockPixelSize { get { return blockPixelSize; } }
+        public int PixelOffset { get { return (int)pixelOffset; } }
 
         public void Update(TickEventArgs args)
         {
@@ -82,6 +66,21 @@ namespace Hacking
                     block.Y = y * BlockPixelSize.Height - PixelOffset;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            if (!disposed)
+            {
+                foreach (CodeBlock member in this)
+                {
+                    member.Dispose();
+                }
+
+                disposed = true;
+            }
+
+            GC.SuppressFinalize(this);
         }
     }
 

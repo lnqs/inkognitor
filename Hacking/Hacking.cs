@@ -34,7 +34,7 @@ namespace Hacking
         private Cursor cursor;
 
         private int level = 1;
-        TextSprite levelDisplaySprite;
+        private TextSprite levelDisplaySprite;
 
         private int searchedCodeBlock = 0;
 

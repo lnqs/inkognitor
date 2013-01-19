@@ -5,15 +5,13 @@ namespace Inkognitor
 {
     public partial class App : Application
     {
+        private MainWindow window = new MainWindow();
         private Personality personality = new Personality();
-        private MainWindow window;
         private HackingMode hackingMode = new HackingMode();
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            window = new MainWindow();
             window.Show();
-
             window.TextEntered += HandleUserInput;
         }
 

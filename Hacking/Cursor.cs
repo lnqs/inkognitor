@@ -9,9 +9,6 @@ namespace Hacking
     {
         private static readonly string ImageFile = "code_error.png";
 
-        public int GridX { get; set; }
-        public int GridY { get; set; }
-
         public Cursor(Size size)
         {
             string filename = Path.Combine(HackingMode.ResourceDirectory, ImageFile);
@@ -20,5 +17,8 @@ namespace Hacking
             GridX = 0;
             GridY = 1;
         }
+
+        public int GridX { get; set; }
+        public int GridY { get; set; }
     }
 }

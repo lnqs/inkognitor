@@ -4,7 +4,7 @@ namespace Inkognitor
 {
     class DataCorruptingWaveMemoryStream : MemoryStream
     {
-        private static int HeaderSize = 44;
+        private static readonly int HeaderSize = 44;
 
         public override void Write(byte[] buffer, int offset, int count)
         {

@@ -7,10 +7,6 @@ namespace Hacking
     {
         private T[,] members;
 
-        public int Width { get { return width; } }
-        public int Height { get { return height; } }
-        public T this[int x, int y] { get { return members[x, y]; } set { members[x, y] = value; } }
-
         private int width;
         private int height;
 
@@ -20,6 +16,10 @@ namespace Hacking
             height = height_;
             members = new T[Width, Height];
         }
+
+        public int Width { get { return width; } }
+        public int Height { get { return height; } }
+        public T this[int x, int y] { get { return members[x, y]; } set { members[x, y] = value; } }
 
         public void rotate()
         {

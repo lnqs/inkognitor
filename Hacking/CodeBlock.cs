@@ -8,24 +8,36 @@ namespace Hacking
 {
     public class CodeBlock : Sprite
     {
-        private static readonly string BlockImageFile = "code{0:D}.png";
-        private static readonly string ErrorBlockImageFile = "code_error.png";
         public static readonly int Personalities = 10; // has to match the number of images
         public static readonly int PersonalityError = int.MaxValue;
-        public static Surface[] Surfaces = new Surface[Personalities];
-        private static Surface ErrorSurface;
+
+        private static readonly string BlockImageFile = "code{0:D}.png";
+        private static readonly string ErrorBlockImageFile = "code_error.png";
+
+        private static Surface[] surfaces = new Surface[Personalities];
+        private static Surface errorSurface;
+
+        private int personality;
 
         static CodeBlock()
         {
             string filename = Path.Combine(HackingMode.ResourceDirectory, ErrorBlockImageFile);
-            ErrorSurface = new Surface(filename);
+            errorSurface = new Surface(filename);
 
             for (int i = 0; i < Surfaces.Length; i++)
             {
                 filename = String.Format(Path.Combine(HackingMode.ResourceDirectory, BlockImageFile), i);
-                Surfaces[i] = new Surface(filename);
+                surfaces[i] = new Surface(filename);
             }
         }
+
+        public CodeBlock(Size size)
+        {
+            // TODO: Resize the surface
+        }
+
+        public static Surface[] Surfaces { get { return surfaces; } }
+        public static Surface ErrorSurface { get { return errorSurface; } }
 
         public int Personality
         {
@@ -35,13 +47,6 @@ namespace Hacking
                 personality = value;
                 Surface = value == PersonalityError ? ErrorSurface : Surfaces[value];
             }
-        }
-
-        private int personality;
-
-        public CodeBlock(Size size)
-        {
-            // TODO: Resize the surface
         }
     }
 }

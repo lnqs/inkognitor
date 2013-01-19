@@ -18,8 +18,6 @@ namespace Inkognitor
         private SpeechSynthesizer synthesizer = new SpeechSynthesizer();
         private Bot bot = new Bot();
 
-        bool Broken { get; set; }
-
         public Personality()
         {
             Broken = true;
@@ -30,6 +28,8 @@ namespace Inkognitor
             bot.loadSettings(BotSettingsFile);
             bot.loadAIMLFromFiles();
         }
+
+        public bool Broken { get; set; }
 
         public void Respond(string text)
         {
