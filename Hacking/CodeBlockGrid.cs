@@ -20,17 +20,17 @@ namespace Hacking
         private Size pixelSize;
         private Size blockPixelSize;
 
-        public CodeBlockGrid(int columnCount, int rowCount, Size pixelSize_)
-            : base(columnCount, rowCount)
+        public CodeBlockGrid(int width, int height, Size pixelSize_)
+            : base(width, height)
         {
             pixelSize = pixelSize_;
-            blockPixelSize = new Size(pixelSize.Width / Rows, pixelSize.Height / (Columns - 1));
+            blockPixelSize = new Size(pixelSize.Width / Width, pixelSize.Height / (Height - 1));
 
-            for (int i = 0; i < Rows; i++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int j = 0; j < Columns; j++)
+                for (int y = 0; y < Height; y++)
                 {
-                    this[i, j] = new CodeBlock(BlockPixelSize);
+                    this[x, y] = new CodeBlock(BlockPixelSize);
                 }
             }
         }
@@ -51,13 +51,13 @@ namespace Hacking
                 }
             }
 
-            for (int i = 0; i < Rows; i++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int j = 0; j < Columns; j++)
+                for (int y = 0; y < Height; y++)
                 {
-                    CodeBlock block = this[i, j];
-                    block.X = i * BlockPixelSize.Width;
-                    block.Y = j * BlockPixelSize.Height - PixelOffset;
+                    CodeBlock block = this[x, y];
+                    block.X = x * BlockPixelSize.Width;
+                    block.Y = y * BlockPixelSize.Height - PixelOffset;
                 }
             }
         }
@@ -72,14 +72,13 @@ namespace Hacking
                 int offset = codeBlockGrid.PixelOffset;
 
                 Point destination = new Point();
-                destination.X = destinationPoint.X + block.Position.X;
-                destination.Y = destinationPoint.Y + block.Position.Y;
+                destination.X = Math.Max(block.Position.X + destinationPoint.X, destinationPoint.X);
+                destination.Y = Math.Max(block.Position.Y + destinationPoint.Y, destinationPoint.Y);
 
                 surface.Blit(block.Surface, destination, block.CalcClippingRectangle());
             }
 
-            return new Rectangle(destinationPoint.X, destinationPoint.Y, codeBlockGrid.PixelSize.Width, codeBlockGrid.PixelSize.Height);
+            return new Rectangle(destinationPoint, codeBlockGrid.PixelSize);
         }
-
     }
 }

@@ -6,20 +6,21 @@ using SdlDotNet.Input;
 
 namespace Hacking
 {
+    // TODO: Too much stuff in this class, split it up
     public class HackingMode
     {
         public static readonly string ResourceDirectory = "Resources";
 
         private static readonly Size WindowSize = new Size(800, 600);
         private static readonly string WindowName = "Inkognitor";
-        private static readonly int CodeBlockColumns = 6;
-        private static readonly int CodeBlockRows = 4;
+        private static readonly int CodeBlockColumns = 4;
+        private static readonly int CodeBlockRows = 6;
         private static readonly int MaxErrorsPerCodeBlockRow = 3;
         private static readonly float ErrorCodeBlockProbability = 0.25f;
         private static readonly float InfoAreaHeight = 0.25f;
         private static readonly Rectangle CodeAreaRectangle = new Rectangle(
                 new Point(0, (int)(WindowSize.Height * InfoAreaHeight)),
-                new Size(WindowSize.Width, (int)(WindowSize.Height * (1.0 - InfoAreaHeight))));
+                new Size(WindowSize.Width, (int)(WindowSize.Height * (1.0f - InfoAreaHeight))));
 
         private Random random = new Random();
 
@@ -65,13 +66,13 @@ namespace Hacking
                     cursor.GridX = cursor.GridX > 0 ? cursor.GridX - 1 : cursor.GridX;
                     break;
                 case Key.RightArrow:
-                    cursor.GridX = cursor.GridX < codeBlocks.Rows - 1 ? cursor.GridX + 1 : cursor.GridX;
+                    cursor.GridX = cursor.GridX < codeBlocks.Width - 1 ? cursor.GridX + 1 : cursor.GridX;
                     break;
                 case Key.UpArrow:
                     cursor.GridY = cursor.GridY > 1 ? cursor.GridY - 1 : cursor.GridY;
                     break;
                 case Key.DownArrow:
-                    cursor.GridY = cursor.GridY < codeBlocks.Columns - 2 ? cursor.GridY + 1 : cursor.GridY;
+                    cursor.GridY = cursor.GridY < codeBlocks.Height - 2 ? cursor.GridY + 1 : cursor.GridY;
                     break;
             }
         }
@@ -91,17 +92,20 @@ namespace Hacking
 
         private void InitializeCodeBlocks()
         {
-            for (int i = 0; i < codeBlocks.Rows; i++)
+            for (int i = 0; i < codeBlocks.Height; i++)
             {
-                InitializeCodeBlockRow(codeBlocks[i]);
+                InitializeCodeBlockRow(i);
             }
         }
 
-        private void InitializeCodeBlockRow(CodeBlockGrid.Row blocks)
+        private void InitializeCodeBlockRow(int row)
         {
-            foreach (CodeBlock block in blocks)
+            int errors = 0;
+
+            for (int i = 0; i < codeBlocks.Width; i++)
             {
-                int errors = 0;
+                CodeBlock block = codeBlocks[i, row];
+            
                 if (errors < MaxErrorsPerCodeBlockRow && random.NextDouble() < ErrorCodeBlockProbability)
                 {
                     block.Personality = CodeBlock.PersonalityError;
