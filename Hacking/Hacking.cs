@@ -23,7 +23,6 @@ namespace Hacking
 
         public HackingMode()
         {
-            Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
             Video.WindowCaption = WindowName;
 
             Events.Tick += HandleTick;
@@ -36,6 +35,8 @@ namespace Hacking
 
         public void start()
         {
+            Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
+
             SetLevel(1);
             Events.Run();
         }
