@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeArea.cs" />
     <Compile Include="CodeBlock.cs" />
     <Compile Include="CodeBlockGrid.cs" />
     <Compile Include="Cursor.cs" />
