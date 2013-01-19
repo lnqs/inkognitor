@@ -22,22 +22,27 @@ namespace Hacking
 
         private int level = 1;
 
-        public void start()
+        public HackingMode()
         {
-            // TODO: Check what makes sense here and what to move to constructor
-            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[codeArea.SearchedCodeBlock];
-
-            codeArea.ErrorCodeBlockProbability = ErrorCodeBlockProbability; // TODO: Make this changeable
-            codeArea.MaxErrorsPerCodeBlockRow = MaxErrorsPerCodeBlockRow; // TODO: Make this changeable
-            codeArea.SearchedBlockFound += HandleSearchedBlockFound;
-            codeArea.ErrorBlockTouched += HandleErrorBlockTouched;
-
             Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
             Video.WindowCaption = WindowName;
 
             Events.Tick += HandleTick;
             Events.KeyboardDown += HandleKeyboardDown;
             Events.Quit += HandleQuit;
+
+            codeArea.SearchedBlockFound += HandleSearchedBlockFound;
+            codeArea.ErrorBlockTouched += HandleErrorBlockTouched;
+        }
+
+        public void start()
+        {
+            level = 1;
+            codeArea.SetRandomSearchedBlock();
+            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[codeArea.SearchedCodeBlock];
+
+            codeArea.ErrorCodeBlockProbability = ErrorCodeBlockProbability; // TODO: Make this changeable
+            codeArea.MaxErrorsPerCodeBlockRow = MaxErrorsPerCodeBlockRow; // TODO: Make this changeable
 
             Events.Run();
         }
