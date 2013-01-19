@@ -1,5 +1,5 @@
-﻿using System.Net;
-using System.Threading;
+﻿using System;
+using System.Net;
 
 namespace Inkognitor
 {
@@ -8,42 +8,29 @@ namespace Inkognitor
         private static readonly string Prefix = "http://localhost:8080/";
 
         private HttpListener httpListener = new HttpListener();
-        private Thread worker;
-        private bool workerStop;
 
         public WebInterface()
         {
             httpListener.Prefixes.Add(Prefix);
-            worker = new Thread(Run);
         }
 
         public void Start()
         {
-            workerStop = false;
-            worker.Start();
+            httpListener.Start();
+            httpListener.BeginGetContext(HandleNewRequest, null);
         }
 
         public void Stop()
         {
-            workerStop = true;
-            worker.Join();
+            httpListener.Stop();
         }
 
-        private void Run()
+        private void HandleNewRequest(IAsyncResult ar)
         {
-            httpListener.Start();
-
-            while (!workerStop && httpListener.IsListening)
-            {
-                HttpListenerContext context = httpListener.GetContext();
-
-                context.Response.StatusCode = 400;
-                context.Response.OutputStream.Write(new byte[4] { (byte)'T', (byte)'e', (byte)'s', (byte)'t' }, 0, 4);
-
-                context.Response.OutputStream.Close();
-            }
-
-            httpListener.Stop();
+            HttpListenerContext context = httpListener.EndGetContext(ar);
+            context.Response.StatusCode = 400;
+            context.Response.OutputStream.Write(new byte[4] { (byte)'T', (byte)'e', (byte)'s', (byte)'t' }, 0, 4);
+            context.Response.OutputStream.Close();
         }
     }
 }

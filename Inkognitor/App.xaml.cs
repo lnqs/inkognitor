@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Hacking;
 
 namespace Inkognitor
@@ -15,7 +16,13 @@ namespace Inkognitor
             webInterface.Start();
 
             window.Show();
+            window.Closed += HandleWindowClosed;
             window.TextEntered += HandleUserInput;
+        }
+
+        private void HandleWindowClosed(object sender, EventArgs e)
+        {
+            webInterface.Stop();
         }
 
         private void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
