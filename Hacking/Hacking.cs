@@ -13,18 +13,9 @@ namespace Hacking
     {
         public static readonly string ResourceDirectory = "Resources";
 
-        private static readonly Size WindowSize = new Size(800, 600);
         private static readonly string WindowName = "Inkognitor";
-        private static readonly int CodeBlockColumns = 4;
-        private static readonly int CodeBlockRows = 6;
         private static readonly int MaxErrorsPerCodeBlockRow = 3;
         private static readonly float ErrorCodeBlockProbability = 0.1f;
-        private static readonly float InfoAreaHeight = 0.25f;
-        private static readonly Rectangle CodeAreaRectangle = new Rectangle(
-                new Point(0, (int)(WindowSize.Height * InfoAreaHeight)),
-                new Size(WindowSize.Width, (int)(WindowSize.Height * (1.0f - InfoAreaHeight))));
-        private static readonly Point LevelDisplayPosition = new Point(WindowSize.Width - 50, 0);
-        private static readonly Point SearchedCodeBlockDisplayPosition = new Point(0, 0);
 
         private Random random = new Random();
         SdlDotNet.Graphics.Font font = new SdlDotNet.Graphics.Font(
@@ -40,13 +31,13 @@ namespace Hacking
 
         public void start()
         {
-            codeBlocks = new CodeBlockGrid(CodeBlockColumns, CodeBlockRows, CodeAreaRectangle.Size);
-            cursor = new Cursor(codeBlocks.BlockPixelSize);
+            codeBlocks = new CodeBlockGrid(Layout.CodeBlockColumnCount, Layout.CodeBlockRowCount, Layout.CodeArea.Size);
+            cursor = new Cursor(Layout.CodeBlockSize);
             InitializeCodeBlocks();
 
             levelDisplaySprite = new TextSprite(level.ToString(), font);
 
-            Video.SetVideoMode(WindowSize.Width, WindowSize.Height);
+            Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
             Video.WindowCaption = WindowName;
 
             Events.Tick += HandleTick;
@@ -62,13 +53,13 @@ namespace Hacking
         {
             codeBlocks.Update(e);
             cursor.Position = codeBlocks[cursor.GridX, cursor.GridY].Position;
-            cursor.X += CodeAreaRectangle.X;
-            cursor.Y += CodeAreaRectangle.Y;
+            cursor.X += Layout.CodeArea.X;
+            cursor.Y += Layout.CodeArea.Y;
 
-            Video.Screen.Blit(codeBlocks, CodeAreaRectangle.Location);
+            Video.Screen.Blit(codeBlocks, Layout.CodeArea.Location);
             Video.Screen.Blit(cursor.Surface, cursor.Position, cursor.CalcClippingRectangle());
-            Video.Screen.Blit(CodeBlock.Surfaces[searchedCodeBlock], SearchedCodeBlockDisplayPosition);
-            Video.Screen.Blit(levelDisplaySprite, LevelDisplayPosition);
+            Video.Screen.Blit(CodeBlock.Surfaces[searchedCodeBlock], Layout.CodeBlockIndicatorPosition);
+            Video.Screen.Blit(levelDisplaySprite, Layout.LevelIndicatorPosition);
 
             Video.Screen.Update();
         }
@@ -114,7 +105,7 @@ namespace Hacking
 
             CheckErrorCodeFound();
 
-            InitializeCodeBlockRow(CodeBlockRows - 1);
+            InitializeCodeBlockRow(Layout.CodeBlockRowCount - 1);
         }
 
         private void InitializeCodeBlocks()
