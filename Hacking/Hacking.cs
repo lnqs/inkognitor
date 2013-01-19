@@ -17,15 +17,15 @@ namespace Hacking
         private static readonly int MaxErrorsPerCodeBlockRow = 3;
         private static readonly float ErrorCodeBlockProbability = 0.1f;
 
+        private InformationArea informationArea = new InformationArea(
+                Layout.LevelIndicatorPosition, Layout.CodeBlockIndicatorPosition);
+
         private Random random = new Random();
-        SdlDotNet.Graphics.Font font = new SdlDotNet.Graphics.Font(
-                Path.Combine(System.Environment.GetEnvironmentVariable("windir"), "fonts", "arial.ttf"), 40);
 
         private CodeBlockGrid codeBlocks;
         private Cursor cursor;
 
         private int level = 1;
-        private TextSprite levelDisplaySprite;
 
         private int searchedCodeBlock = 0;
 
@@ -34,8 +34,7 @@ namespace Hacking
             codeBlocks = new CodeBlockGrid(Layout.CodeBlockColumnCount, Layout.CodeBlockRowCount, Layout.CodeArea.Size);
             cursor = new Cursor(Layout.CodeBlockSize);
             InitializeCodeBlocks();
-
-            levelDisplaySprite = new TextSprite(level.ToString(), font);
+            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[searchedCodeBlock];
 
             Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
             Video.WindowCaption = WindowName;
@@ -51,15 +50,15 @@ namespace Hacking
 
         private void HandleTick(object sender, TickEventArgs e)
         {
+            informationArea.Update(e);
             codeBlocks.Update(e);
             cursor.Position = codeBlocks[cursor.GridX, cursor.GridY].Position;
             cursor.X += Layout.CodeArea.X;
             cursor.Y += Layout.CodeArea.Y;
 
+            Video.Screen.Blit(informationArea, Layout.InformationArea.Location);
             Video.Screen.Blit(codeBlocks, Layout.CodeArea.Location);
             Video.Screen.Blit(cursor.Surface, cursor.Position, cursor.CalcClippingRectangle());
-            Video.Screen.Blit(CodeBlock.Surfaces[searchedCodeBlock], Layout.CodeBlockIndicatorPosition);
-            Video.Screen.Blit(levelDisplaySprite, Layout.LevelIndicatorPosition);
 
             Video.Screen.Update();
         }
@@ -141,8 +140,9 @@ namespace Hacking
             if (searchedCodeBlock == codeBlocks[cursor.GridX, cursor.GridY].Personality)
             {
                 level += 1;
-                levelDisplaySprite.Text = level.ToString();
+                informationArea.DisplayedLevel.Text = level.ToString();
                 searchedCodeBlock = random.Next(CodeBlock.Personalities);
+                informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[searchedCodeBlock];
             }
         }
 
@@ -151,8 +151,9 @@ namespace Hacking
             if (codeBlocks[cursor.GridX, cursor.GridY].Personality == CodeBlock.PersonalityError)
             {
                 level -= 1;
-                levelDisplaySprite.Text = level.ToString();
+                informationArea.DisplayedLevel.Text = level.ToString();
                 searchedCodeBlock = random.Next(CodeBlock.Personalities);
+                informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[searchedCodeBlock];
                 InitializeCodeBlocks();
             }
         }
