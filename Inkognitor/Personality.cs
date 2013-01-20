@@ -29,6 +29,7 @@ namespace Inkognitor
             bot.loadAIMLFromFiles();
         }
 
+        [CommandListener("synthesizer_broken", Description="get/sets if the synthesizer is broken")]
         public bool Broken { get; set; }
 
         public void Respond(string text)

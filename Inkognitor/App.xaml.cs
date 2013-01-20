@@ -16,6 +16,7 @@ namespace Inkognitor
         protected override void OnStartup(StartupEventArgs e)
         {
             (commandInterface.Provider as CommandServer).Start();
+            commandInterface.AddListener(personality);
 
             window.Show();
             window.TextEntered += HandleUserInput;

@@ -43,6 +43,27 @@ namespace Inkognitor
                             new Listener(listener, method, attribute.Description));
                 }
             }
+
+            foreach (PropertyInfo property in listener.GetType().GetProperties(
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+            {
+                CommandListener attribute = (CommandListener)Attribute
+                        .GetCustomAttribute(property, typeof(CommandListener), true);
+                if (attribute != null)
+                {
+                    if (property.GetGetMethod() != null)
+                    {
+                        listeners.Add("show_" + attribute.Identifier,
+                                new Listener(listener, property.GetGetMethod(), attribute.Description));
+                    }
+
+                    if (property.GetSetMethod() != null)
+                    {
+                        listeners.Add("set_" + attribute.Identifier,
+                                new Listener(listener, property.GetSetMethod(), attribute.Description));
+                    }
+                }
+            }
         }
 
         public string Dispatch(string[] command)
@@ -133,7 +154,7 @@ namespace Inkognitor
         }
     }
 
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property)]
     class CommandListener : Attribute
     {
         public CommandListener(string identifier)
