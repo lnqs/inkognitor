@@ -78,7 +78,7 @@ namespace Inkognitor
             }
         }
 
-        [CommandListener("help", Description="returns a list of all commands and parameters")]
+        [CommandListener("help", Description="show a list of all commands and parameters")]
         private string GetHelp()
         {
             string help = "";

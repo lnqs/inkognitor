@@ -29,10 +29,17 @@ namespace Inkognitor
             bot.loadAIMLFromFiles();
         }
 
-        [CommandListener("synthesizer_broken", Description="get/sets if the synthesizer is broken")]
+        [CommandListener("speech_broken", Description="get/set if the synthesizer is broken")]
         public bool Broken { get; set; }
 
         public void Respond(string text)
+        {
+            Result response = bot.Chat(text, UserName);
+            Say(response.Output);
+        }
+
+        [CommandListener("say", Description = "say an arbitrary text")]
+        private void Say(string text)
         {
             MemoryStream stream = new MemoryStream();
 
@@ -47,8 +54,7 @@ namespace Inkognitor
 
             synthesizer.SetOutputToWaveStream(stream);
 
-            Result response = bot.Chat(text, UserName);
-            synthesizer.Speak(response.Output);
+            synthesizer.Speak(text);
 
             stream.Seek(0, SeekOrigin.Begin);
             soundPlayer.Stream = stream;
