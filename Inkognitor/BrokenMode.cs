@@ -2,30 +2,19 @@
 
 namespace Inkognitor
 {
-    public class BrokenMode : IMode
+    public class BrokenMode : MainWindowMode
     {
-        static readonly string DefaultTextFile = "GUI/DefaultText.xml";
+        static readonly string TextFile = "GUI/DefaultText.xml";
 
-        private MainWindow window;
         private Personality<DataCorruptingWaveMemoryStream> personality
                 = new Personality<DataCorruptingWaveMemoryStream>();
 
-        public void Enter(MainWindow window_)
+        public override void Enter(MainWindow window_)
         {
-            window = window_;
-
-            DisplayTextXMLDocument xml = new DisplayTextXMLDocument(DefaultTextFile);
+            base.Enter(window_);
+            DisplayTextXMLDocument xml = new DisplayTextXMLDocument(TextFile);
             window.titleLabel.Content = RandomReplace(xml.Title);
             window.textBlock.Text = RandomReplace(xml.Text);
-
-            window.TextEntered += HandleUserInput;
-            window.Show();
-        }
-
-        public void Exit()
-        {
-            window.TextEntered -= HandleUserInput;
-            window.Hide();
         }
 
         private string RandomReplace(string text)
@@ -44,7 +33,7 @@ namespace Inkognitor
             return new string(output);
         }
 
-        private void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
+        protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
         {
             personality.Respond(e.Text);
         }

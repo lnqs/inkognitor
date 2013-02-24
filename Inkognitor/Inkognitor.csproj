@@ -60,6 +60,7 @@
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="CommandServer.cs" />
     <Compile Include="DisplayTextXMLDocument.cs" />
+    <Compile Include="PrintingTimer.cs" />
     <Compile Include="EffectApplyingWaveMemoryStream.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -70,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataCorruptingWaveMemoryStream.cs" />
+    <Compile Include="MaintainanceMode.cs" />
     <Compile Include="MainMode.cs" />
     <Compile Include="ICommandProvider.cs" />
     <Compile Include="IMode.cs" />
@@ -79,6 +81,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowMode.cs" />
     <Compile Include="Personality.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -97,6 +100,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="GUI\Background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\MaintainanceText.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\Resources.resx">

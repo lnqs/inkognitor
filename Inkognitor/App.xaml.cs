@@ -10,19 +10,20 @@ namespace Inkognitor
 
         private MainWindow window = new MainWindow();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
-        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode() };
+        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode() };
         private int currentMode = 0;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             foreach (IMode mode in modes)
             {
+                mode.ModeFinished += HandleModeFinished;
                 commandInterface.AddListener(mode);
             }
             commandInterface.AddListener(this);
             (commandInterface.Provider as CommandServer).Start();
 
-            currentMode = 0;
+            currentMode = 2; // TODO
             modes[currentMode].Enter(window);
         }
 
@@ -38,6 +39,11 @@ namespace Inkognitor
                     modes[currentMode].Enter(window);
                 }
             }));
+        }
+
+        private void HandleModeFinished(object sender, EventArgs e)
+        {
+            NextMode();
         }
     }
 }
