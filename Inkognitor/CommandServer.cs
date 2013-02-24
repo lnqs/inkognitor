@@ -129,6 +129,10 @@ namespace Inkognitor
                         part = "";
                     }
                 }
+                else if (c == '\r')
+                {
+                    // Just ignore carriage-return. This way it works on both *nix and Windows
+                }
                 else if (c == '\n')
                 {
                     if (part != "")
@@ -143,7 +147,7 @@ namespace Inkognitor
 
                     if (command.Count > 0)
                     {
-                        string response = Dispatch(command.ToArray()) + "\n";
+                        string response = Dispatch(command.ToArray()) + "\r\n";
                         byte[] responseBuffer = System.Text.Encoding.ASCII.GetBytes(response);
                         connection.Stream.BeginWrite(responseBuffer, 0, responseBuffer.Length, HandleWrite, connection);
                     }

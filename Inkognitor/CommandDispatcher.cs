@@ -97,7 +97,7 @@ namespace Inkognitor
                     help +=  "-- " + listener.Value.Description;
                 }
 
-                help += "\n";
+                help += "\r\n";
             }
 
             return help;
