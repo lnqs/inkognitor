@@ -1,9 +1,33 @@
 ﻿<Window x:Class="Inkognitor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Inkognitor" Cursor="None" Loaded="Window_Loaded">
+        Title="Inkognitor" Cursor="None" Loaded="Window_Loaded"
+        Background="Black">
+    <Window.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Control.Foreground" Value="Green" />
+            <Setter Property="TextElement.FontFamily" Value="GUI/#Balls on the Rampage" />
+            <Setter Property="TextElement.FontSize" Value="24" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Control.Foreground" Value="Green" />
+            <Setter Property="TextElement.FontFamily" Value="GUI/#Balls on the Rampage" />
+            <Setter Property="TextElement.FontSize" Value="24" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Control.Foreground" Value="Green" />
+            <Setter Property="TextElement.FontFamily" Value="GUI/#Balls on the Rampage" />
+            <Setter Property="TextElement.FontSize" Value="24" />
+        </Style>
+    </Window.Resources>
     <DockPanel>
-        <TextBox Height="23" Name="inputBox" KeyDown="inputBox_KeyDown" Cursor="None" DockPanel.Dock="Bottom" />
-        <TextBlock Name="textBlock" Cursor="None" />
+        <DockPanel.Background>
+            <ImageBrush ImageSource="GUI/background.png" Stretch="Uniform" />
+        </DockPanel.Background>
+        <TextBox Height="23" Name="inputBox" KeyDown="inputBox_KeyDown"
+                 Cursor="None" Background="Transparent" BorderThickness="0" DockPanel.Dock="Bottom">
+        </TextBox>
+        <Label Name="titleLabel" Cursor="None" HorizontalContentAlignment="Center" DockPanel.Dock="Top" />
+        <TextBlock Name="textBlock" Cursor="None" TextWrapping="Wrap" />
     </DockPanel>
 </Window>
