@@ -30,6 +30,11 @@ namespace Inkognitor
             }
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            inputBox.Focus();
+        }
+
         public class TextEnteredEventArgs : EventArgs
         {
             public string Text { get; set; }
