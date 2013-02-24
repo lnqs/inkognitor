@@ -22,7 +22,7 @@
     </Window.Resources>
     <DockPanel>
         <DockPanel.Background>
-            <ImageBrush ImageSource="GUI/background.png" Stretch="Uniform" />
+            <ImageBrush ImageSource="GUI/Background.png" Stretch="Uniform" />
         </DockPanel.Background>
         <TextBox Height="23" Name="inputBox" KeyDown="inputBox_KeyDown"
                  Cursor="None" Background="Transparent" BorderThickness="0" DockPanel.Dock="Bottom">
