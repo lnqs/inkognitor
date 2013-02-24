@@ -5,7 +5,7 @@ using SdlDotNet.Input;
 
 namespace Hacking
 {
-    public class HackingMode
+    public class HackingGame
     {
         public static readonly string ResourceDirectory = "Resources";
 
@@ -21,7 +21,7 @@ namespace Hacking
         private int level = 1;
         private Difficulty difficulty = new Difficulty(LevelCount);
 
-        public HackingMode()
+        public HackingGame()
         {
             Video.WindowCaption = WindowName;
 

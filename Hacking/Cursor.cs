@@ -11,7 +11,7 @@ namespace Hacking
 
         public Cursor(Size size)
         {
-            string filename = Path.Combine(HackingMode.ResourceDirectory, ImageFile);
+            string filename = Path.Combine(HackingGame.ResourceDirectory, ImageFile);
             Surface = new Surface(filename); // TODO: Resize
 
             GridX = 0;

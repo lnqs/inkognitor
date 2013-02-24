@@ -21,12 +21,12 @@ namespace Hacking
 
         static CodeBlock()
         {
-            string filename = Path.Combine(HackingMode.ResourceDirectory, ErrorBlockImageFile);
+            string filename = Path.Combine(HackingGame.ResourceDirectory, ErrorBlockImageFile);
             errorSurface = new Surface(filename);
 
             for (int i = 0; i < Surfaces.Length; i++)
             {
-                filename = String.Format(Path.Combine(HackingMode.ResourceDirectory, BlockImageFile), i);
+                filename = String.Format(Path.Combine(HackingGame.ResourceDirectory, BlockImageFile), i);
                 surfaces[i] = new Surface(filename);
             }
         }
