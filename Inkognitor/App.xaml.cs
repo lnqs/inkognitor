@@ -10,7 +10,7 @@ namespace Inkognitor
 
         private MainWindow window = new MainWindow();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
-        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode() };
+        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode(), new HackingMode() };
         private int currentMode = 0;
 
         protected override void OnStartup(StartupEventArgs e)

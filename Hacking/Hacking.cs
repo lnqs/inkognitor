@@ -33,7 +33,12 @@ namespace Hacking
             codeArea.ErrorBlockTouched += HandleErrorBlockTouched;
         }
 
-        public void start()
+        public event EventHandler<TickEventArgs> Tick { add { Events.Tick += value; } remove { Events.Tick += value; } }
+        public event EventHandler<QuitEventArgs> Quit { add { Events.Quit += value; } remove { Events.Quit += value; } }
+
+        public IntPtr WindowHandle { get { return Video.WindowHandle; } }
+
+        public void Run()
         {
             Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
 

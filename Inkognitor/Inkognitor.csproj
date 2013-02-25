@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SdlDotNet, Version=6.1.0.0, Culture=neutral, PublicKeyToken=26ad4f7e10c61408, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\SdlDotNet\bin\SdlDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Speech" />
@@ -60,6 +64,7 @@
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="CommandServer.cs" />
     <Compile Include="DisplayTextXMLDocument.cs" />
+    <Compile Include="HackingMode.cs" />
     <Compile Include="PrintingTimer.cs" />
     <Compile Include="EffectApplyingWaveMemoryStream.cs" />
     <Page Include="MainWindow.xaml">

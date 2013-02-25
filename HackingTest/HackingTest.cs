@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            (new Hacking.HackingGame()).start();
+            (new Hacking.HackingGame()).Run();
         }
     }
 }
