@@ -42,8 +42,15 @@ namespace Hacking
         {
             Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
 
-            SetLevel(1);
+            Reset();
             Events.Run();
+        }
+
+        public void Reset()
+        {
+            SetLevel(1);
+            codeArea.Cursor.GridX = 0;
+            codeArea.Cursor.GridY = 1;
         }
 
         private void SetLevel(int level_)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Threading;
 using Hacking;
 using SdlDotNet.Core;
@@ -10,12 +9,13 @@ namespace Inkognitor
     {
         private HackingGame hackingGame = new HackingGame();
         private Thread gameThread;
-        Mutex suspendMutex = new Mutex();
+
+        bool isActive = false;
+        bool sdlWindowVisible = true;
 
         public HackingMode()
         {
             hackingGame.Tick += HandleTick;
-            suspendMutex.WaitOne();
             gameThread = new Thread(hackingGame.Run);
             gameThread.Start();
         }
@@ -24,18 +24,36 @@ namespace Inkognitor
 
         public void Enter(MainWindow window)
         {
-            suspendMutex.ReleaseMutex();
+            isActive = true;
+            hackingGame.Reset();
         }
 
         public void Exit()
         {
-            suspendMutex.WaitOne();
+            isActive = false;
         }
 
         private void HandleTick(object sender, TickEventArgs e)
         {
-            suspendMutex.WaitOne();
-            suspendMutex.ReleaseMutex();
+            // We need to set this here, since we cannot know when the window is created elsewhere :/
+            if (sdlWindowVisible && !isActive)
+            {
+                ShowWindow(hackingGame.WindowHandle.ToInt32(), 0);
+                sdlWindowVisible = false;
+            }
+            else if (!sdlWindowVisible && isActive)
+            {
+                ShowWindow(hackingGame.WindowHandle.ToInt32(), 9);
+                sdlWindowVisible = true;
+            }
+
+            if (!isActive)
+            {
+                Thread.Sleep(500);
+            }
         }
+
+        [DllImport("User32")]
+        private static extern int ShowWindow(int hwnd, int nCmdShow);
     }
 }
