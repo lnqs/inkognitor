@@ -19,7 +19,7 @@ namespace Hacking
         public CodeBlockPersonalities(Size size)
         {
             string filename = Path.Combine(HackingGame.ResourceDirectory, ErrorBlockImageFile);
-            errorSurface = new Surface(filename);
+            errorSurface = new Surface(filename).CreateStretchedSurface(size);
 
             for (int i = 0; i < Surfaces.Length; i++)
             {
