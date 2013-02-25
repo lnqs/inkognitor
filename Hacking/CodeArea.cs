@@ -7,7 +7,8 @@ namespace Hacking
 {
     public class CodeArea
     {
-        private CodeBlockGrid codeBlocks;
+        private CodeBlockPersonalities blockPersonalities;
+        private CodeBlockGrid blocks;
         private Cursor cursor;
         private Rectangle rectangle;
 
@@ -15,16 +16,19 @@ namespace Hacking
 
         public CodeArea(int columnCount, int rowCount, Rectangle areaRectangle, Size blockSize)
         {
+            Size blockPixelSize = new Size(
+                    areaRectangle.Width / columnCount, areaRectangle.Height / (rowCount - 1));
+            blockPersonalities = new CodeBlockPersonalities(blockPixelSize);
             rectangle = areaRectangle;
-            codeBlocks = new CodeBlockGrid(columnCount, rowCount, rectangle.Size);
+            blocks = new CodeBlockGrid(columnCount, rowCount, rectangle.Size, blockPixelSize, blockPersonalities);
 
             cursor = new Cursor(blockSize);
 
-            for (int i = 0; i < codeBlocks.Height; i++)
+            for (int i = 0; i < blocks.Height; i++)
             {
                 InitializeCodeBlockRow(i);
             }
-            codeBlocks.Rotated += HandleCodeBlocksRotated;
+            blocks.Rotated += HandleCodeBlocksRotated;
         }
 
         public delegate void SearchedBlockFoundHandler(object sender, EventArgs e);
@@ -38,16 +42,17 @@ namespace Hacking
         }
 
         public int SearchedCodeBlock { get; set; }
-        public CodeBlockGrid CodeBlocks { get { return codeBlocks; } }
+        public CodeBlockGrid CodeBlocks { get { return blocks; } }
         public Cursor Cursor { get { return cursor; } }
         public int MaxErrorsPerCodeBlockRow { get; set; }
         public float ErrorCodeBlockProbability { get; set; }
-        public float ScrollingSpeed { get { return codeBlocks.ScrollingSpeed; } set { codeBlocks.ScrollingSpeed = value; } }
+        public float ScrollingSpeed { get { return blocks.ScrollingSpeed; } set { blocks.ScrollingSpeed = value; } }
+        public CodeBlockPersonalities BlockPersonalities { get { return blockPersonalities; } }
 
         public void Update(TickEventArgs e)
         {
-            codeBlocks.Update(e);
-            cursor.Position = codeBlocks[cursor.GridX, cursor.GridY].Position;
+            blocks.Update(e);
+            cursor.Position = blocks[cursor.GridX, cursor.GridY].Position;
             cursor.X += rectangle.X;
             cursor.Y += rectangle.Y;
         }
@@ -60,13 +65,13 @@ namespace Hacking
                     Cursor.GridX = Math.Max(Cursor.GridX - 1, 0);
                     break;
                 case Direction.Right:
-                    Cursor.GridX = Math.Min(Cursor.GridX + 1, codeBlocks.Width - 1);
+                    Cursor.GridX = Math.Min(Cursor.GridX + 1, blocks.Width - 1);
                     break;
                 case Direction.Up:
                     Cursor.GridY = Math.Max(Cursor.GridY - 1, 1);
                     break;
                 case Direction.Down:
-                    Cursor.GridY = Math.Min(Cursor.GridY + 1, codeBlocks.Height - 2);
+                    Cursor.GridY = Math.Min(Cursor.GridY + 1, blocks.Height - 2);
                     break;
             }
 
@@ -75,12 +80,12 @@ namespace Hacking
 
         public void SetRandomSearchedBlock()
         {
-            SearchedCodeBlock = random.Next(CodeBlock.Personalities);
+            SearchedCodeBlock = random.Next(CodeBlockPersonalities.Personalities);
         }
 
         public void CheckBlockFound()
         {
-            if (codeBlocks[cursor.GridX, cursor.GridY].Personality == SearchedCodeBlock)
+            if (blocks[cursor.GridX, cursor.GridY].Personality == SearchedCodeBlock)
             {
                 if (SearchedBlockFound != null)
                 {
@@ -91,7 +96,7 @@ namespace Hacking
 
         private void CheckErrorTouched()
         {
-            if (codeBlocks[cursor.GridX, cursor.GridY].Personality == CodeBlock.PersonalityError)
+            if (blocks[cursor.GridX, cursor.GridY].Personality == CodeBlockPersonalities.PersonalityError)
             {
                 if (ErrorBlockTouched != null)
                 {
@@ -104,18 +109,18 @@ namespace Hacking
         {
             int errors = 0;
 
-            for (int i = 0; i < codeBlocks.Width; i++)
+            for (int i = 0; i < blocks.Width; i++)
             {
-                CodeBlock block = codeBlocks[i, row];
+                CodeBlock block = blocks[i, row];
 
                 if (errors < MaxErrorsPerCodeBlockRow && random.NextDouble() < ErrorCodeBlockProbability)
                 {
-                    block.Personality = CodeBlock.PersonalityError;
+                    block.Personality = CodeBlockPersonalities.PersonalityError;
                     errors += 1;
                 }
                 else
                 {
-                    block.Personality = random.Next(CodeBlock.Personalities);
+                    block.Personality = random.Next(CodeBlockPersonalities.Personalities);
                 }
             }
         }
@@ -127,7 +132,7 @@ namespace Hacking
                 cursor.GridY -= 1;
             }
 
-            InitializeCodeBlockRow(codeBlocks.Height - 1);
+            InitializeCodeBlockRow(blocks.Height - 1);
             CheckErrorTouched();
         }
     }

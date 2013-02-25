@@ -75,7 +75,7 @@ namespace Hacking
             codeArea.MaxErrorsPerCodeBlockRow = difficulty.MaxErrorsPerCodeBlockRow;
             codeArea.ScrollingSpeed = difficulty.ScrollingSpeed;
             informationArea.DisplayedLevel.Text = level.ToString();
-            informationArea.DisplayedCodeBlock = CodeBlock.Surfaces[codeArea.SearchedCodeBlock];
+            informationArea.DisplayedCodeBlock = codeArea.BlockPersonalities.Surfaces[codeArea.SearchedCodeBlock];
         }
 
         private void HandleSearchedBlockFound(object sender, EventArgs e)

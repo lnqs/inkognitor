@@ -12,7 +12,7 @@ namespace Hacking
         public Cursor(Size size)
         {
             string filename = Path.Combine(HackingGame.ResourceDirectory, ImageFile);
-            Surface = new Surface(filename); // TODO: Resize
+            Surface = new Surface(filename).CreateStretchedSurface(size);
 
             GridX = 0;
             GridY = 1;

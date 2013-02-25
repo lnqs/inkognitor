@@ -3,6 +3,9 @@ using System.Net;
 using System.Windows;
 
 // TODO: The pathes to the resources need unification
+// TODO: Check the whole application for correct using of IDisposable, especially the hacking game :/
+// TODO: 'static readonly' is less common in C# than 'const', I assume :\
+// TODO: Building the pathes to resources is inconstistent in Inkognitor and HackingGame
 namespace Inkognitor
 {
     public partial class App : Application

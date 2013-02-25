@@ -52,6 +52,7 @@
     <Compile Include="CodeArea.cs" />
     <Compile Include="CodeBlock.cs" />
     <Compile Include="CodeBlockGrid.cs" />
+    <Compile Include="CodeBlockPersonalities.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="Difficulty.cs" />
     <Compile Include="InformationArea.cs" />

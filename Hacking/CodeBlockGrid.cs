@@ -13,16 +13,18 @@ namespace Hacking
 
         private bool disposed = false;
 
-        public CodeBlockGrid(int width, int height, Size pixelSize_) : base(width, height)
+        public CodeBlockGrid(int width, int height,
+                Size pixelSize_, Size blockPixelSize_,
+                CodeBlockPersonalities personalities) : base(width, height)
         {
             pixelSize = pixelSize_;
-            blockPixelSize = new Size(pixelSize.Width / Width, pixelSize.Height / (Height - 1));
+            blockPixelSize = blockPixelSize_;
 
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    this[x, y] = new CodeBlock(BlockPixelSize);
+                    this[x, y] = new CodeBlock(personalities);
                 }
             }
         }
