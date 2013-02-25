@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows;
 using Hacking;
 using SdlDotNet.Core;
 
@@ -7,7 +8,7 @@ namespace Inkognitor
 {
     public class HackingMode : IMode
     {
-        private HackingGame hackingGame = new HackingGame();
+        private HackingGame hackingGame;
         private Thread gameThread;
 
         bool isActive = false;
@@ -15,6 +16,9 @@ namespace Inkognitor
 
         public HackingMode()
         {
+            hackingGame = new HackingGame(
+                    (int)SystemParameters.PrimaryScreenWidth,
+                    (int)SystemParameters.PrimaryScreenHeight);
             hackingGame.Tick += HandleTick;
             gameThread = new Thread(hackingGame.Run);
             gameThread.Start();

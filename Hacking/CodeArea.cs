@@ -127,7 +127,7 @@ namespace Hacking
                 cursor.GridY -= 1;
             }
 
-            InitializeCodeBlockRow(Layout.CodeBlockRowCount - 1);
+            InitializeCodeBlockRow(codeBlocks.Height - 1);
             CheckErrorTouched();
         }
     }

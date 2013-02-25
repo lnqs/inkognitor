@@ -24,7 +24,7 @@ namespace Inkognitor
             commandInterface.AddListener(this);
             (commandInterface.Provider as CommandServer).Start();
 
-            currentMode = 0;
+            currentMode = 2; // TODO
             modes[currentMode].Enter(window);
         }
 

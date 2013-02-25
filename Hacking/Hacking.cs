@@ -12,17 +12,22 @@ namespace Hacking
         private static readonly string WindowName = "Inkognitor";
         private static readonly int LevelCount = 10;
 
-        private InformationArea informationArea = new InformationArea(
-                Layout.LevelIndicatorPosition, Layout.CodeBlockIndicatorPosition);
-        private CodeArea codeArea = new CodeArea(
-                Layout.CodeBlockColumnCount, Layout.CodeBlockRowCount,
-                Layout.CodeArea, Layout.CodeBlockSize);
+        private Layout layout;
+
+        private InformationArea informationArea;
+        private CodeArea codeArea;
 
         private int level = 1;
         private Difficulty difficulty = new Difficulty(LevelCount);
 
-        public HackingGame()
+        public HackingGame(int windowWidth, int windowHeight)
         {
+            layout = new Layout(windowWidth, windowHeight);
+            informationArea = new InformationArea(
+                    layout.LevelIndicatorPosition, layout.CodeBlockIndicatorPosition);
+            codeArea = new CodeArea(layout.CodeBlockColumnCount, layout.CodeBlockRowCount,
+                    layout.CodeArea, layout.CodeBlockSize);
+
             Video.WindowCaption = WindowName;
 
             Events.Tick += HandleTick;
@@ -33,15 +38,23 @@ namespace Hacking
             codeArea.ErrorBlockTouched += HandleErrorBlockTouched;
         }
 
-        public event EventHandler<TickEventArgs> Tick { add { Events.Tick += value; } remove { Events.Tick += value; } }
-        public event EventHandler<QuitEventArgs> Quit { add { Events.Quit += value; } remove { Events.Quit += value; } }
+        public event EventHandler<TickEventArgs> Tick
+        {
+            add { Events.Tick += value; }
+            remove { Events.Tick += value; }
+        }
+
+        public event EventHandler<QuitEventArgs> Quit
+        {
+            add { Events.Quit += value; }
+            remove { Events.Quit += value; }
+        }
 
         public IntPtr WindowHandle { get { return Video.WindowHandle; } }
 
         public void Run()
         {
-            Video.SetVideoMode(Layout.WindowSize.Width, Layout.WindowSize.Height);
-
+            Video.SetVideoMode(layout.WindowSize.Width, layout.WindowSize.Height);
             Reset();
             Events.Run();
         }
@@ -80,8 +93,8 @@ namespace Hacking
             informationArea.Update(e);
             codeArea.Update(e);
 
-            Video.Screen.Blit(informationArea, Layout.InformationArea.Location);
-            Video.Screen.Blit(codeArea, Layout.CodeArea.Location);
+            Video.Screen.Blit(informationArea, layout.InformationArea.Location);
+            Video.Screen.Blit(codeArea, layout.CodeArea.Location);
 
             Video.Screen.Update();
         }
