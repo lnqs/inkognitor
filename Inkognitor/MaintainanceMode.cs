@@ -68,7 +68,7 @@ namespace Inkognitor
         private void Handle_NEUROSUPPRESSIONSKONFIGURATION()
         {
             window.textBlock.Text = "\n    - Neurosuppressionskonfiguration wird gestartet -\n    Bitte warten";
-            printingTimer.Start(window.textBlock, 3, 1, ".", // TODO: Increase time
+            printingTimer.Start(window.textBlock, 5 * 60, 1, ".",
                     (sender, e) => { FireFinishedEvent(); });
         }
 

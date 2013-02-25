@@ -2,6 +2,7 @@
 using System.Net;
 using System.Windows;
 
+// TODO: The pathes to the resources need unification
 namespace Inkognitor
 {
     public partial class App : Application
@@ -23,7 +24,7 @@ namespace Inkognitor
             commandInterface.AddListener(this);
             (commandInterface.Provider as CommandServer).Start();
 
-            currentMode = 2; // TODO
+            currentMode = 0;
             modes[currentMode].Enter(window);
         }
 
