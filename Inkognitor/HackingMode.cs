@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using Hacking;
@@ -12,13 +13,14 @@ namespace Inkognitor
         private Thread gameThread;
 
         bool isActive = false;
-        bool sdlWindowVisible = true;
+        bool initialization = true;
 
         public HackingMode()
         {
             hackingGame = new HackingGame(
                     (int)SystemParameters.PrimaryScreenWidth,
-                    (int)SystemParameters.PrimaryScreenHeight);
+                    (int)SystemParameters.PrimaryScreenHeight,
+                    false, false, false);
             hackingGame.Tick += HandleTick;
             gameThread = new Thread(hackingGame.Run);
             gameThread.Start();
@@ -30,25 +32,34 @@ namespace Inkognitor
         {
             isActive = true;
             hackingGame.Reset();
+            ShowSDLWindow();
         }
 
         public void Exit()
         {
             isActive = false;
+            HideSDLWindow();
+        }
+
+        private void ShowSDLWindow()
+        {
+            ShowWindow(hackingGame.WindowHandle, 9);
+        }
+
+        private void HideSDLWindow()
+        {
+            ShowWindow(hackingGame.WindowHandle, 0);
         }
 
         private void HandleTick(object sender, TickEventArgs e)
         {
             // We need to set this here, since we cannot know when the window is created elsewhere :/
-            if (sdlWindowVisible && !isActive)
+            if (initialization)
             {
-                ShowWindow(hackingGame.WindowHandle.ToInt32(), 0);
-                sdlWindowVisible = false;
-            }
-            else if (!sdlWindowVisible && isActive)
-            {
-                ShowWindow(hackingGame.WindowHandle.ToInt32(), 9);
-                sdlWindowVisible = true;
+                SetWindowLong(hackingGame.WindowHandle, -16, 0); // delete all styles
+                SetWindowPos(hackingGame.WindowHandle, 0, 0, 0, 0, 0, 0x0045);
+                HideSDLWindow();
+                initialization = false;
             }
 
             if (!isActive)
@@ -58,6 +69,14 @@ namespace Inkognitor
         }
 
         [DllImport("User32")]
-        private static extern int ShowWindow(int hwnd, int nCmdShow);
+        private static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
+
     }
 }

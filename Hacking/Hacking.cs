@@ -13,6 +13,9 @@ namespace Hacking
         private static readonly int LevelCount = 10;
 
         private Layout layout;
+        private bool resizeable;
+        private bool fullscreen;
+        private bool frame;
 
         private InformationArea informationArea;
         private CodeArea codeArea;
@@ -20,9 +23,14 @@ namespace Hacking
         private int level = 1;
         private Difficulty difficulty = new Difficulty(LevelCount);
 
-        public HackingGame(int windowWidth, int windowHeight)
+        public HackingGame(int windowWidth, int windowHeight,
+                bool resizeable_, bool fullscreen_, bool frame_)
         {
             layout = new Layout(windowWidth, windowHeight);
+            resizeable = resizeable_;
+            fullscreen = fullscreen_;
+            frame = frame_;
+
             informationArea = new InformationArea(
                     layout.LevelIndicatorPosition, layout.CodeBlockIndicatorPosition);
             codeArea = new CodeArea(layout.CodeBlockColumnCount, layout.CodeBlockRowCount,
@@ -55,6 +63,8 @@ namespace Hacking
         public void Run()
         {
             Video.SetVideoMode(layout.WindowSize.Width, layout.WindowSize.Height);
+            Video.SetVideoMode(layout.WindowSize.Width,
+                    layout.WindowSize.Height, resizeable, false, fullscreen, frame);
             Reset();
             Events.Run();
         }

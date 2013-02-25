@@ -6,6 +6,7 @@ using System.Windows;
 // TODO: Check the whole application for correct using of IDisposable, especially the hacking game :/
 // TODO: 'static readonly' is less common in C# than 'const', I assume :\
 // TODO: Building the pathes to resources is inconstistent in Inkognitor and HackingGame
+// TODO: Closing the MainWindow or the hacking-game-window should quit the application
 namespace Inkognitor
 {
     public partial class App : Application
