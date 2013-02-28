@@ -4,7 +4,7 @@ namespace Inkognitor
 {
     public class BrokenMode : MainWindowMode
     {
-        static readonly string TextFile = "Resources/Files/DefaultText.xml";
+        private const string TextFile = "Resources/Files/DefaultText.xml";
 
         private Personality<DataCorruptingWaveMemoryStream> personality
                 = new Personality<DataCorruptingWaveMemoryStream>();

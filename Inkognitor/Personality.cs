@@ -9,9 +9,9 @@ namespace Inkognitor
 {
     class Personality<BufferType> where BufferType : MemoryStream, new()
     {
-        private static readonly string BotSettingsFile = "Resources/Bot/Settings.xml";
-        private static readonly string UserName = "Benutzer";
-        private static readonly SpeechAudioFormatInfo AudioFormat
+        private const string BotSettingsFile = "Resources/Bot/Settings.xml";
+        private const string UserName = "Benutzer";
+        private readonly SpeechAudioFormatInfo AudioFormat
                 = new SpeechAudioFormatInfo(44100, AudioBitsPerSample.Sixteen, AudioChannel.Stereo);
 
         private SoundPlayer soundPlayer = new SoundPlayer();

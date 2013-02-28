@@ -9,7 +9,7 @@ namespace Inkognitor
 {
     public class CommandServer : ICommandProvider
     {
-        static private readonly int BufferSize = 1024;
+        private const int BufferSize = 1024;
 
         private TcpListener tcpListener;
         private List<Connection> connections = new List<Connection>();

@@ -5,7 +5,7 @@ namespace Inkognitor
 {
     public abstract class EffectApplyingWaveMemoryStream : MemoryStream
     {
-        private static readonly int HeaderSize = 45;
+        private const int HeaderSize = 45;
 
         public override void Write(byte[] buffer, int offset, int count)
         {

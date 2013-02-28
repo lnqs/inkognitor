@@ -9,7 +9,7 @@ namespace Inkognitor
 {
     public class HackingMode : IMode
     {
-        static readonly int WinLevel = 5;
+        private const int WinLevel = 5;
 
         private HackingGame hackingGame;
         private Thread gameThread;
@@ -84,10 +84,10 @@ namespace Inkognitor
         private static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
-        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
     }
 }

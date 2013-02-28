@@ -7,8 +7,8 @@ namespace Hacking
 {
     public class HackingGame
     {
-        private static readonly string WindowName = "Inkognitor";
-        private static readonly int LevelCount = 10;
+        private const string WindowName = "Inkognitor";
+        private const int LevelCount = 10;
 
         private Layout layout;
         private bool resizeable;

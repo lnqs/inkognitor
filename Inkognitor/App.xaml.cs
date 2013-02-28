@@ -3,7 +3,6 @@ using System.Net;
 using System.Windows;
 
 // TODO: Check the whole application for correct using of IDisposable, especially the hacking game :/
-// TODO: 'static readonly' is less common in C# than 'const', I assume :\
 // TODO: Closing the MainWindow or the hacking-game-window should quit the application
 // TODO: Replace custom delegates with EventHandler<T> where possible
 // TODO: Fix the inconsistency of hardcoded-strings/xml-files in the WindowModes
@@ -11,7 +10,7 @@ namespace Inkognitor
 {
     public partial class App : Application
     {
-        static private readonly int CommandPort = 13135; // a = 1, c = 3, m = 13, e = 5 :o)
+        private const int CommandPort = 13135; // a = 1, c = 3, m = 13, e = 5 :o)
 
         private MainWindow window = new MainWindow();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));

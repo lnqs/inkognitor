@@ -6,11 +6,11 @@ namespace Hacking
 {
     public class CodeBlockPersonalities
     {
-        public static readonly int Personalities = 10; // has to match the number of images
-        public static readonly int PersonalityError = int.MaxValue;
+        public const int Personalities = 10; // has to match the number of images
+        public const int PersonalityError = int.MaxValue;
 
-        private static readonly string BlockImageFile = "Resources/Game/Code{0:D}.png";
-        private static readonly string ErrorBlockImageFile = "Resources/Game/CodeError.png";
+        private const string BlockImageFile = "Resources/Game/Code{0:D}.png";
+        private const string ErrorBlockImageFile = "Resources/Game/CodeError.png";
 
         private Surface[] surfaces = new Surface[Personalities];
         private Surface errorSurface;

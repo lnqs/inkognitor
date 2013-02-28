@@ -7,7 +7,7 @@ namespace Hacking
 {
     public class Cursor : Sprite
     {
-        private static readonly string ImageFile = "Resources/Game/CodeError.png";
+        private const string ImageFile = "Resources/Game/CodeError.png";
 
         public Cursor(Size size)
         {

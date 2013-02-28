@@ -4,7 +4,7 @@ namespace Inkognitor
 {
     public class MaintainanceMode : MainWindowMode
     {
-        static readonly string TextFile = "GUI/MaintainanceText.xml";
+        private const string TextFile = "Resources/Files/MaintainanceText.xml";
 
         private Dictionary<string, CommandHandler> commandHandlers;
 
