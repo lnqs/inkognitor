@@ -64,6 +64,7 @@
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="CommandServer.cs" />
     <Compile Include="DisplayTextXMLDocument.cs" />
+    <Compile Include="EndMode.cs" />
     <Compile Include="HackingMode.cs" />
     <Compile Include="PrintingTimer.cs" />
     <Compile Include="EffectApplyingWaveMemoryStream.cs" />

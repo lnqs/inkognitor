@@ -7,6 +7,8 @@ using System.Windows;
 // TODO: 'static readonly' is less common in C# than 'const', I assume :\
 // TODO: Building the pathes to resources is inconstistent in Inkognitor and HackingGame
 // TODO: Closing the MainWindow or the hacking-game-window should quit the application
+// TODO: Replace custom delegates with EventHandler<T> where possible
+// TODO: Fix the inconsistency of hardcoded-strings/xml-files in the WindowModes
 namespace Inkognitor
 {
     public partial class App : Application
@@ -15,8 +17,8 @@ namespace Inkognitor
 
         private MainWindow window = new MainWindow();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
-        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode(), new HackingMode() };
-        private int currentMode = 0;
+        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode(), new HackingMode(), new EndMode() };
+        private int currentMode = 2; // TODO
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -28,14 +30,13 @@ namespace Inkognitor
             commandInterface.AddListener(this);
             (commandInterface.Provider as CommandServer).Start();
 
-            currentMode = 2; // TODO
             modes[currentMode].Enter(window);
         }
 
         [CommandListener("next_mode", Description="Enter the next mode")]
         private void NextMode()
         {
-            this.Dispatcher.Invoke((Action)(() =>
+            Dispatcher.Invoke((Action)(() =>
             {
                 if (currentMode < modes.Length - 1)
                 {

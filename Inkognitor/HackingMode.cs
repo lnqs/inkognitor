@@ -9,6 +9,8 @@ namespace Inkognitor
 {
     public class HackingMode : IMode
     {
+        static readonly int WinLevel = 5;
+
         private HackingGame hackingGame;
         private Thread gameThread;
 
@@ -33,10 +35,12 @@ namespace Inkognitor
             isActive = true;
             hackingGame.Reset();
             ShowSDLWindow();
+            hackingGame.LevelChanged += HandleLevelChanged;
         }
 
         public void Exit()
         {
+            hackingGame.LevelChanged -= HandleLevelChanged;
             isActive = false;
             HideSDLWindow();
         }
@@ -57,7 +61,7 @@ namespace Inkognitor
             if (initialization)
             {
                 SetWindowLong(hackingGame.WindowHandle, -16, 0); // delete all styles
-                SetWindowPos(hackingGame.WindowHandle, 0, 0, 0, 0, 0, 0x0045);
+                SetWindowPos(hackingGame.WindowHandle, new IntPtr(0), 0, 0, 0, 0, 0x0045);
                 HideSDLWindow();
                 initialization = false;
             }
@@ -68,7 +72,15 @@ namespace Inkognitor
             }
         }
 
-        [DllImport("User32")]
+        private void HandleLevelChanged(object sender, HackingGame.LevelChangedEventArgs e)
+        {
+            if (e.Level == WinLevel)
+            {
+                ModeFinished.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
@@ -76,7 +88,6 @@ namespace Inkognitor
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
-
+        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
     }
 }

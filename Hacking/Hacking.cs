@@ -58,6 +58,8 @@ namespace Hacking
             remove { Events.Quit += value; }
         }
 
+        public event EventHandler<LevelChangedEventArgs> LevelChanged;
+
         public IntPtr WindowHandle { get { return Video.WindowHandle; } }
 
         public void Run()
@@ -86,6 +88,12 @@ namespace Hacking
             codeArea.ScrollingSpeed = difficulty.ScrollingSpeed;
             informationArea.DisplayedLevel.Text = level.ToString();
             informationArea.DisplayedCodeBlock = codeArea.BlockPersonalities.Surfaces[codeArea.SearchedCodeBlock];
+
+            try
+            {
+                LevelChanged.Invoke(this, new LevelChangedEventArgs(level));
+            }
+            catch (NullReferenceException) { }
         }
 
         private void HandleSearchedBlockFound(object sender, EventArgs e)
@@ -134,6 +142,16 @@ namespace Hacking
         private void HandleQuit(object sender, QuitEventArgs e)
         {
             Events.QuitApplication();
+        }
+
+        public class LevelChangedEventArgs : EventArgs
+        {
+            public LevelChangedEventArgs(int level)
+            {
+                Level = level;
+            }
+
+            public int Level { get; set; }
         }
     }
 }

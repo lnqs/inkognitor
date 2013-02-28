@@ -33,7 +33,7 @@ namespace Inkognitor
             Say(response.Output);
         }
 
-        private void Say(string text)
+        public void Say(string text)
         {
             MemoryStream stream = new BufferType();
             synthesizer.SetOutputToWaveStream(stream);
