@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Threading;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
 using SdlDotNet.Input;
@@ -20,6 +23,9 @@ namespace Hacking
 
         private int level = 1;
         private Difficulty difficulty = new Difficulty(LevelCount);
+
+        private Mutex suspensionMutex = new Mutex();
+        private Queue<Action> dispatcherQueue = new Queue<Action>();
 
         public HackingGame(int windowWidth, int windowHeight,
                 bool resizeable_, bool fullscreen_, bool frame_)
@@ -44,36 +50,58 @@ namespace Hacking
             codeArea.ErrorBlockTouched += HandleErrorBlockTouched;
         }
 
-        public event EventHandler<TickEventArgs> Tick
-        {
-            add { Events.Tick += value; }
-            remove { Events.Tick += value; }
-        }
-
-        public event EventHandler<QuitEventArgs> Quit
-        {
-            add { Events.Quit += value; }
-            remove { Events.Quit += value; }
-        }
-
         public event EventHandler<LevelChangedEventArgs> LevelChanged;
-
-        public IntPtr WindowHandle { get { return Video.WindowHandle; } }
 
         public void Run()
         {
-            Video.SetVideoMode(layout.WindowSize.Width, layout.WindowSize.Height);
             Video.SetVideoMode(layout.WindowSize.Width,
                     layout.WindowSize.Height, resizeable, false, fullscreen, frame);
+
+            if (!frame) // for some reason giving false to SetVideoMode doesn't work
+            {
+                SetWindowLong(Video.WindowHandle, -16, 0); // delete all styles
+                SetWindowPos(Video.WindowHandle, new IntPtr(0), 0, 0, 0, 0, 0x0045);
+            }
+
             Reset();
             Events.Run();
         }
 
         public void Reset()
         {
-            SetLevel(1);
-            codeArea.Cursor.GridX = 0;
-            codeArea.Cursor.GridY = 1;
+            dispatcherQueue.Enqueue(() =>
+            {
+                SetLevel(1);
+                codeArea.Cursor.GridX = 0;
+                codeArea.Cursor.GridY = 1;
+            });
+        }
+
+        public void Suspend()
+        {
+            suspensionMutex.WaitOne();
+        }
+
+        public void Resume()
+        {
+            suspensionMutex.ReleaseMutex();
+        }
+
+        public void ShowWindow()
+        {
+            dispatcherQueue.Enqueue(() =>
+            {
+                ShowWindow(Video.WindowHandle, 9);
+                SetForegroundWindow(Video.WindowHandle);
+            });
+        }
+
+        public void HideWindow()
+        {
+            dispatcherQueue.Enqueue(() =>
+            {
+                ShowWindow(Video.WindowHandle, 0);
+            });
         }
 
         private void SetLevel(int level_)
@@ -106,13 +134,29 @@ namespace Hacking
 
         private void HandleTick(object sender, TickEventArgs e)
         {
-            informationArea.Update(e);
-            codeArea.Update(e);
+            if (dispatcherQueue.Count > 0)
+            {
+                dispatcherQueue.Dequeue()();
+            }
 
-            Video.Screen.Blit(informationArea, layout.InformationArea.Location);
-            Video.Screen.Blit(codeArea, layout.CodeArea.Location);
+            // time-bound to give the framework the chance to update the window now and then
+            if (suspensionMutex.WaitOne(500))
+            {
+                try
+                {
+                    informationArea.Update(e);
+                    codeArea.Update(e);
 
-            Video.Screen.Update();
+                    Video.Screen.Blit(informationArea, layout.InformationArea.Location);
+                    Video.Screen.Blit(codeArea, layout.CodeArea.Location);
+
+                    Video.Screen.Update();
+                }
+                finally
+                {
+                    suspensionMutex.ReleaseMutex();
+                }
+            }
         }
 
         private void HandleKeyboardDown(object sender, KeyboardEventArgs e)
@@ -158,5 +202,18 @@ namespace Hacking
 
             public int Level { get; set; }
         }
+
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
     }
 }

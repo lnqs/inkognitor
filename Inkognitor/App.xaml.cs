@@ -3,7 +3,6 @@ using System.Net;
 using System.Windows;
 
 // TODO: Closing the MainWindow or the hacking-game-window should quit the application
-// TODO: Replace custom delegates with EventHandler<T> where possible
 // TODO: Fix the inconsistency of hardcoded-strings/xml-files in the WindowModes
 namespace Inkognitor
 {
@@ -32,14 +31,28 @@ namespace Inkognitor
         [CommandListener("next_mode", Description="Enter the next mode")]
         private void NextMode()
         {
+            if (currentMode < modes.Length - 1)
+            {
+                SetMode(currentMode + 1);
+            }
+        }
+
+        [CommandListener("prev_mode", Description = "Enter the revious mode")]
+        private void PrevMode()
+        {
+            if (currentMode > 0)
+            {
+                SetMode(currentMode - 1);
+            }
+        }
+
+        private void SetMode(int mode)
+        {
             Dispatcher.Invoke((Action)(() =>
             {
-                if (currentMode < modes.Length - 1)
-                {
-                    modes[currentMode].Exit();
-                    currentMode += 1;
-                    modes[currentMode].Enter(window);
-                }
+                modes[currentMode].Exit();
+                currentMode = mode;
+                modes[currentMode].Enter(window);
             }));
         }
 

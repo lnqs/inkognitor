@@ -14,62 +14,32 @@ namespace Inkognitor
         private HackingGame hackingGame;
         private Thread gameThread;
 
-        bool isActive = false;
-        bool initialization = true;
-
         public HackingMode()
         {
             hackingGame = new HackingGame(
                     (int)SystemParameters.PrimaryScreenWidth,
                     (int)SystemParameters.PrimaryScreenHeight,
                     false, false, false);
-            hackingGame.Tick += HandleTick;
+            hackingGame.LevelChanged += HandleLevelChanged;
             gameThread = new Thread(hackingGame.Run);
             gameThread.Start();
+            hackingGame.Suspend();
+            hackingGame.HideWindow();
         }
 
         public event ModeFinishedHandler ModeFinished;
 
         public void Enter(MainWindow window)
         {
-            isActive = true;
             hackingGame.Reset();
-            ShowSDLWindow();
-            hackingGame.LevelChanged += HandleLevelChanged;
+            hackingGame.Resume();
+            hackingGame.ShowWindow();
         }
 
         public void Exit()
         {
-            hackingGame.LevelChanged -= HandleLevelChanged;
-            isActive = false;
-            HideSDLWindow();
-        }
-
-        private void ShowSDLWindow()
-        {
-            ShowWindow(hackingGame.WindowHandle, 9);
-        }
-
-        private void HideSDLWindow()
-        {
-            ShowWindow(hackingGame.WindowHandle, 0);
-        }
-
-        private void HandleTick(object sender, TickEventArgs e)
-        {
-            // We need to set this here, since we cannot know when the window is created elsewhere :/
-            if (initialization)
-            {
-                SetWindowLong(hackingGame.WindowHandle, -16, 0); // delete all styles
-                SetWindowPos(hackingGame.WindowHandle, new IntPtr(0), 0, 0, 0, 0, 0x0045);
-                HideSDLWindow();
-                initialization = false;
-            }
-
-            if (!isActive)
-            {
-                Thread.Sleep(500);
-            }
+            hackingGame.Suspend();
+            hackingGame.HideWindow();
         }
 
         private void HandleLevelChanged(object sender, HackingGame.LevelChangedEventArgs e)
@@ -85,15 +55,5 @@ namespace Inkognitor
             hackingGame.Dispose();
             GC.SuppressFinalize(this);
         }
-
-        [DllImport("user32.dll")]
-        private static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        [DllImport("user32.dll")]
-        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
     }
 }
