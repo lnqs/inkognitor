@@ -7,8 +7,6 @@ namespace Hacking
 {
     public class HackingGame
     {
-        public static readonly string ResourceDirectory = "Resources";
-
         private static readonly string WindowName = "Inkognitor";
         private static readonly int LevelCount = 10;
 

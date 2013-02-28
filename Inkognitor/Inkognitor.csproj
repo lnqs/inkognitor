@@ -102,23 +102,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="GUI\DefaultText.xml">
+    <Content Include="Resources\Files\DefaultText.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GUI\Background.png">
+    <Content Include="Resources\GUI\Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GUI\MaintainanceText.xml">
+    <Content Include="Resources\Files\MaintainanceText.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="Bot\Brain.aiml">
+    <Content Include="Resources\Bot\Brain.aiml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GUI\Font.ttf">
+    <Content Include="Resources\GUI\Font.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\Settings.settings">
@@ -138,25 +138,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bot\DefaultPredicates.xml">
+    <Content Include="Resources\Bot\DefaultPredicates.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bot\GenderSubstitutions.xml">
+    <Content Include="Resources\Bot\GenderSubstitutions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bot\Person2Substitutions.xml">
+    <Content Include="Resources\Bot\Person2Substitutions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bot\PersonSubstitutions.xml">
+    <Content Include="Resources\Bot\PersonSubstitutions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bot\Settings.xml">
+    <Content Include="Resources\Bot\Settings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bot\Splitters.xml">
+    <Content Include="Resources\Bot\Splitters.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bot\Substitutions.xml">
+    <Content Include="Resources\Bot\Substitutions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

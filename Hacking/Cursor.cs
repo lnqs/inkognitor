@@ -7,11 +7,11 @@ namespace Hacking
 {
     public class Cursor : Sprite
     {
-        private static readonly string ImageFile = "code_error.png";
+        private static readonly string ImageFile = "Resources/Game/CodeError.png";
 
         public Cursor(Size size)
         {
-            string filename = Path.Combine(HackingGame.ResourceDirectory, ImageFile);
+            string filename = ImageFile;
             Surface = new Surface(filename).CreateStretchedSurface(size);
 
             GridX = 0;

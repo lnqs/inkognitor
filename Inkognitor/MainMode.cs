@@ -4,7 +4,7 @@ namespace Inkognitor
 {
     public class MainMode : MainWindowMode
     {
-        static readonly string TextFile = "GUI/DefaultText.xml";
+        static readonly string TextFile = "Resources/Files/DefaultText.xml";
 
         private Personality<MemoryStream> personality = new Personality<MemoryStream>();
 

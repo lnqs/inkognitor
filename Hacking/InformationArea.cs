@@ -9,8 +9,7 @@ namespace Hacking
 {
     public class InformationArea
     {
-        private TextSprite levelDisplay = new TextSprite(new SdlDotNet.Graphics.Font(
-                Path.Combine(System.Environment.GetEnvironmentVariable("windir"), "fonts", "arial.ttf"), 40));
+        private TextSprite levelDisplay = new TextSprite(new SdlDotNet.Graphics.Font("Resources/GUI/Font.ttf", 40));
 
         public InformationArea(Point levelPosition, Point codeBlockPosition)
         {
