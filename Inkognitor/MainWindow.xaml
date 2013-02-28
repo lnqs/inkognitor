@@ -24,10 +24,12 @@
         <DockPanel.Background>
             <ImageBrush ImageSource="GUI/Background.png" Stretch="Uniform" />
         </DockPanel.Background>
-        <TextBox Height="23" Name="inputBox" KeyDown="inputBox_KeyDown"
+        <TextBox Height="23" Name="inputBox" KeyDown="inputBox_KeyDown" PreviewKeyDown="inputBox_PreviewKeyDown"
                  Cursor="None" Background="Transparent" BorderThickness="0" DockPanel.Dock="Bottom">
         </TextBox>
         <Label Name="titleLabel" Cursor="None" HorizontalContentAlignment="Center" DockPanel.Dock="Top" />
-        <TextBlock Name="textBlock" Cursor="None" TextWrapping="Wrap" />
+        <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Hidden">
+            <TextBlock Name="textBlock" Cursor="None" TextWrapping="Wrap" />
+        </ScrollViewer>
     </DockPanel>
 </Window>

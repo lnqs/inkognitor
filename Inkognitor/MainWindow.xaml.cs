@@ -7,6 +7,8 @@ namespace Inkognitor
 {
     public partial class MainWindow : Window
     {
+        private const double ScrollingSpeed = 20.0f;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,19 +32,34 @@ namespace Inkognitor
             }
         }
 
+        private void inputBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Up))
+            {
+                double offset = scrollViewer.VerticalOffset - ScrollingSpeed;
+                scrollViewer.ScrollToVerticalOffset(offset);
+            }
+            else if (e.Key.Equals(Key.Down))
+            {
+                double offset = scrollViewer.VerticalOffset + ScrollingSpeed;
+                scrollViewer.ScrollToVerticalOffset(offset);   
+            }
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             inputBox.Focus();
+            inputBox.LostFocus += (s, fe) => Dispatcher.BeginInvoke((Action)(() => inputBox.Focus()));
         }
 
         public class TextEnteredEventArgs : EventArgs
         {
-            public string Text { get; set; }
-
             public TextEnteredEventArgs(string text)
             {
                 Text = text;
             }
+
+            public string Text { get; set; }
         }
     }
 }
