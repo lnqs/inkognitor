@@ -7,7 +7,7 @@ using SdlDotNet.Core;
 
 namespace Inkognitor
 {
-    public class HackingMode : IMode
+    public class HackingMode : IMode, IDisposable
     {
         private const int WinLevel = 5;
 
@@ -78,6 +78,12 @@ namespace Inkognitor
             {
                 ModeFinished.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void Dispose()
+        {
+            hackingGame.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         [DllImport("user32.dll")]

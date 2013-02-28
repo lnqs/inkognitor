@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Inkognitor
 {
-    public class MainMode : MainWindowMode
+    public class MainMode : MainWindowMode, IDisposable
     {
         const string TextFile = "Resources/Files/DefaultText.xml";
 
@@ -19,6 +20,12 @@ namespace Inkognitor
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
         {
             personality.Respond(e.Text);
+        }
+
+        public void Dispose()
+        {
+            personality.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -4,7 +4,7 @@ using SdlDotNet.Graphics;
 
 namespace Hacking
 {
-    public class CodeBlockPersonalities
+    public class CodeBlockPersonalities : IDisposable
     {
         public const int Personalities = 10; // has to match the number of images
         public const int PersonalityError = int.MaxValue;
@@ -18,13 +18,29 @@ namespace Hacking
         public CodeBlockPersonalities(Size size)
         {
             string filename = ErrorBlockImageFile;
-            errorSurface = new Surface(filename).CreateStretchedSurface(size);
+            using (Surface sourceSurface = new Surface(filename))
+            {
+                errorSurface = sourceSurface.CreateStretchedSurface(size);
+            }
 
             for (int i = 0; i < Surfaces.Length; i++)
             {
                 filename = String.Format(BlockImageFile, i);
-                surfaces[i] = new Surface(filename).CreateStretchedSurface(size);
+                using (Surface sourceSurface = new Surface(filename))
+                {
+                    surfaces[i] = sourceSurface.CreateStretchedSurface(size);
+                }
             }
+        }
+
+        public void Dispose()
+        {
+            foreach (Surface surface in surfaces)
+            {
+                surface.Dispose();
+            }
+            errorSurface.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public Surface[] Surfaces { get { return surfaces; } }

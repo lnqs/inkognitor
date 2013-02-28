@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Inkognitor
 {
-    class EndMode : MainWindowMode
+    class EndMode : MainWindowMode, IDisposable
     {
         private Personality<MemoryStream> personality = new Personality<MemoryStream>();
         private PrintingTimer printingTimer = new PrintingTimer();
@@ -25,6 +25,12 @@ namespace Inkognitor
             personality.Say("Die Piloten sind deaktiviert. Auf Widersehen.");
             Thread.Sleep(2000);
             personality.Say("Ich danke fuer das Spiel, damit sind wir Out-Time");
+        }
+
+        public void Dispose()
+        {
+            personality.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

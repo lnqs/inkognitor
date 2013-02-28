@@ -7,7 +7,7 @@ using SdlDotNet.Graphics.Sprites;
 
 namespace Hacking
 {
-    public class InformationArea
+    public class InformationArea : IDisposable
     {
         private TextSprite levelDisplay = new TextSprite(new SdlDotNet.Graphics.Font("Resources/GUI/Font.ttf", 40));
 
@@ -23,6 +23,12 @@ namespace Hacking
         public Point CodeBlockPosition { get; set; }
 
         public void Update(TickEventArgs e) { }
+
+        public void Dispose()
+        {
+            levelDisplay.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 
     public static class InformationAreaSurfaceExtensions

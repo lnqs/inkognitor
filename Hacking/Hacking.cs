@@ -5,7 +5,7 @@ using SdlDotNet.Input;
 
 namespace Hacking
 {
-    public class HackingGame
+    public class HackingGame : IDisposable
     {
         private const string WindowName = "Inkognitor";
         private const int LevelCount = 10;
@@ -140,6 +140,13 @@ namespace Hacking
         private void HandleQuit(object sender, QuitEventArgs e)
         {
             Events.QuitApplication();
+        }
+
+        public void Dispose()
+        {
+            informationArea.Dispose();
+            codeArea.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public class LevelChangedEventArgs : EventArgs

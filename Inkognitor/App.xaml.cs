@@ -2,7 +2,6 @@
 using System.Net;
 using System.Windows;
 
-// TODO: Check the whole application for correct using of IDisposable, especially the hacking game :/
 // TODO: Closing the MainWindow or the hacking-game-window should quit the application
 // TODO: Replace custom delegates with EventHandler<T> where possible
 // TODO: Fix the inconsistency of hardcoded-strings/xml-files in the WindowModes

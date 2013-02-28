@@ -2,7 +2,7 @@
 
 namespace Inkognitor
 {
-    public class BrokenMode : MainWindowMode
+    public class BrokenMode : MainWindowMode, IDisposable
     {
         private const string TextFile = "Resources/Files/DefaultText.xml";
 
@@ -36,6 +36,12 @@ namespace Inkognitor
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
         {
             personality.Respond(e.Text);
+        }
+
+        public void Dispose()
+        {
+            personality.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

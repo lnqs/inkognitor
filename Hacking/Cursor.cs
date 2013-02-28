@@ -12,7 +12,11 @@ namespace Hacking
         public Cursor(Size size)
         {
             string filename = ImageFile;
-            Surface = new Surface(filename).CreateStretchedSurface(size);
+
+            using (Surface sourceSurface = new Surface(filename))
+            {
+                Surface = sourceSurface.CreateStretchedSurface(size);
+            }
 
             GridX = 0;
             GridY = 1;

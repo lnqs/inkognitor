@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Files>
+  <File Token="test">
+    Dies ist die Akte mit dem Aktenzeichen "test".
+    Schauen wir doch ma ob die korrekt angezeigt wird.
+  </File>
+  <File Token="test2">
+    Dies ist die Akte mit dem Aktenzeichen "test2".
+    Schauen wir doch ma ob auch die korrekt angezeigt wird.
+  </File>
+</Files>

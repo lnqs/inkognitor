@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Speech.AudioFormat;
@@ -7,7 +8,7 @@ using AIMLbot;
 
 namespace Inkognitor
 {
-    class Personality<BufferType> where BufferType : MemoryStream, new()
+    class Personality<BufferType> : IDisposable where BufferType : MemoryStream, new()
     {
         private const string BotSettingsFile = "Resources/Bot/Settings.xml";
         private const string UserName = "Benutzer";
@@ -35,16 +36,25 @@ namespace Inkognitor
 
         public void Say(string text)
         {
-            MemoryStream stream = new BufferType();
-            synthesizer.SetOutputToWaveStream(stream);
+            using (MemoryStream stream = new BufferType())
+            {
+                synthesizer.SetOutputToWaveStream(stream);
 
-            synthesizer.Speak(text);
+                synthesizer.Speak(text);
 
-            stream.Seek(0, SeekOrigin.Begin);
-            soundPlayer.Stream = stream;
-            soundPlayer.PlaySync();
-            soundPlayer.Stream = null;
-            synthesizer.SetOutputToNull();
+                stream.Seek(0, SeekOrigin.Begin);
+                soundPlayer.Stream = stream;
+                soundPlayer.PlaySync();
+                soundPlayer.Stream = null;
+                synthesizer.SetOutputToNull();
+            }
+        }
+
+        public void Dispose()
+        {
+            soundPlayer.Dispose();
+            synthesizer.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

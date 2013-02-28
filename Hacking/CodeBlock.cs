@@ -1,4 +1,5 @@
-﻿using SdlDotNet.Graphics.Sprites;
+﻿using System;
+using SdlDotNet.Graphics.Sprites;
 
 namespace Hacking
 {

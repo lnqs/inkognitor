@@ -5,7 +5,7 @@ using SdlDotNet.Graphics;
 
 namespace Hacking
 {
-    public class CodeArea
+    public class CodeArea : IDisposable
     {
         private CodeBlockPersonalities blockPersonalities;
         private CodeBlockGrid blocks;
@@ -134,6 +134,14 @@ namespace Hacking
 
             InitializeCodeBlockRow(blocks.Height - 1);
             CheckErrorTouched();
+        }
+
+        public void Dispose()
+        {
+            blockPersonalities.Dispose();
+            blocks.Dispose();
+            cursor.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 
