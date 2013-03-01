@@ -77,6 +77,16 @@ namespace Hacking
             });
         }
 
+        public void Quit()
+        {
+            suspensionMutex.ReleaseMutex();
+
+            dispatcherQueue.Enqueue(() =>
+            {
+                Events.QuitApplication();
+            });
+        }
+
         public void Suspend()
         {
             suspensionMutex.WaitOne();

@@ -2,7 +2,6 @@
 using System.Net;
 using System.Windows;
 
-// TODO: Closing the MainWindow or the hacking-game-window should quit the application
 // TODO: Fix the inconsistency of hardcoded-strings/xml-files in the WindowModes
 namespace Inkognitor
 {
@@ -17,6 +16,8 @@ namespace Inkognitor
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            window.Closed += HandleWindowClosed;
+
             foreach (IMode mode in modes)
             {
                 mode.ModeFinished += HandleModeFinished;
@@ -59,6 +60,14 @@ namespace Inkognitor
         private void HandleModeFinished(object sender, EventArgs e)
         {
             NextMode();
+        }
+
+        private void HandleWindowClosed(object sender, EventArgs e)
+        {
+            foreach (IMode mode in modes)
+            {
+                mode.Quit();
+            }
         }
     }
 }

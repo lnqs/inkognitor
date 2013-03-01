@@ -10,5 +10,6 @@ namespace Inkognitor
 
         void Enter(MainWindow window);
         void Exit();
+        void Quit();
     }
 }

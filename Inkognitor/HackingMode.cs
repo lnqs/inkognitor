@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using Hacking;
@@ -40,6 +39,12 @@ namespace Inkognitor
         {
             hackingGame.Suspend();
             hackingGame.HideWindow();
+        }
+
+        public void Quit()
+        {
+            hackingGame.Quit();
+            gameThread.Join();
         }
 
         private void HandleLevelChanged(object sender, HackingGame.LevelChangedEventArgs e)

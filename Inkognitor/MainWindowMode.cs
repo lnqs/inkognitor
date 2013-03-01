@@ -21,6 +21,8 @@ namespace Inkognitor
             window.Hide();
         }
 
+        public virtual void Quit() { }
+
         protected void FireFinishedEvent()
         {
             ModeFinished.Invoke(this, EventArgs.Empty);
