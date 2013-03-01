@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using SdlDotNet.Core;
@@ -11,6 +12,7 @@ namespace Hacking
     public class HackingGame : IDisposable
     {
         private const string WindowName = "Inkognitor";
+        private const string BackgroundFile = "Resources/GUI/Background.png";
         private const int LevelCount = 10;
 
         private Layout layout;
@@ -18,6 +20,7 @@ namespace Hacking
         private bool fullscreen;
         private bool frame;
 
+        private Surface background;
         private InformationArea informationArea;
         private CodeArea codeArea;
 
@@ -34,6 +37,24 @@ namespace Hacking
             resizeable = resizeable_;
             fullscreen = fullscreen_;
             frame = frame_;
+
+            using (Surface sourceSurface = new Surface(BackgroundFile))
+            {
+                int width = windowWidth;
+                int height = windowHeight;
+                double fileRatio = (double)sourceSurface.Width / (double)sourceSurface.Height;
+                double windowRatio = (double)windowWidth / (double)windowHeight;
+                if (fileRatio > windowRatio)
+                {
+                    height = (int)(width / fileRatio);
+                }
+                else
+                {
+                    width = (int)(height * fileRatio);
+                }
+
+                background = sourceSurface.CreateStretchedSurface(new Size(width, height));
+            }
 
             informationArea = new InformationArea(
                     layout.LevelIndicatorPosition, layout.CodeBlockIndicatorPosition);
@@ -154,6 +175,11 @@ namespace Hacking
             {
                 try
                 {
+                    Video.Screen.Fill(Color.Black);
+                    Video.Screen.Blit(background, new Point(
+                        (layout.WindowSize.Width - background.Width) / 2,
+                        (layout.WindowSize.Height - background.Height) / 2));
+
                     informationArea.Update(e);
                     codeArea.Update(e);
 
