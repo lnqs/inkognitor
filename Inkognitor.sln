@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inkognitor", "Inkognitor\Inkognitor.csproj", "{EE59B03D-6BBD-457B-B05A-02194CCE2BF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMLbot", "AIMLbot\AIMLbot.csproj", "{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hacking", "Hacking\Hacking.csproj", "{9276E761-D5B3-4A07-BC37-213CE62C66F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingTest", "HackingTest\HackingTest.csproj", "{42D5D5B1-9E05-4533-B39E-5D08062CFA17}"
@@ -29,16 +27,6 @@ Global
 		{EE59B03D-6BBD-457B-B05A-02194CCE2BF5}.Release|Mixed Platforms.Build.0 = Release|x86
 		{EE59B03D-6BBD-457B-B05A-02194CCE2BF5}.Release|x86.ActiveCfg = Release|x86
 		{EE59B03D-6BBD-457B-B05A-02194CCE2BF5}.Release|x86.Build.0 = Release|x86
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9C87D82C-0E27-4995-A2CB-72BCB84EF2E2}.Release|x86.ActiveCfg = Release|Any CPU
 		{9276E761-D5B3-4A07-BC37-213CE62C66F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9276E761-D5B3-4A07-BC37-213CE62C66F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9276E761-D5B3-4A07-BC37-213CE62C66F2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
