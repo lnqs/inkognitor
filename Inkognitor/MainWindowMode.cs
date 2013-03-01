@@ -5,6 +5,7 @@ namespace Inkognitor
     public abstract class MainWindowMode : IMode
     {
         protected MainWindow window;
+        protected Logger logger;
         protected string defaultText;
 
         public event ModeFinishedHandler ModeFinished;
@@ -12,10 +13,12 @@ namespace Inkognitor
         public abstract string Name { get; }
         public virtual string DefaultText { get { return defaultText; } }
 
-        public virtual void Enter(MainWindow window_, Files files)
+        public virtual void Enter(MainWindow window_, Logger logger_, Files files)
         {
             window = window_;
             window.TextEntered += HandleUserInput;
+
+            logger = logger_;
 
             defaultText = files.DefaultText;
 

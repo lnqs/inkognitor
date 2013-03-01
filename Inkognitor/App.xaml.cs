@@ -9,6 +9,7 @@ namespace Inkognitor
         private const int CommandPort = 13135; // a = 1, c = 3, m = 13, e = 5 :o)
 
         private MainWindow window = new MainWindow();
+        private Logger logger = new Logger();
         private Files files = new Files();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
         private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode(), new HackingMode(), new EndMode() };
@@ -26,7 +27,7 @@ namespace Inkognitor
             commandInterface.AddListener(this);
             (commandInterface.Provider as CommandServer).Start();
 
-            modes[currentMode].Enter(window, files);
+            modes[currentMode].Enter(window, logger, files);
         }
 
         [CommandListener("next_mode", Description="Enter the next mode")]
@@ -53,7 +54,7 @@ namespace Inkognitor
             {
                 modes[currentMode].Exit();
                 currentMode = mode;
-                modes[currentMode].Enter(window, files);
+                modes[currentMode].Enter(window, logger, files);
             }));
         }
 

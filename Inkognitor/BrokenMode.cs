@@ -28,7 +28,9 @@ namespace Inkognitor
 
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
         {
-            personality.Respond(e.Text);
+            string response = personality.Respond(e.Text);
+            logger.ChatLog.Log("User: {0}", e.Text);
+            logger.ChatLog.Log("Inkognitor: (broken) {0}", response);
         }
 
         public void Dispose()

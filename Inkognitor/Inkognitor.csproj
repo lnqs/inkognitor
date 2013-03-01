@@ -69,6 +69,7 @@
     <Compile Include="EndMode.cs" />
     <Compile Include="Files.cs" />
     <Compile Include="HackingMode.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="PrintingTimer.cs" />
     <Compile Include="EffectApplyingWaveMemoryStream.cs" />
     <Page Include="MainWindow.xaml">

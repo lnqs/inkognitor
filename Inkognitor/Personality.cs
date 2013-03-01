@@ -28,10 +28,11 @@ namespace Inkognitor
             bot.loadAIMLFromFiles();
         }
 
-        public void Respond(string text)
+        public string Respond(string text)
         {
             Result response = bot.Chat(text, UserName);
             Say(response.Output);
+            return response.Output;
         }
 
         public void Say(string text)

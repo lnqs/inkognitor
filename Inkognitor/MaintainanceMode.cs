@@ -16,10 +16,10 @@ namespace Inkognitor
             get { return String.Join("\n", files.MaintainanceCommandNames); }
         }
 
-        public override void Enter(MainWindow window, Files files_)
+        public override void Enter(MainWindow window, Logger logger, Files files_)
         {
             files = files_;
-            base.Enter(window, files_);
+            base.Enter(window, logger, files_);
         }
 
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
@@ -30,12 +30,14 @@ namespace Inkognitor
                 {
                     activeCommand = files.MaintainanceCommands[e.Text.ToUpper()];
                     // It sucks to pass everything that may be needed by a subclass.
-                    // This has to be otherwise. But I'm too tired to think about a better way currently.
+                    // This has to be done otherwise. But I'm too tired to think about a better way currently.
                     activeCommand.Execute(window.textBlock, CommandNames, FireFinishedEvent);
+                    logger.ChatLog.Log("Maintainance command: {0}", e.Text.ToUpper());
                 }
                 else
                 {
                     window.textBlock.Text = files.UnknownCommand;
+                    logger.ChatLog.Log("Unknown maintainance command: {0}", e.Text.ToUpper());
                 }
             }
         }

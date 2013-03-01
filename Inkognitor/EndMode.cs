@@ -11,9 +11,9 @@ namespace Inkognitor
 
         public override string Name { get { return "End"; } }
 
-        public override void Enter(MainWindow window_, Files files)
+        public override void Enter(MainWindow window_, Logger logger, Files files)
         {
-            base.Enter(window_, files);
+            base.Enter(window_, logger, files);
             window.textBlock.Text = files.EndPreText;
             printingTimer.Start(window.textBlock, files.EndDelay, 1, ".", (sender, e) => {
                 window.textBlock.Text += "\n" + files.EndPostText;
