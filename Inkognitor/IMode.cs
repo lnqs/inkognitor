@@ -8,6 +8,8 @@ namespace Inkognitor
     {
         event ModeFinishedHandler ModeFinished;
 
+        string Name { get; }
+
         void Enter(MainWindow window, Logger logger, Files files);
         void Exit();
         void Quit();

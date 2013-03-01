@@ -48,6 +48,12 @@ namespace Inkognitor
             }
         }
 
+        [CommandListener("get_mode_name", Description = "Returns the name of the current mode")]
+        private string GetModeName()
+        {
+            return modes[currentMode].Name;
+        }
+
         private void SetMode(int mode)
         {
             Dispatcher.Invoke((Action)(() =>

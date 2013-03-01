@@ -43,6 +43,12 @@ namespace Inkognitor
             }
         }
 
+        [CommandListener("say", Description = "Outputs text via the speech-synthesizer")]
+        private void Say(string text)
+        {
+            personality.Say(text);
+        }
+
         public void Dispose()
         {
             personality.Dispose();

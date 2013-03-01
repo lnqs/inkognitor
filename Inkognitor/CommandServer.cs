@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Inkognitor
 {
+    // TODO: this class needs a hard cleanup o.O
     public class CommandServer : ICommandProvider
     {
         private const int BufferSize = 1024;
@@ -80,9 +81,19 @@ namespace Inkognitor
                 if (read > 0)
                 {
                     connection.RecvBufferCount += read;
-                    while (findAndHandleCommands(connection)) {}
-                    connection.Stream.BeginRead(connection.RecvBuffer, connection.RecvBufferCount,
-                            connection.RecvBuffer.Length - connection.RecvBufferCount, HandleRead, connection);
+                    if (findAndHandleCommand(connection))
+                    {
+                        connection.Client.Close();
+                        lock (connections)
+                        {
+                            connections.Remove(connection);
+                        }
+                    }
+                    else
+                    {
+                        connection.Stream.BeginRead(connection.RecvBuffer, connection.RecvBufferCount,
+                                connection.RecvBuffer.Length - connection.RecvBufferCount, HandleRead, connection);
+                    }
                 }
                 else
                 {
@@ -94,17 +105,7 @@ namespace Inkognitor
             }
         }
 
-        private void HandleWrite(IAsyncResult ar)
-        {
-            Connection connection = (Connection)ar.AsyncState;
-
-            lock (connection)
-            {
-                connection.Stream.EndWrite(ar);
-            }
-        }
-
-        private bool findAndHandleCommands(Connection connection)
+        private bool findAndHandleCommand(Connection connection)
         {
             // I feel bad about this. The performance will suck. But, well, it
             // saves some time in implementation currently :\
@@ -149,7 +150,7 @@ namespace Inkognitor
                     {
                         string response = Dispatch(command.ToArray()) + "\r\n";
                         byte[] responseBuffer = System.Text.Encoding.ASCII.GetBytes(response);
-                        connection.Stream.BeginWrite(responseBuffer, 0, responseBuffer.Length, HandleWrite, connection);
+                        connection.Stream.Write(responseBuffer, 0, responseBuffer.Length);
                     }
 
                     return true;

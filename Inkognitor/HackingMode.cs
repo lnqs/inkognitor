@@ -28,6 +28,8 @@ namespace Inkognitor
 
         public event ModeFinishedHandler ModeFinished;
 
+        public string Name { get { return "Hacking"; } }
+
         public void Enter(MainWindow window, Logger logger, Files files)
         {
             hackingGame.Reset();
