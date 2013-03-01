@@ -17,7 +17,7 @@ namespace Hacking
         {
             get
             {
-                return new Rectangle(0, 0, WindowSize.Width, WindowSize.Height / 4);
+                return new Rectangle(0, 0, WindowSize.Width, WindowSize.Height / 6);
             }
         }
 

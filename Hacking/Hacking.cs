@@ -81,7 +81,7 @@ namespace Hacking
             if (!frame) // for some reason giving false to SetVideoMode doesn't work
             {
                 SetWindowLong(Video.WindowHandle, -16, 0); // delete all styles
-                SetWindowPos(Video.WindowHandle, new IntPtr(0), 0, 0, 0, 0, 0x0045);
+                SetWindowPos(Video.WindowHandle, IntPtr.Zero, 0, 0, 0, 0, 0x0045);
             }
 
             Reset();
