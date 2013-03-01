@@ -4,18 +4,11 @@ namespace Inkognitor
 {
     public class BrokenMode : MainWindowMode, IDisposable
     {
-        private const string TextFile = "Resources/Files/DefaultText.xml";
-
         private Personality<DataCorruptingWaveMemoryStream> personality
                 = new Personality<DataCorruptingWaveMemoryStream>();
 
-        public override void Enter(MainWindow window_)
-        {
-            base.Enter(window_);
-            DisplayTextXMLDocument xml = new DisplayTextXMLDocument(TextFile);
-            window.titleLabel.Content = RandomReplace(xml.Title);
-            window.textBlock.Text = RandomReplace(xml.Text);
-        }
+        public override string Name { get { return "Broken"; } }
+        public override string DefaultText { get { return RandomReplace(defaultText); } }
 
         private string RandomReplace(string text)
         {

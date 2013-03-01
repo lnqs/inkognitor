@@ -5,21 +5,38 @@ namespace Inkognitor
 {
     public class MainMode : MainWindowMode, IDisposable
     {
-        const string TextFile = "Resources/Files/DefaultText.xml";
-
         private Personality<MemoryStream> personality = new Personality<MemoryStream>();
+        private Files files;
 
-        public override void Enter(MainWindow window_)
+        public override string Name { get { return "Main"; } }
+
+        public override void Enter(MainWindow window, Files files_)
         {
-            base.Enter(window_);
-            DisplayTextXMLDocument xml = new DisplayTextXMLDocument(TextFile);
-            window.titleLabel.Content = xml.Title;
-            window.textBlock.Text = xml.Text;
+            files = files_;
+            base.Enter(window, files_);
         }
 
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
         {
-            personality.Respond(e.Text);
+            if (e.Text.ToUpper().StartsWith(files.Prefix.ToUpper()))
+            {
+                string token = e.Text.Substring(files.Prefix.Length).Trim();
+
+                try
+                {
+                    window.textBlock.Text = files.GetFile(token);
+                    personality.Say(files.LoadingFile);
+                }
+                catch (Files.ElementException)
+                {
+                    window.textBlock.Text = files.UnknownToken;
+                    personality.Say(files.UnknownToken);
+                }
+            }
+            else
+            {
+                personality.Respond(e.Text);
+            }
         }
 
         public void Dispose()

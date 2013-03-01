@@ -28,7 +28,7 @@ namespace Inkognitor
 
         public event ModeFinishedHandler ModeFinished;
 
-        public void Enter(MainWindow window)
+        public void Enter(MainWindow window, Files files)
         {
             hackingGame.Reset();
             hackingGame.Resume();

@@ -2,7 +2,6 @@
 using System.Net;
 using System.Windows;
 
-// TODO: Fix the inconsistency of hardcoded-strings/xml-files in the WindowModes
 namespace Inkognitor
 {
     public partial class App : Application
@@ -10,6 +9,7 @@ namespace Inkognitor
         private const int CommandPort = 13135; // a = 1, c = 3, m = 13, e = 5 :o)
 
         private MainWindow window = new MainWindow();
+        private Files files = new Files();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
         private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode(), new HackingMode(), new EndMode() };
         private int currentMode = 0;
@@ -26,7 +26,7 @@ namespace Inkognitor
             commandInterface.AddListener(this);
             (commandInterface.Provider as CommandServer).Start();
 
-            modes[currentMode].Enter(window);
+            modes[currentMode].Enter(window, files);
         }
 
         [CommandListener("next_mode", Description="Enter the next mode")]
@@ -53,7 +53,7 @@ namespace Inkognitor
             {
                 modes[currentMode].Exit();
                 currentMode = mode;
-                modes[currentMode].Enter(window);
+                modes[currentMode].Enter(window, files);
             }));
         }
 

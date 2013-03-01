@@ -63,8 +63,8 @@
     <Compile Include="BrokenMode.cs" />
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="CommandServer.cs" />
-    <Compile Include="DisplayTextXMLDocument.cs" />
     <Compile Include="EndMode.cs" />
+    <Compile Include="Files.cs" />
     <Compile Include="HackingMode.cs" />
     <Compile Include="PrintingTimer.cs" />
     <Compile Include="EffectApplyingWaveMemoryStream.cs" />
@@ -102,10 +102,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="Resources\Files\DefaultText.xml">
+    <Content Include="Resources\Files\Files.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
-    <Resource Include="Resources\Files\Files.xml" />
     <Content Include="Resources\GUI\Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

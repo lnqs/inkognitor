@@ -1,88 +1,103 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace Inkognitor
 {
     public class MaintainanceMode : MainWindowMode
     {
-        private const string TextFile = "Resources/Files/MaintainanceText.xml";
+        private Files files;
+        private Command activeCommand;
 
-        private Dictionary<string, CommandHandler> commandHandlers;
-
-        private PrintingTimer printingTimer = new PrintingTimer();
-
-        private string defaultText;
-
-        public MaintainanceMode()
+        public override string Name { get { return "Maintainance"; } }
+        public override string DefaultText { get { return CommandNames; } }
+        private string CommandNames
         {
-            commandHandlers = new Dictionary<string, CommandHandler>() {
-                { "BEFEHLE", Handle_BEFEHLE },
-                { "KERNTEST", Handle_TEST },
-                { "RING1TEST", Handle_TEST },
-                { "RING2TEST", Handle_TEST },
-                { "RING3TEST", Handle_TEST },
-                { "NEUROSUPPRESSIONSKONFIGURATION", Handle_NEUROSUPPRESSIONSKONFIGURATION },
-                { "NEUINITIALISIERUNG", Handle_NEUINITIALISIERUNG },
-            };
+            get { return String.Join("\n", files.MaintainanceCommandNames); }
         }
 
-        private delegate void CommandHandler();
-
-        public override void Enter(MainWindow window_)
+        public override void Enter(MainWindow window, Files files_)
         {
-            base.Enter(window_);
-            DisplayTextXMLDocument xml = new DisplayTextXMLDocument(TextFile);
-            window.titleLabel.Content = xml.Title;
-            defaultText = xml.Text;
-            window.textBlock.Text = defaultText;
+            files = files_;
+            base.Enter(window, files_);
         }
 
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
         {
-            if (!printingTimer.IsEnabled)
+            if (activeCommand == null || activeCommand.Finished)
             {
-                string command = e.Text.ToUpper();
-
-                if (commandHandlers.ContainsKey(command))
+                if (files.MaintainanceCommands.ContainsKey(e.Text.ToUpper()))
                 {
-                    commandHandlers[command]();
+                    activeCommand = files.MaintainanceCommands[e.Text.ToUpper()];
+                    // It sucks to pass everything that may be needed by a subclass.
+                    // This has to be otherwise. But I'm too tired to think about a better way currently.
+                    activeCommand.Execute(window.textBlock, CommandNames, FireFinishedEvent);
                 }
                 else
                 {
-                    Handle_CommandNotFound();
+                    window.textBlock.Text = files.UnknownCommand;
                 }
             }
         }
 
-        private void Handle_BEFEHLE()
+        public abstract class Command
         {
-            window.textBlock.Text = defaultText;
+            public abstract void Execute(TextBlock target, string commandlist, Action nextMode);
+            public abstract bool Finished { get; }
         }
 
-        private void Handle_TEST()
+        public class ShowCommandsCommand : Command
         {
-            window.textBlock.Text = "\n    - Test eingeleitet -\n    Bitte warten";
-            printingTimer.Start(window.textBlock, 60, 1, ".",
-                    (sender, e) => window.textBlock.Text += "\n\n    Test erfolgreich");
+            public override void Execute(TextBlock target, string commandlist, Action nextMode)
+            {
+                target.Text = commandlist;
+            }
+
+            public override bool Finished { get { return true; } }
         }
 
-        private void Handle_NEUROSUPPRESSIONSKONFIGURATION()
+        public class PrintDottetCommand : Command
         {
-            window.textBlock.Text = "\n    - Neurosuppressionskonfiguration wird gestartet -\n    Bitte warten";
-            printingTimer.Start(window.textBlock, 5 * 60, 1, ".",
-                    (sender, e) => { FireFinishedEvent(); });
+            private string pre;
+            private int delay;
+            private string post;
+            private PrintingTimer timer = new PrintingTimer();
+
+            public PrintDottetCommand(string pre_, int delay_, string post_)
+            {
+                pre = pre_;
+                delay = delay_;
+                post = post_;
+            }
+
+            public override void Execute(TextBlock target, string commandlist, Action nextMode)
+            {
+                target.Text = pre;
+                timer.Start(target, delay, 1, ".", (sender, e) => { target.Text += "\n" + post; });
+            }
+
+            public override bool Finished { get { return !timer.IsEnabled; } }
         }
 
-        private void Handle_NEUINITIALISIERUNG()
+        public class NextModeCommand : Command
         {
-            window.textBlock.Text = "\n    - Neuinitialisierung gestartet -\n    Bitte warten";
-            printingTimer.Start(window.textBlock, 5 * 60, 1, ".",
-                    (sender, e) => window.textBlock.Text += "\n\n    Test erfolgreich");
-        }
+            private string pre;
+            private int delay;
+            private PrintingTimer timer = new PrintingTimer();
 
-        private void Handle_CommandNotFound()
-        {
-            window.textBlock.Text = defaultText;
-            window.textBlock.Text = "\n    - Unbekannter Befehl -\n    'BEFEHLE' fuer Befehlsliste";
+            public NextModeCommand(string pre_, int delay_)
+            {
+                pre = pre_;
+                delay = delay_;
+            }
+
+            public override void Execute(TextBlock target, string commandlist, Action nextMode)
+            {
+                target.Text = pre;
+                timer.Start(target, delay, 1, ".", (sender, e) => { nextMode(); });
+            }
+
+            public override bool Finished { get { return !timer.IsEnabled; } }
         }
     }
 }

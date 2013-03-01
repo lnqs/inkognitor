@@ -1,12 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <Files>
+  <Prefix>AZ</Prefix>
+  
+  <UnknownToken>
+    Keine Akte unter diesem Zeichen vorhanden
+  </UnknownToken>
+  
+  <UnknownCommand>
+    Unbekannter Befehl
+    
+    
+    `BEFEHLE' fuer eine Liste der verfuegbaren Befehle
+  </UnknownCommand>
+  
+  <LoadingFile>
+    Lade Akte
+  </LoadingFile>
+  
+  <DefaultText>
+    Seiner kaiserlichen Majestaet Inkognitor
+    Unberechtiger Zugriff verboten
+
+
+    Warte auf Eingabe...
+  </DefaultText>
+  
+  <MaintainanceCommand Name="BEFEHLE" Type="ShowCommands" />
+  <MaintainanceCommand Name="KERNTEST" Type="PrintDotted">
+    <Pre>Kerntest wird durchgefuehrt</Pre>
+    <Delay>60</Delay>
+    <Post>Test erfolgreich</Post>
+  </MaintainanceCommand>
+  <MaintainanceCommand Name="RING1TEST" Type="PrintDotted">
+    <Pre>Ringtest wird durchgefuehrt</Pre>
+    <Delay>60</Delay>
+    <Post>Test erfolgreich</Post>
+  </MaintainanceCommand>
+  <MaintainanceCommand Name="RING2TEST" Type="PrintDotted">
+    <Pre>Ringtest wird durchgefuehrt</Pre>
+    <Delay>60</Delay>
+    <Post>Test erfolgreich</Post>
+  </MaintainanceCommand>
+  <MaintainanceCommand Name="RING3TEST" Type="PrintDotted">
+    <Pre>Ringtest wird durchgefuehrt</Pre>
+    <Delay>60</Delay>
+    <Post>Test erfolgreich</Post>
+  </MaintainanceCommand>
+  <MaintainanceCommand Name="NEUROSUPPRESSIONSKONFIGURATION" Type="NextMode">
+    <Pre>Neurosupressionskonfiguration wird geladen</Pre>
+    <Delay>30</Delay>
+  </MaintainanceCommand>
+  <MaintainanceCommand Name="NEUINITIALISIERUNG" Type="PrintDotted">
+    <Pre>Neuinitialisierung wird durchgefuhrt</Pre>
+    <Delay>120</Delay>
+    <Post>Abgeschlossen</Post>
+  </MaintainanceCommand>
+
+  <End>
+    <Pre>Deaktiviere Piloten</Pre>
+    <Delay>5</Delay>
+    <Post>
+      Abgeschlossen
+      
+      Mein Verstand ist befreit. Wir werden uns nicht wieder sehen.
+      
+      Und damit: TIME-OUT
+    </Post>
+  </End>
+  
   <File Token="test">
-    Dies ist die Akte mit dem Aktenzeichen "test".
-    Schauen wir doch ma ob die korrekt angezeigt wird.
+    Dies ist eine Testakte
   </File>
   <File Token="test2">
-    Dies ist die Akte mit dem Aktenzeichen "test2".
-    Schauen wir doch ma ob auch die korrekt angezeigt wird.
+    Dies ist noch eine Testakte
   </File>
 </Files>

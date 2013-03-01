@@ -27,9 +27,9 @@
         <TextBox Height="23" Name="inputBox" KeyDown="inputBox_KeyDown" PreviewKeyDown="inputBox_PreviewKeyDown"
                  Cursor="None" Background="Transparent" BorderThickness="0" DockPanel.Dock="Bottom">
         </TextBox>
-        <Label Name="titleLabel" Cursor="None" HorizontalContentAlignment="Center" DockPanel.Dock="Top" />
+        <Label Name="titleLabel" Content="- Inkognitor -" Cursor="None" HorizontalContentAlignment="Center" DockPanel.Dock="Top" />
         <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Hidden">
-            <TextBlock Name="textBlock" Cursor="None" TextWrapping="Wrap" />
+            <TextBlock Name="textBlock" Cursor="None" TextWrapping="Wrap" Margin="20" />
         </ScrollViewer>
     </DockPanel>
 </Window>
