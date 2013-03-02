@@ -7,7 +7,7 @@ namespace Hacking
 {
     public class CodeBlockGrid : RotateableGrid<CodeBlock>, IDisposable
     {
-        private float pixelOffset = 0.0f;
+        private double pixelOffset = 0.0f;
         private Size pixelSize;
         private Size blockPixelSize;
 
@@ -40,11 +40,11 @@ namespace Hacking
         public Size PixelSize { get { return pixelSize; } }
         public Size BlockPixelSize { get { return blockPixelSize; } }
         public int PixelOffset { get { return (int)pixelOffset; } }
-        public float ScrollingSpeed { get; set; }
+        public double ScrollingSpeed { get; set; }
 
         public void Update(TickEventArgs args)
         {
-            // we're using the direct access to the float here for more accuracy
+            // we're using the direct access to the double here for more accuracy
             pixelOffset += args.SecondsElapsed * ScrollingSpeed;
 
             if (pixelOffset > BlockPixelSize.Height)

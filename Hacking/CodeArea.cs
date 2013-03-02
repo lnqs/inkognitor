@@ -29,10 +29,9 @@ namespace Hacking
             blocks.Rotated += HandleCodeBlocksRotated;
         }
 
-        public delegate void SearchedBlockFoundHandler(object sender, EventArgs e);
-        public delegate void ErrorBlockTouchedHandler(object sender, EventArgs e);
-        public event SearchedBlockFoundHandler SearchedBlockFound;
-        public event ErrorBlockTouchedHandler ErrorBlockTouched;
+        public event EventHandler SearchedBlockFound;
+        public event EventHandler WrongBlockSelected;
+        public event EventHandler ErrorBlockTouched;
 
         public enum Direction
         {
@@ -41,9 +40,8 @@ namespace Hacking
 
         public int SearchedCodeBlock { get; set; }
         public Cursor Cursor { get { return cursor; } }
-        public int MaxErrorsPerCodeBlockRow { get; set; }
-        public float ErrorCodeBlockProbability { get; set; }
-        public float ScrollingSpeed { get { return blocks.ScrollingSpeed; } set { blocks.ScrollingSpeed = value; } }
+        public double ErrorCodeBlockProbability { get; set; }
+        public double ScrollingSpeed { get { return blocks.ScrollingSpeed; } set { blocks.ScrollingSpeed = value; } }
         public CodeBlockPersonalities BlockPersonalities { get { return blockPersonalities; } }
         public Surface Surface { get { return surface; } }
 
@@ -95,6 +93,13 @@ namespace Hacking
                     SearchedBlockFound.Invoke(this, EventArgs.Empty);
                 }
             }
+            else
+            {
+                if (WrongBlockSelected != null)
+                {
+                    WrongBlockSelected.Invoke(this, EventArgs.Empty);
+                }
+            }
         }
 
         private void CheckErrorTouched()
@@ -110,16 +115,31 @@ namespace Hacking
 
         private void InitializeCodeBlockRow(int row)
         {
-            int errors = 0;
-
             for (int i = 0; i < blocks.Width; i++)
             {
                 CodeBlock block = blocks[i, row];
 
-                if (errors < MaxErrorsPerCodeBlockRow && random.NextDouble() < ErrorCodeBlockProbability)
+                bool mayBeError = true;
+                for (int j = Math.Max(i - 1, 0); j <= Math.Min(i + 1, blocks.Width - 1); j++)
+                {
+                    for (int k = Math.Max(row - 1, 0); k <= Math.Min(row + 1, blocks.Height - 1); k++)
+                    {
+                        if (j == i && k == row)
+                        {
+                            continue;
+                        }
+
+                        if (blocks[j, k].Personality == CodeBlockPersonalities.PersonalityError)
+                        {
+                            mayBeError = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (mayBeError && random.NextDouble() < ErrorCodeBlockProbability)
                 {
                     block.Personality = CodeBlockPersonalities.PersonalityError;
-                    errors += 1;
                 }
                 else
                 {

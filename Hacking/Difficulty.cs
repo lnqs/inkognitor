@@ -4,27 +4,26 @@ namespace Hacking
 {
     public class Difficulty
     {
-        private int maxErrorsPerCodeBlockRow;
-        private float errorCodeBlockProbability;
-        private float scrollingSpeed;
-        private int levelCount;
+        private static int MaxLevel = 6;
+        private static double MaxSpeed = 400.0;
+        private static double MaxErrorProbability = 0.5;
 
-        public Difficulty(int levelCount_)
+        private double errorCodeBlockProbability;
+        private double scrollingSpeed;
+
+        public Difficulty()
         {
-            levelCount = levelCount_;
             SetForLevel(1);
         }
 
-        public int MaxErrorsPerCodeBlockRow { get { return maxErrorsPerCodeBlockRow; } }
-        public float ErrorCodeBlockProbability { get { return errorCodeBlockProbability; } }
-        public float ScrollingSpeed { get { return scrollingSpeed; } }
+        public double ErrorCodeBlockProbability { get { return errorCodeBlockProbability; } }
+        public double ScrollingSpeed { get { return scrollingSpeed; } }
 
         public void SetForLevel(int level)
         {
             level = Math.Max(level, 1);
-            maxErrorsPerCodeBlockRow = 3 * level / levelCount;
-            errorCodeBlockProbability = 0.25f * level / levelCount;
-            scrollingSpeed = 300.0f * level / levelCount;
+            errorCodeBlockProbability = MaxErrorProbability * level / MaxLevel;
+            scrollingSpeed = MaxSpeed * level / MaxLevel;
         }
     }
 }

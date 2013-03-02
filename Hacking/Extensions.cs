@@ -38,5 +38,10 @@ namespace Hacking
         {
             return new Rectangle(rectangle.Location.NegativeTranslated(offset), rectangle.Size);
         }
+
+        public static Point Center(this Rectangle rectangle)
+        {
+            return new Point(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2);
+        }
     }
 }

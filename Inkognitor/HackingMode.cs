@@ -8,7 +8,7 @@ namespace Inkognitor
 {
     public class HackingMode : IMode, IDisposable
     {
-        private const int WinLevel = 5;
+        private const int WinLevel = 6;
 
         private HackingGame hackingGame;
         private Thread gameThread;

@@ -43,10 +43,11 @@ namespace Hacking
         public Size WindowSize { get { return windowSize; } }
         public Rectangle Game { get { return NodeToRectangle("/Game").Scaled(scale).Translated(offset); } }
         public Rectangle BlockIndicator { get { return NodeToRectangle("/Game/BlockIndicator").Scaled(scale).Translated(offset); } }
-        public Rectangle LevelIndicator { get { return NodeToRectangle("/Game/LevelIndicator").Scaled(scale).Translated(offset); } }
+        public Rectangle HitsLeftIndicator { get { return NodeToRectangle("/Game/HitsLeftIndicator").Scaled(scale).Translated(offset); } }
         public Rectangle CodeArea { get { return NodeToRectangle("/Game/CodeArea").Scaled(scale).Translated(offset); } }
         public Size CodeBlockCount { get { return NodeToSize("/Game/CodeArea/Grid"); } }
         public Size CodeBlockSize { get { return NodeToSize("/Game/CodeArea/Block").Scaled(scale); } }
+        public Rectangle StatusArea { get { return NodeToRectangle("/Game/StatusArea").Scaled(scale).Translated(offset); } }
 
         private Point NodeToPoint(string path)
         {

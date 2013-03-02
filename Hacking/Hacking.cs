@@ -10,11 +10,16 @@ using SdlDotNet.Input;
 
 namespace Hacking
 {
+    // TODO: This class does too much stuff. Should be splitted up.
     public class HackingGame : IDisposable
     {
         private const string WindowName = "Inkognitor";
         private const string BackgroundFile = "Resources/Game/Background.png";
-        private const int LevelCount = 10;
+        private const string FontFile = "Resources/GUI/Font.ttf";
+        private const double HitsLeftFontSize = 120.0f;
+        private const double StatusFontSize = 60.0f;
+        private const int HitsPerLevel = 10;
+        private const int MaxErrors = 3;
 
         private Layout layout;
         private bool resizeable;
@@ -23,10 +28,13 @@ namespace Hacking
 
         private Surface background;
         private CodeArea codeArea;
-        private TextSprite levelDisplay = new TextSprite(new SdlDotNet.Graphics.Font("Resources/GUI/Font.ttf", 40));
+        private TextSprite hitsLeftDisplay;
+        private TextSprite statusDisplay;
 
-        private int level = 1;
-        private Difficulty difficulty = new Difficulty(LevelCount);
+        private int level;
+        private int hitsLeftThisLevel;
+        private int errors;
+        private Difficulty difficulty = new Difficulty();
 
         private Mutex suspensionMutex = new Mutex();
         private Queue<Action> dispatcherQueue = new Queue<Action>();
@@ -46,6 +54,12 @@ namespace Hacking
 
             codeArea = new CodeArea(layout.CodeBlockCount, layout.CodeArea, layout.CodeBlockSize);
 
+            hitsLeftDisplay = new TextSprite(new SdlDotNet.Graphics.Font(
+                    FontFile, (int)(HitsLeftFontSize * layout.Scale)));
+            hitsLeftDisplay.Position = layout.HitsLeftIndicator.Location;
+            statusDisplay = new TextSprite(new SdlDotNet.Graphics.Font(
+                    FontFile, (int)(StatusFontSize * layout.Scale)));
+
             Video.WindowCaption = WindowName;
 
             Events.Tick += HandleTick;
@@ -53,7 +67,8 @@ namespace Hacking
             Events.Quit += HandleQuit;
 
             codeArea.SearchedBlockFound += HandleSearchedBlockFound;
-            codeArea.ErrorBlockTouched += HandleErrorBlockTouched;
+            codeArea.ErrorBlockTouched += HandleWrongBlockSelected;
+            codeArea.WrongBlockSelected += HandleWrongBlockSelected;
         }
 
         public event EventHandler<LevelChangedEventArgs> LevelChanged;
@@ -82,6 +97,7 @@ namespace Hacking
                 SetLevel(1);
                 codeArea.Cursor.GridX = 0;
                 codeArea.Cursor.GridY = 1;
+                SetInfoText("");
             });
         }
 
@@ -124,13 +140,17 @@ namespace Hacking
 
         private void SetLevel(int level_)
         {
-            level = level_;
+            level = Math.Max(level_, 1);
             difficulty.SetForLevel(level);
+
             codeArea.SetRandomSearchedBlock();
             codeArea.ErrorCodeBlockProbability = difficulty.ErrorCodeBlockProbability;
-            codeArea.MaxErrorsPerCodeBlockRow = difficulty.MaxErrorsPerCodeBlockRow;
             codeArea.ScrollingSpeed = difficulty.ScrollingSpeed;
-            levelDisplay.Text = level.ToString();
+
+            hitsLeftThisLevel = HitsPerLevel;
+            hitsLeftDisplay.Text = hitsLeftThisLevel.ToString();
+
+            errors = 0;
 
             try
             {
@@ -139,14 +159,44 @@ namespace Hacking
             catch (NullReferenceException) { }
         }
 
-        private void HandleSearchedBlockFound(object sender, EventArgs e)
+        private void SetInfoText(string message, bool warning = false)
         {
-            SetLevel(level + 1);
+            if (warning)
+            {
+                statusDisplay.Color = Color.IndianRed;
+            }
+            else
+            {
+                statusDisplay.Color = Color.DarkGray;
+            }
+            statusDisplay.Text = message;
+            statusDisplay.Center = layout.StatusArea.Center();
         }
 
-        private void HandleErrorBlockTouched(object sender, EventArgs e)
+        private void HandleSearchedBlockFound(object sender, EventArgs e)
         {
-            SetLevel(level - 1);
+            hitsLeftThisLevel--;
+            hitsLeftDisplay.Text = hitsLeftThisLevel.ToString();
+            codeArea.SetRandomSearchedBlock();
+            SetInfoText("");
+
+            if (hitsLeftThisLevel == 0)
+            {
+                SetInfoText(String.Format("Neurosuppressionsebene {0} entsperrt", level)); // TODO: Shouldn't be hardcoded
+                SetLevel(level + 1);
+            }
+        }
+
+        private void HandleWrongBlockSelected(object sender, EventArgs e)
+        {
+            errors += 1;
+            SetInfoText("Fehler!", true); // TODO: Shouldn't be hardcoded
+
+            if (errors > MaxErrors)
+            {
+                SetInfoText(String.Format("Neurosuppressionsebene {0} gesperrt", level - 1), true); // TODO: Shouldn't be hardcoded
+                SetLevel(level - 1);
+            }
         }
 
         private void HandleTick(object sender, TickEventArgs e)
@@ -161,17 +211,20 @@ namespace Hacking
             {
                 try
                 {
-                    // Only redraw background where block- and level-indicator are living to same some cycles
+                    // Only redraw background where necessary to same some cycles
                     Video.Screen.Blit(background, layout.BlockIndicator.Location,
                         layout.BlockIndicator.NegativeTranslated(layout.Offset));
-                    Video.Screen.Blit(background, layout.LevelIndicator.Location,
-                        layout.LevelIndicator.NegativeTranslated(layout.Offset));
+                    Video.Screen.Blit(background, layout.HitsLeftIndicator.Location,
+                        layout.HitsLeftIndicator.NegativeTranslated(layout.Offset));
+                    Video.Screen.Blit(background, layout.StatusArea.Location,
+                        layout.StatusArea.NegativeTranslated(layout.Offset));
 
                     codeArea.Update(e);
                     Video.Screen.Blit(codeArea.Surface, layout.CodeArea);
 
                     Video.Screen.Blit(codeArea.BlockPersonalities.Surfaces[codeArea.SearchedCodeBlock], layout.BlockIndicator);
-                    Video.Screen.Blit(levelDisplay, layout.LevelIndicator.Location);
+                    Video.Screen.Blit(hitsLeftDisplay);
+                    Video.Screen.Blit(statusDisplay);
 
                     Video.Screen.Update();
                 }
@@ -212,7 +265,7 @@ namespace Hacking
         public void Dispose()
         {
             codeArea.Dispose();
-            levelDisplay.Dispose();
+            hitsLeftDisplay.Dispose();
             GC.SuppressFinalize(this);
         }
 
