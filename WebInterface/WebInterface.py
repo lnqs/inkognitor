@@ -2,6 +2,7 @@
 
 import os
 import socket
+import select
 from pyramid.config import Configurator
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest
@@ -13,30 +14,40 @@ LISTENING_PORT = 8080
 INKOGNITOR_ADDRESS = '127.0.0.1'
 INKOGNITOR_PORT = 13135
 CHATLOG = 'Chat.log'
+SOCKET_TIMEOUT = 3
 
 
 COMMANDS = {
     'prev_mode': ('prev_mode', 'Modus gewechselt'),
     'next_mode': ('next_mode', 'Modus gewechselt'),
-    'say': ('say "{text}"', 'Text wird ausgegeben')
+    'say': ('say "{text}"', 'Text wird ausgegeben'),
+    'enable_maintainance_may_start': ('set_maintainance_may_start True', 'Gespeichert'),
+    'disable_maintainance_may_start': ('set_maintainance_may_start False', 'Gespeichert')
 }
 
 
 REQUESTS = {
-    'mode': 'get_mode_name'
+    'mode': 'get_mode_name',
+    'show_maintainance_may_start': 'show_maintainance_may_start',
 }
 
 
 def communicate_inkognitor(data):
     sock = socket.create_connection((INKOGNITOR_ADDRESS, INKOGNITOR_PORT))
     try:
-        sock.sendall(data)
+        sock.sendall(data + '\n')
         response = ''
+
         while True:
-            new_data = sock.recv(1024)
-            response += new_data
-            if new_data == '':
-                break
+            ready = select.select([sock], [], [], SOCKET_TIMEOUT)
+            if ready[0]:
+                new_data = sock.recv(1024)
+                if new_data == '':
+                    break
+                response += new_data
+            else:
+                raise socket.timeout('receiving data took too much time')
+
         return response
     finally:
         sock.close()
@@ -48,20 +59,15 @@ def main_view(request):
     data = {
         'active_page': 'main',
         'current_mode': '',
+        'maintainance_may_start': False,
         'message': ''
     }
-
-    try:
-        message = '{}\n'.format(REQUESTS['mode'])
-        data['current_mode'] = communicate_inkognitor(message)
-    except socket.error as e:
-        data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
 
     if 'command' in request.matchdict:
         command = request.matchdict['command']
         if command in COMMANDS:
             userdata = dict(request.GET, **request.POST)
-            commandstring = '{}\n'.format(COMMANDS[command][0])
+            commandstring = COMMANDS[command][0]
             try:
                 response = communicate_inkognitor(commandstring.format(**userdata))
                 data['message'] = COMMANDS[command][1].format(response)
@@ -69,8 +75,17 @@ def main_view(request):
                 return HTTPBadRequest()
             except socket.error as e:
                 data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
+            except socket.timeout as e:
+                data['message'] = 'Error: Communication with Inkognitor timed out: {}'.format(e)
         else:
             data['message'] = 'Error: Invalid Command'
+
+    try:
+        data['current_mode'] = communicate_inkognitor(REQUESTS['mode'])
+        data['maintainance_may_start'] = communicate_inkognitor(
+		    REQUESTS['show_maintainance_may_start']).strip() == 'True'
+    except socket.error as e:
+        data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
 
     return data
 

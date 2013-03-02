@@ -21,6 +21,8 @@ namespace Inkognitor
         public string UnknownCommand { get { return GetText("/Files/UnknownCommand"); } }
         public string LoadingFile { get { return GetText("/Files/LoadingFile"); } }
         public string DefaultText { get { return GetText("/Files/DefaultText"); } }
+        public string WaitPreText { get { return GetText("/Files/Wait/Pre"); } }
+        public int WaitDelay { get { return Int32.Parse(GetText("/Files/Wait/Delay")); } }
         public string EndPreText { get { return GetText("/Files/End/Pre"); } }
         public int EndDelay { get { return Int32.Parse(GetText("/Files/End/Delay")); } }
         public string EndPostText { get { return GetText("/Files/End/Post"); } }

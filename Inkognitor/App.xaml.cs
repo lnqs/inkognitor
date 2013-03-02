@@ -12,7 +12,8 @@ namespace Inkognitor
         private Logger logger = new Logger();
         private Files files = new Files();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
-        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new MaintainanceMode(), new HackingMode(), new EndMode() };
+        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new WaitMode(),
+                new MaintainanceMode(), new HackingMode(), new EndMode() };
         private int currentMode = 0;
 
         protected override void OnStartup(StartupEventArgs e)

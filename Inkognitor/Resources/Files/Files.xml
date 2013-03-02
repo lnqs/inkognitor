@@ -25,6 +25,11 @@
 
     Warte auf Eingabe...
   </DefaultText>
+
+  <Wait>
+    <Pre>Wartungsmodus wird geladen</Pre>
+    <Delay>60</Delay>
+  </Wait>
   
   <MaintainanceCommand Name="BEFEHLE" Type="ShowCommands" />
   <MaintainanceCommand Name="KERNTEST" Type="PrintDotted">

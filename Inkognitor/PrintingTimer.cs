@@ -12,6 +12,11 @@ namespace Inkognitor
         private string tickText;
         private EventHandler finishingHandler;
 
+        public PrintingTimer()
+        {
+            dispatcherTimer.Tick += HandleTick;
+        }
+
         public bool IsEnabled { get { return dispatcherTimer.IsEnabled; } }
 
         public void Start(TextBlock output_, int ticks, int delay, string tickText_, EventHandler finishingHandler_)
@@ -20,9 +25,13 @@ namespace Inkognitor
             ticksLeft = ticks;
             tickText = tickText_;
             finishingHandler = finishingHandler_;
-            dispatcherTimer.Tick += HandleTick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, delay);
             dispatcherTimer.Start();
+        }
+
+        public void Stop()
+        {
+            dispatcherTimer.Stop();
         }
 
         private void HandleTick(object sender, EventArgs e)
