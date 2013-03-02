@@ -53,7 +53,7 @@ def main_view(request):
 
     try:
         message = '{}\n'.format(REQUESTS['mode'])
-        data['mode'] = communicate_inkognitor(message)
+        data['current_mode'] = communicate_inkognitor(message)
     except socket.error as e:
         data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
 
