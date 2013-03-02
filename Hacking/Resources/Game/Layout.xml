@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Game x="0" y="0" width="2048" height="1572">
+  <BlockIndicator x="585" y="144" width="400" height="200" />
+  <LevelIndicator x="1700" y="190" width="100" height="100" />
+  <CodeArea x="212" y="374" width="1594" height="994">
+    <Grid width="4" height="6" />
+    <Block width="400" height="200" />
+  </CodeArea>
+</Game>

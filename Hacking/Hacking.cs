@@ -41,11 +41,10 @@ namespace Hacking
 
             using (Surface sourceSurface = new Surface(BackgroundFile))
             {
-                background = sourceSurface.CreateScaledSurface(layout.Scale, true);
+                background = sourceSurface.CreateScaledSurface(layout.Scale);
             }
 
-            codeArea = new CodeArea(layout.CodeBlockColumnCount, layout.CodeBlockRowCount,
-                    layout.CodeArea, layout.CodeBlockSize);
+            codeArea = new CodeArea(layout.CodeBlockCount.Width, layout.CodeBlockCount.Height, layout.CodeArea, layout.CodeBlockSize);
 
             Video.WindowCaption = WindowName;
 
@@ -64,7 +63,7 @@ namespace Hacking
             Video.SetVideoMode(layout.WindowSize.Width,
                     layout.WindowSize.Height, resizeable, false, fullscreen, frame);
             Video.Screen.Fill(Color.Black);
-            Video.Screen.Blit(background, layout.GameOffset);
+            Video.Screen.Blit(background, layout.Game);
 
             if (!frame) // for some reason giving false to SetVideoMode doesn't work
             {
@@ -164,13 +163,13 @@ namespace Hacking
                 {
                     // TODO: Optimize this. We only need to re-blit the areas where searched block
                     //       and level-indicator are drawn
-                    Video.Screen.Blit(background, layout.GameOffset);
+                    Video.Screen.Blit(background, layout.Game);
 
                     codeArea.Update(e);
                     Video.Screen.Blit(codeArea.Surface, codeArea.Area);
 
                     Video.Screen.Blit(codeArea.BlockPersonalities.Surfaces[codeArea.SearchedCodeBlock], layout.BlockIndicator);
-                    Video.Screen.Blit(levelDisplay, layout.LevelIndicator);
+                    Video.Screen.Blit(levelDisplay, layout.LevelIndicator.Location);
 
                     Video.Screen.Update();
                 }

@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using SdlDotNet.Graphics.Sprites;
 
 namespace Hacking
 {
@@ -13,6 +12,21 @@ namespace Hacking
         public static Size Scaled(this Size size, double scale)
         {
             return new Size((int)(size.Width * scale), (int)(size.Height * scale));
+        }
+
+        public static Rectangle Scaled(this Rectangle rectangle, double scale)
+        {
+            return new Rectangle(rectangle.Location.Scaled(scale), rectangle.Size.Scaled(scale));
+        }
+
+        public static Point Translated(this Point point, Point offset)
+        {
+            return new Point(point.X + offset.X, point.Y + offset.Y);
+        }
+
+        public static Rectangle Translated(this Rectangle rectangle, Point offset)
+        {
+            return new Rectangle(rectangle.Location.Translated(offset), rectangle.Size);
         }
     }
 }

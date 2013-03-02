@@ -1,31 +1,30 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Xml;
 
 namespace Hacking
 {
     public class Layout
     {
-        // Matches the background-images, all resources are scaled relativ to fit in the window keeping the ratio.
-        // Would be better to save it in a resource, but this has to be enough for now.
-        private readonly Size ResourceGameSize = new Size(2048, 1572);
-        private readonly Size CodeAreaResourceSize = new Size(1594, 994);
-        private readonly Point CodeAreaResourceOffset = new Point(212, 374);
-        private readonly Size CodeBlockResourceSize = new Size(400, 200);
+        private const string Filename = "Resources/Game/Layout.xml";
 
+        private XmlDocument document = new XmlDocument();
         private Size windowSize;
-        private Size gameSize;
-        private Point gameOffset;
         private double scale;
+        private Point offset;
 
         public Layout(Size windowSize_)
         {
             windowSize = windowSize_;
+            document.Load(Filename);
 
             // I'm pretty sure this can be done simpler o.O
-            gameSize = new Size(windowSize.Width, windowSize.Height);
+            Size resourceGameSize = NodeToSize("/Game");
+            Size gameSize = new Size(windowSize.Width, windowSize.Height);
 
-            double gameRatio = (double)ResourceGameSize.Width / (double)ResourceGameSize.Height;
+            double gameRatio = (double)resourceGameSize.Width / (double)resourceGameSize.Height;
             double windowRatio = (double)windowSize.Width / (double)windowSize.Height;
-
+ 
             if (gameRatio > windowRatio)
             {
                 gameSize.Height = (int)(gameSize.Width / gameRatio);
@@ -35,53 +34,39 @@ namespace Hacking
                 gameSize.Width = (int)(gameSize.Height * gameRatio);
             }
 
-            scale = (double)gameSize.Width / (double)ResourceGameSize.Width;
-
-            gameOffset = new Point((windowSize.Width - gameSize.Width) / 2, (windowSize.Height - windowSize.Height) / 2);
+            scale = (double)gameSize.Width / (double)resourceGameSize.Width;
+            offset = new Point((windowSize.Width - gameSize.Width) / 2, (windowSize.Height - windowSize.Height) / 2);
         }
 
-        public Size WindowSize { get { return windowSize; } }
         public double Scale { get { return scale; } }
-        public Point GameOffset { get { return gameOffset; } }
+        public Size WindowSize { get { return windowSize; } }
+        public Rectangle Game { get { return NodeToRectangle("/Game").Scaled(scale).Translated(offset); } }
+        public Rectangle BlockIndicator { get { return NodeToRectangle("/Game/BlockIndicator").Scaled(scale).Translated(offset); } }
+        public Rectangle LevelIndicator { get { return NodeToRectangle("/Game/LevelIndicator").Scaled(scale).Translated(offset); } }
+        public Rectangle CodeArea { get { return NodeToRectangle("/Game/CodeArea").Scaled(scale).Translated(offset); } }
+        public Size CodeBlockCount { get { return NodeToSize("/Game/CodeArea/Grid"); } }
+        public Size CodeBlockSize { get { return NodeToSize("/Game/CodeArea/Block").Scaled(scale); } }
 
-        public Rectangle CodeArea
+        private Point NodeToPoint(string path)
         {
-            get
-            {
-                Point offset = CodeAreaResourceOffset.Scaled(scale);
-                offset.X += GameOffset.X;
-                offset.Y += GameOffset.Y;
-                return new Rectangle(offset, CodeAreaResourceSize.Scaled(scale));
-            }
+            XmlNode node = document.SelectSingleNode(path);
+            return new Point(
+                Int32.Parse(node.Attributes["x"].InnerText),
+                Int32.Parse(node.Attributes["y"].InnerText));
         }
 
-        public Size CodeBlockSize
+        private Size NodeToSize(string path)
         {
-            get { return CodeBlockResourceSize.Scaled(scale); }
+            XmlNode node = document.SelectSingleNode(path);
+            return new Size(
+                Int32.Parse(node.Attributes["width"].InnerText),
+                Int32.Parse(node.Attributes["height"].InnerText));
         }
 
-        public int CodeBlockColumnCount { get { return 4; } } // TODO: Calc this instead of hardcoding
-        public int CodeBlockRowCount { get { return 6; } } // TODO: Calc this instead of hardcoding
-
-        public Point BlockIndicator
+        private Rectangle NodeToRectangle(string path)
         {
-            get
-            {
-                Point position = new Point(585, 144).Scaled(scale);
-                position.X += GameOffset.X;
-                position.Y += GameOffset.Y;
-                return position;
-            }
-        }
-        public Point LevelIndicator
-        {
-            get
-            {
-                Point position = new Point(1700, 190).Scaled(scale);
-                position.X += GameOffset.X;
-                position.Y += GameOffset.Y;
-                return position;
-            }
+            XmlNode node = document.SelectSingleNode(path);
+            return new Rectangle(NodeToPoint(path), NodeToSize(path));
         }
     }
 }
