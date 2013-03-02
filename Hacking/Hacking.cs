@@ -44,7 +44,7 @@ namespace Hacking
                 background = sourceSurface.CreateScaledSurface(layout.Scale);
             }
 
-            codeArea = new CodeArea(layout.CodeBlockCount.Width, layout.CodeBlockCount.Height, layout.CodeArea, layout.CodeBlockSize);
+            codeArea = new CodeArea(layout.CodeBlockCount, layout.CodeArea, layout.CodeBlockSize);
 
             Video.WindowCaption = WindowName;
 
@@ -161,12 +161,14 @@ namespace Hacking
             {
                 try
                 {
-                    // TODO: Optimize this. We only need to re-blit the areas where searched block
-                    //       and level-indicator are drawn
-                    Video.Screen.Blit(background, layout.Game);
+                    // Only redraw background where block- and level-indicator are living to same some cycles
+                    Video.Screen.Blit(background, layout.BlockIndicator.Location,
+                        layout.BlockIndicator.NegativeTranslated(layout.Offset));
+                    Video.Screen.Blit(background, layout.LevelIndicator.Location,
+                        layout.LevelIndicator.NegativeTranslated(layout.Offset));
 
                     codeArea.Update(e);
-                    Video.Screen.Blit(codeArea.Surface, codeArea.Area);
+                    Video.Screen.Blit(codeArea.Surface, layout.CodeArea);
 
                     Video.Screen.Blit(codeArea.BlockPersonalities.Surfaces[codeArea.SearchedCodeBlock], layout.BlockIndicator);
                     Video.Screen.Blit(levelDisplay, layout.LevelIndicator.Location);

@@ -39,6 +39,7 @@ namespace Hacking
         }
 
         public double Scale { get { return scale; } }
+        public Point Offset { get { return offset; } }
         public Size WindowSize { get { return windowSize; } }
         public Rectangle Game { get { return NodeToRectangle("/Game").Scaled(scale).Translated(offset); } }
         public Rectangle BlockIndicator { get { return NodeToRectangle("/Game/BlockIndicator").Scaled(scale).Translated(offset); } }

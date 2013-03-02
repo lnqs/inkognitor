@@ -28,5 +28,15 @@ namespace Hacking
         {
             return new Rectangle(rectangle.Location.Translated(offset), rectangle.Size);
         }
+
+        public static Point NegativeTranslated(this Point point, Point offset)
+        {
+            return new Point(point.X - offset.X, point.Y - offset.Y);
+        }
+
+        public static Rectangle NegativeTranslated(this Rectangle rectangle, Point offset)
+        {
+            return new Rectangle(rectangle.Location.NegativeTranslated(offset), rectangle.Size);
+        }
     }
 }

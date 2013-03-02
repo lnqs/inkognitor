@@ -10,19 +10,15 @@ namespace Hacking
         private CodeBlockPersonalities blockPersonalities;
         private CodeBlockGrid blocks;
         private Cursor cursor;
-        private Rectangle rectangle;
         private Surface surface;
 
         private Random random = new Random();
 
-        public CodeArea(int columnCount, int rowCount, Rectangle areaRectangle, Size blockSize)
+        public CodeArea(Size blockCount, Rectangle area, Size blockSize)
         {
-            Size blockPixelSize = new Size(
-                    areaRectangle.Width / columnCount, areaRectangle.Height / (rowCount - 1));
-            blockPersonalities = new CodeBlockPersonalities(blockPixelSize);
-            rectangle = areaRectangle;
-            surface = new Surface(areaRectangle);
-            blocks = new CodeBlockGrid(columnCount, rowCount, rectangle.Size, blockPixelSize, blockPersonalities);
+            blockPersonalities = new CodeBlockPersonalities(blockSize);
+            surface = new Surface(area);
+            blocks = new CodeBlockGrid(blockCount.Width, blockCount.Height, area.Size, blockSize, blockPersonalities);
 
             cursor = new Cursor(blockSize);
 
@@ -44,13 +40,11 @@ namespace Hacking
         }
 
         public int SearchedCodeBlock { get; set; }
-        public CodeBlockGrid CodeBlocks { get { return blocks; } }
         public Cursor Cursor { get { return cursor; } }
         public int MaxErrorsPerCodeBlockRow { get; set; }
         public float ErrorCodeBlockProbability { get; set; }
         public float ScrollingSpeed { get { return blocks.ScrollingSpeed; } set { blocks.ScrollingSpeed = value; } }
         public CodeBlockPersonalities BlockPersonalities { get { return blockPersonalities; } }
-        public Rectangle Area { get { return rectangle; } }
         public Surface Surface { get { return surface; } }
 
         public void Update(TickEventArgs e)
