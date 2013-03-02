@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics;
+using SdlDotNet.Graphics.Sprites;
 using SdlDotNet.Input;
 
 namespace Hacking
@@ -12,7 +13,7 @@ namespace Hacking
     public class HackingGame : IDisposable
     {
         private const string WindowName = "Inkognitor";
-        private const string BackgroundFile = "Resources/GUI/Background.png";
+        private const string BackgroundFile = "Resources/Game/Background.png";
         private const int LevelCount = 10;
 
         private Layout layout;
@@ -21,8 +22,8 @@ namespace Hacking
         private bool frame;
 
         private Surface background;
-        private InformationArea informationArea;
         private CodeArea codeArea;
+        private TextSprite levelDisplay = new TextSprite(new SdlDotNet.Graphics.Font("Resources/GUI/Font.ttf", 40));
 
         private int level = 1;
         private Difficulty difficulty = new Difficulty(LevelCount);
@@ -33,31 +34,16 @@ namespace Hacking
         public HackingGame(int windowWidth, int windowHeight,
                 bool resizeable_, bool fullscreen_, bool frame_)
         {
-            layout = new Layout(windowWidth, windowHeight);
+            layout = new Layout(new Size(windowWidth, windowHeight));
             resizeable = resizeable_;
             fullscreen = fullscreen_;
             frame = frame_;
 
             using (Surface sourceSurface = new Surface(BackgroundFile))
             {
-                int width = windowWidth;
-                int height = windowHeight;
-                double fileRatio = (double)sourceSurface.Width / (double)sourceSurface.Height;
-                double windowRatio = (double)windowWidth / (double)windowHeight;
-                if (fileRatio > windowRatio)
-                {
-                    height = (int)(width / fileRatio);
-                }
-                else
-                {
-                    width = (int)(height * fileRatio);
-                }
-
-                background = sourceSurface.CreateStretchedSurface(new Size(width, height));
+                background = sourceSurface.CreateScaledSurface(layout.Scale, true);
             }
 
-            informationArea = new InformationArea(
-                    layout.LevelIndicatorPosition, layout.CodeBlockIndicatorPosition);
             codeArea = new CodeArea(layout.CodeBlockColumnCount, layout.CodeBlockRowCount,
                     layout.CodeArea, layout.CodeBlockSize);
 
@@ -77,6 +63,8 @@ namespace Hacking
         {
             Video.SetVideoMode(layout.WindowSize.Width,
                     layout.WindowSize.Height, resizeable, false, fullscreen, frame);
+            Video.Screen.Fill(Color.Black);
+            Video.Screen.Blit(background, layout.GameOffset);
 
             if (!frame) // for some reason giving false to SetVideoMode doesn't work
             {
@@ -143,8 +131,7 @@ namespace Hacking
             codeArea.ErrorCodeBlockProbability = difficulty.ErrorCodeBlockProbability;
             codeArea.MaxErrorsPerCodeBlockRow = difficulty.MaxErrorsPerCodeBlockRow;
             codeArea.ScrollingSpeed = difficulty.ScrollingSpeed;
-            informationArea.DisplayedLevel.Text = level.ToString();
-            informationArea.DisplayedCodeBlock = codeArea.BlockPersonalities.Surfaces[codeArea.SearchedCodeBlock];
+            levelDisplay.Text = level.ToString();
 
             try
             {
@@ -175,16 +162,15 @@ namespace Hacking
             {
                 try
                 {
-                    Video.Screen.Fill(Color.Black);
-                    Video.Screen.Blit(background, new Point(
-                        (layout.WindowSize.Width - background.Width) / 2,
-                        (layout.WindowSize.Height - background.Height) / 2));
+                    // TODO: Optimize this. We only need to re-blit the areas where searched block
+                    //       and level-indicator are drawn
+                    Video.Screen.Blit(background, layout.GameOffset);
 
-                    informationArea.Update(e);
                     codeArea.Update(e);
+                    Video.Screen.Blit(codeArea.Surface, codeArea.Area);
 
-                    Video.Screen.Blit(informationArea, layout.InformationArea.Location);
-                    Video.Screen.Blit(codeArea, layout.CodeArea.Location);
+                    Video.Screen.Blit(codeArea.BlockPersonalities.Surfaces[codeArea.SearchedCodeBlock], layout.BlockIndicator);
+                    Video.Screen.Blit(levelDisplay, layout.LevelIndicator);
 
                     Video.Screen.Update();
                 }
@@ -224,8 +210,8 @@ namespace Hacking
 
         public void Dispose()
         {
-            informationArea.Dispose();
             codeArea.Dispose();
+            levelDisplay.Dispose();
             GC.SuppressFinalize(this);
         }
 

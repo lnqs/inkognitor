@@ -53,15 +53,17 @@
     <Compile Include="CodeBlockPersonalities.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="Difficulty.cs" />
-    <Compile Include="InformationArea.cs" />
     <Compile Include="Layout.cs" />
     <Compile Include="RotateableGrid.cs" />
     <Compile Include="Hacking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpriteExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Game\Background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Game\Code1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

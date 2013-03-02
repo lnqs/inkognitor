@@ -11,6 +11,7 @@ namespace Hacking
         private CodeBlockGrid blocks;
         private Cursor cursor;
         private Rectangle rectangle;
+        private Surface surface;
 
         private Random random = new Random();
 
@@ -20,6 +21,7 @@ namespace Hacking
                     areaRectangle.Width / columnCount, areaRectangle.Height / (rowCount - 1));
             blockPersonalities = new CodeBlockPersonalities(blockPixelSize);
             rectangle = areaRectangle;
+            surface = new Surface(areaRectangle);
             blocks = new CodeBlockGrid(columnCount, rowCount, rectangle.Size, blockPixelSize, blockPersonalities);
 
             cursor = new Cursor(blockSize);
@@ -48,13 +50,20 @@ namespace Hacking
         public float ErrorCodeBlockProbability { get; set; }
         public float ScrollingSpeed { get { return blocks.ScrollingSpeed; } set { blocks.ScrollingSpeed = value; } }
         public CodeBlockPersonalities BlockPersonalities { get { return blockPersonalities; } }
+        public Rectangle Area { get { return rectangle; } }
+        public Surface Surface { get { return surface; } }
 
         public void Update(TickEventArgs e)
         {
             blocks.Update(e);
             cursor.Position = blocks[cursor.GridX, cursor.GridY].Position;
-            cursor.X += rectangle.X;
-            cursor.Y += rectangle.Y;
+
+            surface.Fill(Color.Black); // No transparency here, it's too slow
+            foreach (CodeBlock block in blocks)
+            {
+                surface.Blit(block.Surface, block.Position);
+            }
+            surface.Blit(Cursor.Surface, Cursor.Position);
         }
 
         public void MoveCursor(Direction direction)
@@ -141,19 +150,8 @@ namespace Hacking
             blockPersonalities.Dispose();
             blocks.Dispose();
             cursor.Dispose();
+            surface.Dispose();
             GC.SuppressFinalize(this);
-        }
-    }
-
-    public static class CodeAreaSurfaceExtensions
-    {
-        public static Rectangle Blit(this Surface surface, CodeArea codeArea, Point destinationPoint)
-        {
-            Rectangle clippedBlocks = surface.Blit(codeArea.CodeBlocks, destinationPoint);
-            Rectangle clippedCursor = surface.Blit(
-                    codeArea.Cursor.Surface, codeArea.Cursor.Position, codeArea.Cursor.CalcClippingRectangle());
-
-            return Rectangle.Union(clippedBlocks, clippedCursor);
         }
     }
 }

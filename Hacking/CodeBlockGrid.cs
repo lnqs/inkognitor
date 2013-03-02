@@ -84,23 +84,4 @@ namespace Hacking
             GC.SuppressFinalize(this);
         }
     }
-
-    public static class CodeBlockGridSurfaceExtensions
-    {
-        public static Rectangle Blit(this Surface surface, CodeBlockGrid codeBlockGrid, Point destinationPoint)
-        {
-            foreach (CodeBlock block in codeBlockGrid)
-            {
-                int offset = codeBlockGrid.PixelOffset;
-
-                Point destination = new Point();
-                destination.X = Math.Max(block.Position.X + destinationPoint.X, destinationPoint.X);
-                destination.Y = Math.Max(block.Position.Y + destinationPoint.Y, destinationPoint.Y);
-
-                surface.Blit(block.Surface, destination, block.CalcClippingRectangle());
-            }
-
-            return new Rectangle(destinationPoint, codeBlockGrid.PixelSize);
-        }
-    }
 }
