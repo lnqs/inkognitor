@@ -54,7 +54,7 @@ def main_view(request):
     try:
         message = '{}\n'.format(REQUESTS['mode'])
         data['mode'] = communicate_inkognitor(message)
-    except socket.error:
+    except socket.error as e:
         data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
 
     if 'command' in request.matchdict:
@@ -77,16 +77,19 @@ def main_view(request):
 
 @view_config(route_name='chatlog', renderer='chatlog.mako')
 def chatlog_view(request):
+    data = {
+        'active_page': 'chatlog',
+        'loglines': [],
+        'message:': ''
+    }
+    
     try:
         with open(CHATLOG, 'r') as f:
-            loglines = f.readlines()
-    except:
-        loglines = ['Error: Couldn\'t read logfile']
+            data['loglines'] = f.readlines()
+    except Exception as e:
+        data['message'] = 'Error: Couldn\'t read logfile: {}'.format(e)
 
-    return {
-        'active_page': 'chatlog',
-        'loglines': loglines
-    }
+    return data
 
 
 if __name__ == '__main__':

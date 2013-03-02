@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*- 
 <%inherit file="layout.mako"/>
 
-% if message != '':
-<div class="hero-unit">
-    ${message}
-</div>
-% endif
-
 <div class="row">
     <div class="span6">
         <h4>Sprachausgabe</h4>

@@ -22,6 +22,11 @@
         <h3 class="muted">Inkognitor Web-Interface</h3>
     </div>
     <hr />
+	% if message != '':
+	<div class="hero-unit">
+		${message}
+	</div>
+	% endif
     ${next.body()}
 </div>
 <script src="/static/js/bootstrap.min.js"></script>
