@@ -6,13 +6,15 @@ namespace BotTest
     class Program
     {
         private static readonly string BotSettingsFile = "Resources/Bot/Settings.xml";
-        private static readonly string UserName = "Benutzer";
+        private static readonly string UserID = "Benutzer";
 
         static void Main(string[] args)
         {
             Bot bot = new Bot();
             bot.loadSettings(BotSettingsFile);
             bot.loadAIMLFromFiles();
+
+            User user = new User(UserID, bot);
             
             while (true)
             {
@@ -24,7 +26,8 @@ namespace BotTest
                     break;
                 }
 
-                Result response = bot.Chat(input, UserName);
+                Request request = new Request(input, user, bot);
+                Result response = bot.Chat(request);
                 Console.WriteLine("<< {0}", response.Output);
             }
         }

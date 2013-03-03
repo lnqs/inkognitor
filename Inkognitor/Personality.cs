@@ -11,26 +11,29 @@ namespace Inkognitor
     class Personality<BufferType> : IDisposable where BufferType : MemoryStream, new()
     {
         private const string BotSettingsFile = "Resources/Bot/Settings.xml";
-        private const string UserName = "Benutzer";
+        private const string UserID = "Benutzer";
         private readonly SpeechAudioFormatInfo AudioFormat
                 = new SpeechAudioFormatInfo(44100, AudioBitsPerSample.Sixteen, AudioChannel.Stereo);
 
         private SoundPlayer soundPlayer = new SoundPlayer();
         private SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-        private Bot bot = new Bot();
+        private Bot bot;
+        private User user;
 
         public Personality()
         {
             synthesizer.SelectVoiceByHints(VoiceGender.Male, VoiceAge.Senior, 0, new CultureInfo("de-DE"));
             synthesizer.SetOutputToNull();
 
+            bot = new Bot();
+            user = new User(UserID, bot);
             bot.loadSettings(BotSettingsFile);
             bot.loadAIMLFromFiles();
         }
 
         public string Respond(string text)
         {
-            Result response = bot.Chat(text, UserName);
+            Result response = bot.Chat(new Request(text, user, bot));
             Say(response.Output);
             return response.Output;
         }
