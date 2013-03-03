@@ -13,8 +13,8 @@
   <item name="notacceptinguserinputmessage" value="Benutzereingabe verweigert."/>
   <item name="stripperregex" value="[^0-9a-zA-Z]"/>
   <item name="version" value="unbekannt"/>
-  <item name="name" value="unbekannt"/>
-  <item name="botmaster" value="unbekannt"/>
+  <item name="name" value="Inkognitor"/>
+  <item name="botmaster" value="Dr. Maximilian Tothenburg"/>
   <item name="author" value="Dr. Maximilian Tothenburg"/>
   <item name="location" value="unbekannt"/>
   <item name="gender" value="-1"/>
