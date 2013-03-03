@@ -61,6 +61,10 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Inkognitor\Resources\GUI\Background.png">
+      <Link>Resources\GUI\Background.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Game\Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -103,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Game\Code0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Inkognitor\Resources\GUI\Font.ttf">
+      <Link>Resources\GUI\Font.ttf</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
