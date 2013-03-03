@@ -33,6 +33,17 @@ namespace Inkognitor
 
         public string Respond(string text)
         {
+            // Yep, this sucks hard. But for some reason the Substitutions.xml doesn't work
+            // as I expected and there's almost no time left till Kettensturm :/
+            text = text
+                .Replace("ä", "ae")
+                .Replace("ö", "oe")
+                .Replace("ü", "ue")
+                .Replace("Ä", "Ae")
+                .Replace("Ö", "Oe")
+                .Replace("Ü", "Ue")
+                .Replace("ß", "ss");
+
             Result response = bot.Chat(new Request(text, user, bot));
             Say(response.Output);
             return response.Output;
@@ -43,7 +54,6 @@ namespace Inkognitor
             using (MemoryStream stream = new BufferType())
             {
                 synthesizer.SetOutputToWaveStream(stream);
-
                 synthesizer.Speak(text);
 
                 stream.Seek(0, SeekOrigin.Begin);

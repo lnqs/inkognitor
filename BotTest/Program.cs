@@ -21,6 +21,17 @@ namespace BotTest
                 Console.Write(">> ");
                 string input = Console.ReadLine();
 
+                // Yep, this sucks hard. But for some reason the Substitutions.xml doesn't work
+                // as I expected and there's almost no time left till Kettensturm :/
+                input = input
+                    .Replace("ä", "ae")
+                    .Replace("ö", "oe")
+                    .Replace("ü", "ue")
+                    .Replace("Ä", "Ae")
+                    .Replace("Ö", "Oe")
+                    .Replace("Ü", "Ue")
+                    .Replace("ß", "ss");
+
                 if (input == null)
                 {
                     break;
