@@ -9,9 +9,9 @@
   
   <UnknownCommand>
     Unbekannter Befehl
-    
-    
-    `BEFEHLE' fuer eine Liste der verfuegbaren Befehle
+
+
+    `BEFEHLE' für eine Liste der verfügbaren Befehle
   </UnknownCommand>
   
   <LoadingFile>
@@ -19,7 +19,7 @@
   </LoadingFile>
   
   <DefaultText>
-    Seiner kaiserlichen Majestaet Inkognitor
+    Seiner kaiserlichen Majestät Inkognitor
     Unberechtiger Zugriff verboten
 
 
@@ -33,22 +33,22 @@
   
   <MaintainanceCommand Name="BEFEHLE" Type="ShowCommands" />
   <MaintainanceCommand Name="KERNTEST" Type="PrintDotted">
-    <Pre>Kerntest wird durchgefuehrt</Pre>
+    <Pre>Kerntest wird durchgeführt</Pre>
     <Delay>60</Delay>
     <Post>Test erfolgreich</Post>
   </MaintainanceCommand>
   <MaintainanceCommand Name="RING1TEST" Type="PrintDotted">
-    <Pre>Ringtest wird durchgefuehrt</Pre>
+    <Pre>Ringtest wird durchgeführt</Pre>
     <Delay>60</Delay>
     <Post>Test erfolgreich</Post>
   </MaintainanceCommand>
   <MaintainanceCommand Name="RING2TEST" Type="PrintDotted">
-    <Pre>Ringtest wird durchgefuehrt</Pre>
+    <Pre>Ringtest wird durchgeführt</Pre>
     <Delay>60</Delay>
     <Post>Test erfolgreich</Post>
   </MaintainanceCommand>
   <MaintainanceCommand Name="RING3TEST" Type="PrintDotted">
-    <Pre>Ringtest wird durchgefuehrt</Pre>
+    <Pre>Ringtest wird durchgeführt</Pre>
     <Delay>60</Delay>
     <Post>Test erfolgreich</Post>
   </MaintainanceCommand>
