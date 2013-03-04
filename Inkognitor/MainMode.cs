@@ -8,6 +8,14 @@ namespace Inkognitor
         private Personality<MemoryStream> personality = new Personality<MemoryStream>();
         private Files files;
 
+        public MainMode()
+        {
+            BotMayAnswer = true;
+        }
+        
+        [CommandListener("bot_may_answer", Description = "Gets/Sets if the bot answers to input")]
+        public bool BotMayAnswer { get; set; }
+
         public override string Name { get { return "Main"; } }
 
         public override void Enter(MainWindow window, Logger logger, Files files_)
@@ -35,7 +43,7 @@ namespace Inkognitor
                     logger.ChatLog.Log("No such file: {0}", token);
                 }
             }
-            else
+            else if (BotMayAnswer)
             {
                 string response = personality.Respond(e.Text);
                 logger.ChatLog.Log("User: {0}", e.Text);

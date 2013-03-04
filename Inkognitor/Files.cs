@@ -82,7 +82,7 @@ namespace Inkognitor
             XmlNodeList nodes = document.GetElementsByTagName("File");
             foreach (XmlNode node in nodes)
             {
-                if (node.Attributes["Token"].InnerText == token)
+                if (node.Attributes["Token"].InnerText.ToUpper() == token.ToUpper())
                 {
                     return CleanSpaces(node.InnerText);
                 }

@@ -22,13 +22,16 @@ COMMANDS = {
     'next_mode': ('next_mode', 'Modus gewechselt'),
     'say': ('say "{text}"', 'Text wird ausgegeben'),
     'enable_maintainance_may_start': ('set_maintainance_may_start True', 'Gespeichert'),
-    'disable_maintainance_may_start': ('set_maintainance_may_start False', 'Gespeichert')
+    'disable_maintainance_may_start': ('set_maintainance_may_start False', 'Gespeichert'),
+    'enable_bot_may_answer': ('set_bot_may_answer True', 'Gespeichert'),
+    'disable_bot_may_answer': ('set_bot_may_answer False', 'Gespeichert')
 }
 
 
 REQUESTS = {
     'mode': 'get_mode_name',
     'show_maintainance_may_start': 'show_maintainance_may_start',
+    'show_bot_may_answer': 'show_bot_may_answer'
 }
 
 
@@ -60,6 +63,7 @@ def main_view(request):
         'active_page': 'main',
         'current_mode': '',
         'maintainance_may_start': False,
+        'bot_may_answer': True,
         'message': ''
     }
 
@@ -84,6 +88,8 @@ def main_view(request):
         data['current_mode'] = communicate_inkognitor(REQUESTS['mode'])
         data['maintainance_may_start'] = communicate_inkognitor(
 		    REQUESTS['show_maintainance_may_start']).strip() == 'True'
+        data['bot_may_answer'] = communicate_inkognitor(
+		    REQUESTS['show_bot_may_answer']).strip() == 'True'
     except socket.error as e:
         data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
 
