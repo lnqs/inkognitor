@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Windows;
 using Hacking;
-using SdlDotNet.Core;
 
 namespace Inkognitor
 {
