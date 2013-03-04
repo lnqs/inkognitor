@@ -81,19 +81,11 @@ namespace Inkognitor
                 if (read > 0)
                 {
                     connection.RecvBufferCount += read;
-                    if (findAndHandleCommand(connection))
-                    {
-                        connection.Client.Close();
-                        lock (connections)
-                        {
-                            connections.Remove(connection);
-                        }
-                    }
-                    else
-                    {
-                        connection.Stream.BeginRead(connection.RecvBuffer, connection.RecvBufferCount,
-                                connection.RecvBuffer.Length - connection.RecvBufferCount, HandleRead, connection);
-                    }
+                    while (findAndHandleCommand(connection)) { }
+
+                    connection.Stream.BeginRead(connection.RecvBuffer, connection.RecvBufferCount,
+                            connection.RecvBuffer.Length - connection.RecvBufferCount, HandleRead, connection);
+
                 }
                 else
                 {

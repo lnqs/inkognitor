@@ -39,19 +39,7 @@ def communicate_inkognitor(data):
     sock = socket.create_connection((INKOGNITOR_ADDRESS, INKOGNITOR_PORT))
     try:
         sock.sendall(data + '\n')
-        response = ''
-
-        while True:
-            ready = select.select([sock], [], [], SOCKET_TIMEOUT)
-            if ready[0]:
-                new_data = sock.recv(1024)
-                if new_data == '':
-                    break
-                response += new_data
-            else:
-                raise socket.timeout('receiving data took too much time')
-
-        return response
+        return sock.makefile().readline()
     finally:
         sock.close()
 
@@ -79,8 +67,6 @@ def main_view(request):
                 return HTTPBadRequest()
             except socket.error as e:
                 data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
-            except socket.timeout as e:
-                data['message'] = 'Error: Communication with Inkognitor timed out: {}'.format(e)
         else:
             data['message'] = 'Error: Invalid Command'
 
