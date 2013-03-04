@@ -10,7 +10,7 @@ namespace Inkognitor
 
         public MainMode()
         {
-            BotMayAnswer = true;
+            BotMayAnswer = false;
         }
         
         [CommandListener("bot_may_answer", Description = "Gets/Sets if the bot answers to input")]
