@@ -74,10 +74,152 @@
     </Post>
   </End>
   
-  <File Token="test">
-    Dies ist eine Testakte
+  <File Token="H1532-18/3">
+    Betreff: Projekt Titan
+
+    Projekt Titan wurde 1907 mit dem Ziel den perfekten Soldaten zu
+    schaffen begründet. Experimente mit verschiedenen Drogen und Hormonen
+    ermöglichten zwar die Leistung der Probanten zu steigern, die
+    Nebenwirkungen führten allerdings zu einer hohen Mortalität.
+    Darüber hinaus litt die Moral der Probanten stark unter der Behandlung und
+    ihrer unerwünschten Effekten.
+
+    Operative Eingriffe in das Hirn konnten hier zwar Abhilfe schaffen, führten
+    allerdings zu starker Verkümmerung des Verstandes, die der Waffe jedwede
+    Effektivität nahmen.
   </File>
-  <File Token="test2">
-    Dies ist noch eine Testakte
+  <File Token="H3724-44/12">
+    Betreff: Mineral X873
+
+    Bei dem Stoff handelt es sich um ein Mineral unbekannter Herkunft.
+    Neben dem vorhandenen Bestand, welcher aus dem Privatbesitz eines
+    französischen Geologen beschafft werden konnten, sind keine weiteren
+    Vorkommen bekannt.
+
+    Forschungen daran haben erleben, dass es möglich ist den Verstand von
+    Lebewesen darin zu binden. Hierzu muss dieser aus dem Hirn des
+    Testsubjektes extrahiert werden.
+
+    Es scheint gewisse nachteilige Veränderungen des Intellektes durch diese
+    Prozedur zu geben. Ob dies durch den Eingriff oder die Bindung an das
+    Mineral besteht ist noch nicht abschließend geklärt.
+  </File>
+  <File Token="H7473-31/9">
+    Betreff: Projekt Loki
+
+    Es ist gelungen einem in Mineral X873 gebundenen Verstand wieder eine
+    Schnittstelle zur Aussenwelt zu ermöglichen.
+    Durch die Abnahme elektischer Signale, die das Mineral abgibt, konnte eine
+    Gerätschaft hierzu gebaut werden.
+
+    So ist es möglich diese Geräte an menschliche Körper anzubringen. Durch ein
+    System von feinen Leitungen die in den Körper des Subjektes dringen und
+    sich an Nervenzellen koppeln gelingt es dem Piloten den Körper zu
+    kontrollieren.
+  </File>
+  <File Token="H7473-32/3">
+    Betreff: Projekt Loki II
+
+    Neuere Forschungen um das Projekt Loki haben die Möglichkeit geschaffen die
+    für die Schaffung von Piloten Technologie kompakter zu gestalten.
+
+    Prototypen für deutlich kleinere Piloten wurden geschaffen.
+  </File>
+  <File Token="H3247-4/3">
+    Betreff: Kognitionsextraktion
+
+    Mit Hilfe des Kognitionsextraktors ist die Überführung des Verstandes eines
+    Soldaten in das Mineral X873 möglich.
+    Das Subjekt ist zu fixieren. In den Sammelbehälter des Kognitionsextraktors
+    ist das Mineral zu geben.
+
+    Der Extraktor ist 0,5cm oberhalb des Atlasgelenks anzulegen.
+    Auf die mittige Ausrichtung ist zu achten.
+    An diesem Punkt ist er in den Schädel des Subjektes einzuführen.
+
+    Nachdem die extrahierte Kognitionsessenz den Sammelbehälter erreicht hat
+    ist der Kognitionsextraktor aus dem Subjekt zu entfernen und mit Alkohol zu
+    reinigen.
+  </File>
+  <File Token="H3248-6/6">
+    Betreff: Pilotenassemblierung
+
+    Versuche mit der Kognitionsextraktion haben zu dem Ergebnis geführt, dass
+    die der Pilot affektiv stabiler ist, wenn das X873 bereits an Bauteil L12
+    angebracht ist wenn es mit der Kognitionsessenz in Kontakt kommt.
+
+    Einiges deutet darauf hin, dass in anderen Fällen die fehlende
+    Schnittstelle zur Umgebung eine negative Auswirkungen auf die Psyche des
+    Probanten hat.
+
+    Die Fertigungsschritte LS19 und LS22 wurden entsprechend optimiert, dass
+    die Bauteile L9 und L12 als vollständig-integrierte Komponenten zur
+    Verfügung stehen. Auf diese Weise kann Bauteil L9 in den
+    Kognitionsextraktor gegeben werden ohne das die empfindlichen Schaltungen
+    von Bauteil L12 direkt mit der Kognitionsessenz in Berührung kommen.
+    Die beiden Bauteile können anschließend mit wenig Aufwand zusammengefügt
+    werden.
+  </File>
+  <File Token="H2273-2/2">
+    Betreff: Unternehmen Fenrir
+
+    Das Programm zur Schaffung des perfekten Spiones ist ein voller Erfolg.
+    Eine Anzahl von Agenten ist im Einsatz und in feindliche Institutionen
+    integriert.
+
+    Die Erfolgsquote der Rekonfiguration der Erinnerungen zur Akzeptanz einer
+    alternativen Lebensgeschichte übertrifft die Erwartungen.
+    Durchleckende Erinnerungen sind die absolute Ausnahme.
+
+    Selbst unter schwerster emotionaler Belastung die Neulebensgeschichte
+    stabil, keine Erinnerungen an die reale dringen in das Bewusstsein. Eine
+    Enttarnung ist so selbst unter Folter nahezu ausgeschlossen.
+
+    Eine Liste der Agenten findet sich unter AZ H2273-5/5.
+  </File>
+  <File Token="H2273-5/5">
+    Betreff: Agenten Unternehmen Fenrir
+
+    Agent A: Ulrich Katz -- Arthur West (Im Einsatz)
+    Agent B: Ernstfried Baader -- Jeremy Green (Verstorben)
+    Agent C: Hans-Wilhelm Berkhoff -- Jewgenij Schtscherbakow (Verstorben)
+    Agent D: Liselore Ehrenhaft -- Chloé Baffour (Wahnsinnig)
+    Agent E: Siegmar Scheller -- Daniel Thompson (Verstorben)
+    Agent F: Wolfgang Müller -- Pierre Vicedo (Enttarnt)
+    Agent G: Hartmann Schnitzler -- Franklin Kinmont (Verstorben)
+    Agent H: Josefine Köhler -- Helena MacLean (Im Einsatz)
+    Agent I: Susanne Mayer -- Marylin Shepherd (Wahnsinnig)
+    Agent J: Hilmar Wirth -- Dimitri Antonow (Verstorben)
+    Agent K: Veit Wahler -- [TODO: Charaktername Arto] (Im Einsatz)
+    Agent L: Bernhart Kober -- Mathéo Merdrignac (Verstorben)
+    Agent M: Helmut Stuhr -- [TODO: Charaktername Okko] (Im Einsatz)
+  </File>
+  <File Token="H9934-23/17">
+    Betreff: Projekt Siegfried
+
+    Die Herkunft des Panzers ist ungeklärt. Er scheint jedoch organischen
+    Ursprungs zu sein.
+
+    Die enorme Widerstandsfähigkeit bei seinem geringen Gewicht macht ihn zu
+    einem hervorragenden Verteidigungsmittel. Üblichen Gewehrkugeln, Hieb- und
+    Stichwaffen gelang es ist Versuchen nicht diesen zu durchdringen.
+
+    Darüber hinaus ist es in der Lage sich auf Beschädigungen hin selbst zu
+    regenerieren.
+
+    Forschungen über den Ursprung und Möglichkeiten des Nachbaus laufen.
+  </File>
+  <File Token="H3721-11/1">
+    Betreff: Projekt Mjöllnir
+
+    Ursprünglich aus russischen Beständen gewonnen wurde eine seltsames Gerät
+    dessen Nutzen geraume Zeit unklar war.
+
+    Ihre Form und Beschaffenheit verbargen lange, was nach intensiven
+    Forschungen ans Licht gebracht werden konnte.
+    Es handelte sich um eine Waffe, eine von unglaublicher Durchschlagskraft.
+
+    Forschungen um den Nachbau dieser laufen. Es ist gelungen Prototypen zu
+    entwickeln, welche von einem gewöhnlichen Soldaten nutzbar wären.
   </File>
 </Files>
