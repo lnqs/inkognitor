@@ -12,4 +12,11 @@
   <item name="&amp;" value=" " />
   <item name="-" value="-" />
   <item name="=" value=" " />
+  <item name="ä" value="ae" />
+  <item name="ö" value="oe" />
+  <item name="ü" value="ue" />
+  <item name="Ä" value="Ae" />
+  <item name="Ö" value="Oe" />
+  <item name="Ü" value="Ue" />
+  <item name="ß" value="ss" />
 </root>

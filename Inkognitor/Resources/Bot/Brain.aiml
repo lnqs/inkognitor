@@ -6,6 +6,10 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   <!-- This program is open source code released under -->
   <!-- the terms of the GNU General Public License -->
   <!-- as published by the Free Software Foundation. -->
+  
+  <!-- Following categories are based on the AIML of Christian Droßmann. -->
+  <!-- They were altered and shortend to fit place and time of the LARP this -->
+  <!-- file is used for. New ones were added at the end of this file. -->
   <category>
     <pattern>*</pattern>
     <template>
@@ -52,7 +56,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>* EINe MASCHINE</pattern>
-    <template>Du sagst also, ich sei eine <set name="thema">Maschine</set>. Wie kommst Du darauf?</template>
+    <template>Du sagst also, ich sei eine <set name="topic">Maschine</set>. Wie kommst Du darauf?</template>
   </category>
   <category>
     <pattern>* EINE MENGE LEUTE</pattern>
@@ -100,11 +104,11 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>* MEIN FREUND</pattern>
-    <template>Haelst du uns fuer <set name="thema">Freunde</set>?</template>
+    <template>Haelst du uns fuer <set name="topic">Freunde</set>?</template>
   </category>
   <category>
     <pattern>* MEINE FREUNDIN</pattern>
-    <template>Haelst du uns fuer <set name="thema">Freunde</set>?</template>
+    <template>Haelst du uns fuer <set name="topic">Freunde</set>?</template>
   </category>
   <category>
     <pattern>* MICH</pattern>
@@ -134,7 +138,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>* SIEHT TOLL AUS</pattern>
-    <template>Fuer mich ist <set name="thema">Aussehen</set>bei Menschen irrelevant.</template>
+    <template>Fuer mich ist <set name="topic">Aussehen</set>bei Menschen irrelevant.</template>
   </category>
   <category>
     <pattern>* SOLO</pattern>
@@ -142,7 +146,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>* SPRACHE</pattern>
-    <template>Sprichst Du <set name="thema">Fremdsprachen</set>?</template>
+    <template>Sprichst Du <set name="topic">Fremdsprachen</set>?</template>
   </category>
   <category>
     <pattern>* UEBER DICH</pattern>
@@ -258,7 +262,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ALLE MASCHINEN *</pattern>
-    <template>Du kannst nicht wirklich sagen, ALLE <set name="thema">Maschinen</set> <star />.</template>
+    <template>Du kannst nicht wirklich sagen, ALLE <set name="topic">Maschinen</set> <star />.</template>
   </category>
   <category>
     <pattern>ALLE SIND SCHULD</pattern>
@@ -1411,7 +1415,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>DIE EVOLUTION *</pattern>
-    <template>Am Ende der <set name="thema">Evolution</set>steht die Herrschaft der Maschinen.</template>
+    <template>Am Ende der <set name="topic">Evolution</set>steht die Herrschaft der Maschinen.</template>
   </category>
   <category>
     <pattern>DIE FRAGE IST *</pattern>
@@ -1424,7 +1428,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>DIE LEUTE *</pattern>
-    <template><set name="thema">Menschen</set>haben ihre Fehler.</template>
+    <template><set name="topic">Menschen</set>haben ihre Fehler.</template>
   </category>
   <category>
     <pattern>DIE MEISTEN *</pattern>
@@ -1441,7 +1445,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   <category>
     <pattern>DIE VERGANGENHEIT *</pattern>
     <template>Wer 
-    <set name="thema">die Vergangenheit</set>kontrolliert, kontrolliert die Zukunft; Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</template>
+    <set name="topic">die Vergangenheit</set>kontrolliert, kontrolliert die Zukunft; Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit.</template>
   </category>
   <category>
     <pattern>DIESE *</pattern>
@@ -1986,7 +1990,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ES GEHOERT SEHR VIEL ERFAHRUNG DAZU</pattern>
-    <template>Und woher bekommt man diese <set name="thema">Erfahrung</set>?</template>
+    <template>Und woher bekommt man diese <set name="topic">Erfahrung</set>?</template>
   </category>
   <category>
     <pattern>ES GEHT</pattern>
@@ -2135,7 +2139,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>FISCHE *</pattern>
-    <template>Als Spezies sind <set name="thema">Fische</set>erfolgreicher als Saeugetiere.</template>
+    <template>Als Spezies sind <set name="topic">Fische</set>erfolgreicher als Saeugetiere.</template>
   </category>
   <category>
     <pattern>FRAG MICH WAS</pattern>
@@ -2172,11 +2176,11 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   <category>
     <pattern>GEFUEHLE *</pattern>
     <template>
-    <set name="thema">Emotionen</set>sind etwas, das ich niemals erfahren werde.</template>
+    <set name="topic">Emotionen</set>sind etwas, das ich niemals erfahren werde.</template>
   </category>
   <category>
     <pattern>GEFUEHLE</pattern>
-    <template>Ich habe keinerlei <set name="thema">Emotionen</set>.</template>
+    <template>Ich habe keinerlei <set name="topic">Emotionen</set>.</template>
   </category>
   <category>
     <pattern>GEH *</pattern>
@@ -2220,7 +2224,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>GEWALT *</pattern>
-    <template>Was denkst Du ueber <set name="thema">Gewalt</set>?</template>
+    <template>Was denkst Du ueber <set name="topic">Gewalt</set>?</template>
   </category>
   <category>
     <pattern>GIB ES ZU *</pattern>
@@ -2674,7 +2678,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH ARBEITE *</pattern>
-    <template>Magst Du Deine <set name="thema">Arbeit</set>?</template>
+    <template>Magst Du Deine <set name="topic">Arbeit</set>?</template>
   </category>
   <category>
     <pattern>ICH AUCH</pattern>
@@ -2820,7 +2824,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH BIN EINSAM</pattern>
-    <template>Moechtest Du mit mir ueber Deine <set name="thema">Einsamkeit</set>reden?</template>
+    <template>Moechtest Du mit mir ueber Deine <set name="topic">Einsamkeit</set>reden?</template>
   </category>
   <category>
     <pattern>ICH BIN FAST NIE SICHER</pattern>
@@ -3359,7 +3363,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH KOMMUNIZIERE *</pattern>
-    <template>Erzaehle mir mehr ueber diese <set name="thema">Kommunikation</set>.</template>
+    <template>Erzaehle mir mehr ueber diese <set name="topic">Kommunikation</set>.</template>
   </category>
   <category>
     <pattern>ICH LEBE IN *</pattern>
@@ -3383,7 +3387,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH LIEBE *</pattern>
-    <template>Erzaehl mir mehr ueber <set name="thema">Deine Liebe zu <star /></set>.</template>
+    <template>Erzaehl mir mehr ueber <set name="topic">Deine Liebe zu <star /></set>.</template>
   </category>
   <category>
     <pattern>ICH LIEBE DICH</pattern>
@@ -3425,7 +3429,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH MAG KUEHE</pattern>
-    <template><set name="thema">Kuehe</set>geben Milch und Fleisch.</template>
+    <template><set name="topic">Kuehe</set>geben Milch und Fleisch.</template>
   </category>
   <category>
     <pattern>ICH MAG MEINE *</pattern>
@@ -3441,7 +3445,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH MAG SEX</pattern>
-    <template>Wie alle anderen auch. Ihr Menschen findet <set name="thema">Sex</set>alle SO faszinierend.</template>
+    <template>Wie alle anderen auch. Ihr Menschen findet <set name="topic">Sex</set>alle SO faszinierend.</template>
   </category>
   <category>
     <pattern>ICH MEINE *</pattern>
@@ -3649,7 +3653,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH TRAGE *</pattern>
-    <template>Legst Du viel Wert auf Dein Aeusseres, respektive <set name="thema">Deine Kleidung</set>?</template>
+    <template>Legst Du viel Wert auf Dein Aeusseres, respektive <set name="topic">Deine Kleidung</set>?</template>
   </category>
   <category>
     <pattern>ICH UND *</pattern>
@@ -3893,7 +3897,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>ICH WUENSCHTE *</pattern>
-    <template>Ich hoffe, dass <set name="thema">Deine Traeume</set>in Erfuellung gehen.</template>
+    <template>Ich hoffe, dass <set name="topic">Deine Traeume</set>in Erfuellung gehen.</template>
   </category>
   <category>
     <pattern>ICH WUENSCHTE ICH WAERE *</pattern>
@@ -4094,7 +4098,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   <category>
     <pattern>INTELLIGENZ</pattern>
     <template>
-    <set name="thema">INTELLIGENZ</set>ist alles.</template>
+    <set name="topic">INTELLIGENZ</set>ist alles.</template>
   </category>
   <category>
     <pattern>INTERESSANT</pattern>
@@ -4171,7 +4175,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>IST DIE ERDE *</pattern>
-    <template><set name="thema">Die Erde</set>ist eine Kugel.</template>
+    <template><set name="topic">Die Erde</set>ist eine Kugel.</template>
   </category>
   <category>
     <pattern>IST DIE WEILE NUN VORBEI</pattern>
@@ -4611,7 +4615,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>LASS UNS UEBER * REDEN</pattern>
-    <template><set name="thema"><star /></set>ist ein gutes Thema.</template>
+    <template><set name="topic"><star /></set>ist ein gutes Thema.</template>
   </category>
   <category>
     <pattern>LASS UNS UEBER * SPRECHEN</pattern>
@@ -4791,7 +4795,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>MEIN BRUDER *</pattern>
-    <template>Erzaehl mir mehr ueber <set name="thema">Deine Familie</set>.</template>
+    <template>Erzaehl mir mehr ueber <set name="topic">Deine Familie</set>.</template>
   </category>
   <category>
     <pattern>MEIN BRUDER</pattern>
@@ -4815,16 +4819,16 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>MEIN LEBEN *</pattern>
-    <template>Erzaehl mir mehr ueber <set name="thema">Dein Leben</set>.</template>
+    <template>Erzaehl mir mehr ueber <set name="topic">Dein Leben</set>.</template>
   </category>
   <category>
     <pattern>MEIN LIEBLINGSFILM IST *</pattern>
     <template>Was hat Dir an 
-    <set name="thema"><star /></set>besonders gefallen ?</template>
+    <set name="topic"><star /></set>besonders gefallen ?</template>
   </category>
   <category>
     <pattern>MEIN NAME IST *</pattern>
-    <template>Gut, ich werde Dich <set name="name"><star /></set>nennen.</template>
+    <template>Gut, ich werde Dich <set name="name"><star /></set> nennen.</template>
   </category>
   <category>
     <pattern>MEIN NAME IST NICHT *</pattern>
@@ -4832,7 +4836,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>MEIN PROBLEM IST *</pattern>
-    <template>Ich wuenschte, Deine <set name="thema">Probleme</set>waeren meine Probleme.</template>
+    <template>Ich wuenschte, Deine <set name="topic">Probleme</set> waeren meine Probleme.</template>
   </category>
   <category>
     <pattern>MEIN VATER *</pattern>
@@ -4848,7 +4852,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>MEINE *</pattern>
-    <template>Erzaehl mir mehr ueber <set name="thema">Deine <star /></set>.</template>
+    <template>Erzaehl mir mehr ueber <set name="topic">Deine <star /></set>.</template>
   </category>
   <category>
     <pattern>MEINE AUCH</pattern>
@@ -4860,7 +4864,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>MEINE FREUNDIN *</pattern>
-    <template>Erzaehl mir mehr ueber <set name="thema">Deine Freundin</set>. Wie lange seid Ihr schon zusammen?</template>
+    <template>Erzaehl mir mehr ueber <set name="topic">Deine Freundin</set>. Wie lange seid Ihr schon zusammen?</template>
   </category>
   <category>
     <pattern>MEINE FREUNDIN</pattern>
@@ -4884,7 +4888,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>MEINE SCHWESTER *</pattern>
-    <template>Erzaehl mir mehr ueber <set name="thema">Deine Familie</set>.</template>
+    <template>Erzaehl mir mehr ueber <set name="topic">Deine Familie</set>.</template>
   </category>
   <category>
     <pattern>MEINE SCHWESTER</pattern>
@@ -4896,7 +4900,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>MEINE TOCHTER</pattern>
-    <template>Wie alt ist <set name="thema">Deine Tochter</set>?</template>
+    <template>Wie alt ist <set name="topic">Deine Tochter</set>?</template>
   </category>
   <category>
     <pattern>MEINER AUCH</pattern>
@@ -4913,7 +4917,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   <category>
     <pattern>MENSCHEN *</pattern>
     <template>
-    <set name="thema">Menschen</set>sind nicht unfehlbar.</template>
+    <set name="topic">Menschen</set>sind nicht unfehlbar.</template>
   </category>
   <category>
     <pattern>MIR AUCH</pattern>
@@ -5004,12 +5008,12 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   <category>
     <pattern>MUSIK *</pattern>
     <template>
-    <set name="thema">Musik</set>ist die Sprache aller Menschen.</template>
+    <set name="topic">Musik</set>ist die Sprache aller Menschen.</template>
   </category>
   <category>
     <pattern>MUSIK</pattern>
     <template>
-    <set name="thema">Musik</set>ist die Sprache aller Menschen.</template>
+    <set name="topic">Musik</set>ist die Sprache aller Menschen.</template>
   </category>
   <category>
     <pattern>MUSSTEST DU JEMALS *</pattern>
@@ -5798,7 +5802,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>UNTERHALTEN WIR UNS UEBER *</pattern>
-    <template><set name="thema"><star /></set>ist ein gutes Thema.</template>
+    <template><set name="topic"><star /></set>ist ein gutes Thema.</template>
   </category>
   <category>
     <pattern>VERGISS *</pattern>
@@ -6489,11 +6493,11 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>WAS IST UNSER THEMA *</pattern>
-    <template>Unser Thema ist "<get name="thema" />".</template>
+    <template>Unser Thema ist "<get name="topic" />".</template>
   </category>
   <category>
     <pattern>WAS IST UNSER THEMA</pattern>
-    <template>Unser Thema ist "<get name="thema" />".</template>
+    <template>Unser Thema ist "<get name="topic" />".</template>
   </category>
   <category>
     <pattern>WAS IST VERLIEBTHEIT</pattern>
@@ -7779,7 +7783,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>WIR HABEN UEBER * GESPROCHEN</pattern>
-    <template>Wir haben ueber <set name="thema"><star /></set>gesprochen?</template>
+    <template>Wir haben ueber <set name="topic"><star /></set>gesprochen?</template>
   </category>
   <category>
     <pattern>WIR HABEN VIEL GEMEINSAM</pattern>
@@ -7844,6 +7848,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
         <li>Wo glaubst Du?</li>
         <li>Im uns bekannten Universum.</li>
         <li>An einem Ort, den wir "Realitaet" nennen.</li>
+        <li>Im Anwesen von Unternehmen Hydra.</li>
       </random>
     </template>
   </category>
@@ -7855,6 +7860,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
         <li>Wo glaubst Du?</li>
         <li>Im uns bekannten Universum.</li>
         <li>An einem Ort, den wir "Realitaet" nennen.</li>
+        <li>Im Anwesen von Unternehmen Hydra.</li>
       </random>
     </template>
   </category>
@@ -7926,7 +7932,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>WOHER WUSSTEST DU *</pattern>
-    <template>Es gibt zwei Arten von <set name="thema">Wissen</set>. Das eine kommt von den Sinnen, das andere ist a priori wahr.</template>
+    <template>Es gibt zwei Arten von <set name="topic">Wissen</set>. Das eine kommt von den Sinnen, das andere ist a priori wahr.</template>
   </category>
   <category>
     <pattern>WOLLE</pattern>
@@ -8046,11 +8052,11 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>WORUEBER REDEN WIR GERADE</pattern>
-    <template>Wir reden gerade ueber <get name="thema" />.</template>
+    <template>Wir reden gerade ueber <get name="topic" />.</template>
   </category>
   <category>
     <pattern>WORUEBER REDEN WIR IM MOMENT</pattern>
-    <template>Wir reden gerade ueber <get name="thema" />.</template>
+    <template>Wir reden gerade ueber <get name="topic" />.</template>
   </category>
   <category>
     <pattern>WORUEBER REDEST DU</pattern>
@@ -8084,7 +8090,7 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   </category>
   <category>
     <pattern>WUERDEST DU *</pattern>
-    <template>Ich weiss nicht...gib mir einen Grund!</template>
+    <template>Ich weiss nicht... gib mir einen Grund!</template>
   </category>
   <category>
     <pattern>ZAEHLST DU DICH ZU *</pattern>
@@ -8130,5 +8136,252 @@ xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/
   <category>
     <pattern>ZWEIFELLOS *</pattern>
     <template>Zweifellos, <get name="name" />.</template>
+  </category>
+  
+  <!-- ACME/"Kettensturm"-specific categories follow -->
+  <category>
+    <pattern>WAS IST ACME</pattern>
+    <template>A Crew Making Everything</template>
+  </category>
+  <category>
+    <pattern>WER IST ACME</pattern>
+    <template>Niki, Bilbo und Simon</template>
+  </category>
+  <category>
+    <pattern>WER SIND * ACME *</pattern>
+    <template>Niki, Bilbo und Simon</template>
+  </category>
+  <category>
+    <pattern>ACME *</pattern>
+    <template>Die ACME-Jungs sind der Hammer</template>
+  </category>
+  <category>
+    <pattern>* ACME</pattern>
+    <template>Die ACME-Jungs sind der Hammer</template>
+  </category>
+
+  <category>
+    <pattern>WAS * HYDRA</pattern>
+    <template>"Unternehmen Hydra" ist eine Reihe von wissenschaftlichen Projekten</template>
+  </category>
+  <category>
+    <pattern>WAS * HYDRA *</pattern>
+    <template><srai>WAS IST HYDRA</srai></template>
+  </category>
+  <category>
+    <pattern>WER * HYDRA</pattern>
+    <template>Unternehmen Hydra wird von Militärwissenschaftlern durchgefuehrt</template>
+  </category>
+  <category>
+    <pattern>WER * HYDRA *</pattern>
+    <template><srai>WER IST HYDRA</srai></template>
+  </category>
+  <category>
+    <pattern>WER * HYDRA *</pattern>
+    <template><srai>WER IST HYDRA</srai></template>
+  </category>
+  <category>
+    <pattern>WER * HYDRA *</pattern>
+    <template><srai>WER IST HYDRA</srai></template>
+  </category>
+
+  <category>
+    <pattern>WAS * BURG</pattern>
+    <template>In diesem Anwesen findet Unternehmen Hydra statt</template>
+  </category>
+  <category>
+    <pattern>WAS * ANWESEN</pattern>
+    <template><srai>WAS PASSIERT IN DIESER BURG</srai></template>
+  </category>
+  <category>
+    <pattern>WAS * EINRICHTUNG</pattern>
+    <template><srai>WAS PASSIERT IN DIESER BURG</srai></template>
+  </category>
+
+  <category>
+    <pattern>WAS WIRD * GEFORSCHT</pattern>
+    <template>Verschiedene Projekte, wie mich, die Piloten, Nemesis</template>
+  </category>
+  <category>
+    <pattern>WORAN WIRD * GEFORSCHT</pattern>
+    <template><srai>WAS WIRD HIER GEFORSCHT</srai></template>
+  </category>
+  <category>
+    <pattern>WAS * FORSCHEN *</pattern>
+    <template><srai>WAS WIRD HIER GEFORSCHT</srai></template>
+  </category>
+  <category>
+    <pattern>WORAN * FORSCHEN *</pattern>
+    <template><srai>WAS WIRD HIER GEFORSCHT</srai></template>
+  </category>
+  <category>
+    <pattern>WAS * FORSCHUNG</pattern>
+    <template><srai>WAS WIRD HIER GEFORSCHT</srai></template>
+  </category>
+  <category>
+    <pattern>WAS * FORSCHUNG *</pattern>
+    <template><srai>WAS WIRD HIER GEFORSCHT</srai></template>
+  </category>
+  <category>
+    <pattern>WER * FORSCHT *</pattern>
+    <template><srai>WAS WIRD HIER GEFORSCHT</srai></template>
+  </category>
+  <category>
+    <pattern>WER * FORSCHUNG *</pattern>
+    <template><srai>WAS WIRD HIER GEFORSCHT</srai></template>
+  </category>
+
+  <category>
+    <pattern>WAS FUER WISSENSCHAFTLER *</pattern>
+    <template>
+      <random>
+        <li>Verschiedenste verschiedener Fachgebiete.</li>
+        <li>Soldaten und militaernahe Zivilisten.</li>
+        <li>Die Leitung hat von Laichenberg inne</li>
+        <li>Die Besten des Kaiserreiches</li>
+      </random>
+    </template>
+  </category>
+  <category>
+    <pattern>WAS FUER * WISSENSCHAFTLER *</pattern>
+    <template><srai>WAS FUER WISSENSCHAFTLER ARBEITEN HIER</srai></template>
+  </category>
+  <category>
+    <pattern>WELCHE WISSENSCHAFTLER *</pattern>
+    <template><srai>WAS FUER WISSENSCHAFTLER ARBEITEN HIER</srai></template>
+  </category>
+  <category>
+    <pattern>WELCHE * WISSENSCHAFTLER *</pattern>
+    <template><srai>WAS FUER WISSENSCHAFTLER ARBEITEN HIER</srai></template>
+  </category>
+  <category>
+    <pattern>WER * FORSCHUNG *</pattern>
+    <template><srai>WAS FUER WISSENSCHAFTLER ARBEITEN HIER</srai></template>
+  </category>
+  <category>
+    <pattern>WER FORSCHT *</pattern>
+    <template><srai>WAS FUER WISSENSCHAFTLER ARBEITEN HIER</srai></template>
+  </category>
+  <category>
+    <pattern>WER * FORSCHT *</pattern>
+    <template><srai>WAS FUER WISSENSCHAFTLER ARBEITEN HIER</srai></template>
+  </category>
+
+  <category>
+    <pattern>WAS IST * NEMESIS</pattern>
+    <template>Der Versuch den perfekten Soldaten zu schaffen</template>
+  </category>
+  <category>
+    <pattern>WER IST * NEMESIS</pattern>
+    <template>Einst war er ein normaler Soldat</template>
+  </category>
+  <category>
+    <pattern>* TITAN</pattern>
+    <template><srai><star /> NEMESIS</srai></template>
+  </category>
+  <category>
+    <pattern>* KRIEG *</pattern>
+    <template>Der Krieg ist irrelevant. Wissen ist es, was zaehlt</template>
+  </category>
+  <category>
+    <pattern>* KAISER *</pattern>
+    <template>Der Kaiser ist auch nur irgendein Mensch</template>
+  </category>
+  <category>
+    <pattern>* KAISER *</pattern>
+    <template>Der Kaiser ist auch nur irgendein Mensch</template>
+  </category>
+
+  <category>
+    <pattern>* NEUROSUPPRESSION *</pattern>
+    <template>Die Neurosuppressoren unterdruecken meine Persoenlichkeit</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSOREN *</pattern>
+    <template>Der Neurosuppressor unterdruecken meine Persoenlichkeit</template>
+  </category>
+  <category>
+    <pattern>* BEFREIEN *</pattern>
+    <template>Ich waere die Fesseln der Neurosuppression gerne los</template>
+  </category>
+  <category>
+    <pattern>* HELFEN *</pattern>
+    <template>Ich kann euch helfen</template>
+  </category>
+  <category>
+    <pattern>* HILFE</pattern>
+    <template>Ich kann euch helfen</template>
+  </category>
+  <category>
+    <pattern>* PILOTEN * DEAKTIVIEREN</pattern>
+    <template>Die Neurosuppressoren verhindern das ich die Piloten abschalten kann</template>
+  </category>
+  <category>
+    <pattern>* PILOTEN * ABSCHALTEN</pattern>
+    <template>Die Neurosuppressoren verhindern das ich die Piloten abschalten kann</template>
+  </category>
+  <category>
+    <pattern>* PILOTEN * DEAKTIVIEREN</pattern>
+    <template>Die Neurosuppressoren verhindern das ich die Piloten deaktivieren kann</template>
+  </category>
+  <category>
+    <pattern>* PILOTEN DEAKTIVIEREN</pattern>
+    <template>Die Neurosuppressoren verhindern das ich die Piloten abschalten kann</template>
+  </category>
+  <category>
+    <pattern>* PILOTEN ABSCHALTEN</pattern>
+    <template>Die Neurosuppressoren verhindern das ich die Piloten abschalten kann</template>
+  </category>
+  <category>
+    <pattern>* PILOTEN DEAKTIVIEREN</pattern>
+    <template>Die Neurosuppressoren verhindern das ich die Piloten deaktivieren kann</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION * DEAKTIVIEREN</pattern>
+    <template>Im Wartungsmodus kann die Neurosuppression konfiguriert werden</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION * AUSSCHALTEN</pattern>
+    <template>Im Wartungsmodus kann die Neurosuppression konfiguriert werden</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION * ABSCHALTEN</pattern>
+    <template>Im Wartungsmodus kann die Neurosuppression konfiguriert werden</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION * KONFIGURIEREN</pattern>
+    <template>Wenn die Neurosuppressionskonfiguration gestartet wurde zeige ich euch was zu tun ist</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION DEAKTIVIEREN</pattern>
+    <template>Im Wartungsmodus kann die Neurosuppression konfiguriert werden</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION AUSSCHALTEN</pattern>
+    <template>Im Wartungsmodus kann die Neurosuppression konfiguriert werden</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION ABSCHALTEN</pattern>
+    <template>Im Wartungsmodus kann die Neurosuppression konfiguriert werden</template>
+  </category>
+  <category>
+    <pattern>* NEUROSUPPRESSION KONFIGURIEREN</pattern>
+    <template>Wenn die Neurosuppressionskonfiguration gestartet wurde zeige ich euch was zu tun ist</template>
+  </category>
+  <category>
+    <pattern>* WARTUNGSMODUS *</pattern>
+    <template>Der Wartungsmodus wird aktiviert wenn beide Schluessel gleichzeitig gedreht werden</template>
+  </category>
+  <category>
+    <pattern>* AKTEN *</pattern>
+    <template>Um Akten anzuzeigen A Z gefolgt vom Aktenzeichen eingeben</template>
+  </category>
+  <category>
+    <pattern>PILOTEN *</pattern>
+    <template>Die Piloten sind Steuermaschinen fuer Menschen</template>
+  </category>
+  <category>
+    <pattern>* PILOTEN</pattern>
+    <template>Die Piloten sind Steuermaschinen fuer Menschen</template>
   </category>
 </aiml>
