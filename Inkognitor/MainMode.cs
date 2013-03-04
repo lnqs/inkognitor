@@ -43,17 +43,25 @@ namespace Inkognitor
                     logger.ChatLog.Log("No such file: {0}", token);
                 }
             }
-            else if (BotMayAnswer)
+            else
             {
-                string response = personality.Respond(e.Text);
                 logger.ChatLog.Log("User: {0}", e.Text);
-                logger.ChatLog.Log("Inkognitor: {0}", response);
+                if (BotMayAnswer)
+                {
+                    string response = personality.Respond(e.Text);
+                    logger.ChatLog.Log("Inkognitor: {0}", response);
+                }
             }
         }
 
         [CommandListener("say", Description = "Outputs text via the speech-synthesizer")]
         private void Say(string text)
         {
+            if (logger != null)
+            {
+                logger.ChatLog.Log("Inkognitor: (manual) {0}", text);
+            }
+
             personality.Say(text);
         }
 
