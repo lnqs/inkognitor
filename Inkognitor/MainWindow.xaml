@@ -6,17 +6,17 @@
     <Window.Resources>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Control.Foreground" Value="Green" />
-            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#Balls on the Rampage" />
+            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#SquareFont" />
             <Setter Property="TextElement.FontSize" Value="24" />
         </Style>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Control.Foreground" Value="Green" />
-            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#Balls on the Rampage" />
+            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#SquareFont" />
             <Setter Property="TextElement.FontSize" Value="24" />
         </Style>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="Control.Foreground" Value="Green" />
-            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#Balls on the Rampage" />
+            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#SquareFont" />
             <Setter Property="TextElement.FontSize" Value="24" />
         </Style>
     </Window.Resources>
