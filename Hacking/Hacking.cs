@@ -95,23 +95,29 @@ namespace Hacking
 
         public void Reset()
         {
-            dispatcherQueue.Enqueue(() =>
+            lock (dispatcherQueue)
             {
-                SetLevel(1);
-                codeArea.Cursor.GridX = 0;
-                codeArea.Cursor.GridY = 1;
-                SetInfoText("");
-            });
+                dispatcherQueue.Enqueue(() =>
+                {
+                    SetLevel(1);
+                    codeArea.Cursor.GridX = 0;
+                    codeArea.Cursor.GridY = 1;
+                    SetInfoText("");
+                });
+            }
         }
 
         public void Quit()
         {
             suspensionMutex.ReleaseMutex();
 
-            dispatcherQueue.Enqueue(() =>
+            lock (dispatcherQueue)
             {
-                Events.QuitApplication();
-            });
+                dispatcherQueue.Enqueue(() =>
+                {
+                    Events.QuitApplication();
+                });
+            }
         }
 
         public void Suspend()
@@ -126,19 +132,36 @@ namespace Hacking
 
         public void ShowWindow()
         {
-            dispatcherQueue.Enqueue(() =>
+            lock (dispatcherQueue)
             {
-                ShowWindow(Video.WindowHandle, 9);
-                SetForegroundWindow(Video.WindowHandle);
-            });
+                dispatcherQueue.Enqueue(() =>
+                {
+                    ShowWindow(Video.WindowHandle, 9);
+                    SetForegroundWindow(Video.WindowHandle);
+                });
+            }
         }
 
         public void HideWindow()
         {
-            dispatcherQueue.Enqueue(() =>
+            lock (dispatcherQueue)
             {
-                ShowWindow(Video.WindowHandle, 0);
-            });
+                dispatcherQueue.Enqueue(() =>
+                {
+                    ShowWindow(Video.WindowHandle, 0);
+                });
+            }
+        }
+
+        public void ForceError(string message)
+        {
+            lock (dispatcherQueue)
+            {
+                dispatcherQueue.Enqueue(() =>
+                {
+                    PerformError(message);
+                });
+            }
         }
 
         private void SetLevel(int level_)
@@ -192,8 +215,13 @@ namespace Hacking
 
         private void HandleWrongBlockSelected(object sender, EventArgs e)
         {
+            PerformError("Fehler!"); // TODO: Shouldn't be hardcoded
+        }
+
+        private void PerformError(string message)
+        {
             errors += 1;
-            SetInfoText("Fehler!", true); // TODO: Shouldn't be hardcoded
+            SetInfoText(message, true);
 
             if (errors > MaxErrors)
             {
@@ -204,10 +232,7 @@ namespace Hacking
 
         private void HandleTick(object sender, TickEventArgs e)
         {
-            if (dispatcherQueue.Count > 0)
-            {
-                dispatcherQueue.Dequeue()();
-            }
+            DispatcherQueueWork();
 
             // time-bound to give the framework the chance to update the window now and then
             if (suspensionMutex.WaitOne(500))
@@ -235,6 +260,28 @@ namespace Hacking
                 {
                     suspensionMutex.ReleaseMutex();
                 }
+            }
+        }
+
+        private void DispatcherQueueWork()
+        {
+            while (true)
+            {
+                Action action = null;
+
+                lock (dispatcherQueue)
+                {
+                    if (dispatcherQueue.Count > 0)
+                    {
+                        action = dispatcherQueue.Dequeue();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                action();
             }
         }
 

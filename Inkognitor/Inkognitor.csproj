@@ -70,6 +70,7 @@
     <Compile Include="PercentageConverter.cs" />
     <Compile Include="PrintingTimer.cs" />
     <Compile Include="EffectApplyingWaveMemoryStream.cs" />
+    <Compile Include="SwitchGame.cs" />
     <Compile Include="WaitMode.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

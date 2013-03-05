@@ -13,12 +13,11 @@ namespace Inkognitor
         private MainWindow mainWindow;
         private HackingGame hackingGame;
         private Thread gameThread;
-        private ArduinoConnector arduino;
+        private SwitchGame switchGame;
 
-        public HackingMode(MainWindow window, ArduinoConnector arduino_, Logger logger, Files files)
+        public HackingMode(MainWindow window, ArduinoConnector arduino, Logger logger, Files files)
         {
             mainWindow = window;
-            arduino = arduino_;
 
             hackingGame = new HackingGame(
                     (int)SystemParameters.PrimaryScreenWidth,
@@ -31,6 +30,9 @@ namespace Inkognitor
 
             hackingGame.Suspend();
             hackingGame.HideWindow();
+
+            switchGame = new SwitchGame(arduino);
+            switchGame.MistakeMade += HandleSwitchGameMistakeMade;
         }
 
         public event ModeFinishedHandler ModeFinished;
@@ -42,12 +44,14 @@ namespace Inkognitor
             hackingGame.Reset();
             hackingGame.Resume();
             hackingGame.ShowWindow();
+            switchGame.Start();
             mainWindow.Hide();
         }
 
         public void Exit()
         {
             mainWindow.Show();
+            switchGame.Stop();
             hackingGame.Suspend();
             hackingGame.HideWindow();
         }
@@ -64,6 +68,15 @@ namespace Inkognitor
             {
                 ModeFinished.Invoke(this, EventArgs.Empty);
             }
+            else
+            {
+                switchGame.Level = e.Level;
+            }
+        }
+
+        private void HandleSwitchGameMistakeMade(object sender, EventArgs e)
+        {
+            hackingGame.ForceError("Neuronetzhandsteuerungsmisskonfiguration!"); // TODO: Shouldn't be hardcoded
         }
 
         public void Dispose()
