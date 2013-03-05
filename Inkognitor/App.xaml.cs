@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Windows;
+using SerialIO;
 
 namespace Inkognitor
 {
@@ -12,12 +14,34 @@ namespace Inkognitor
         private Logger logger = new Logger();
         private Files files = new Files();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
-        private IMode[] modes = new IMode[] { new BrokenMode(), new MainMode(), new WaitMode(),
-                new MaintainanceMode(), new HackingMode(), new EndMode() };
+        private IMode[] modes;
         private int currentMode = 0;
+        private ArduinoConnector arduino;
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            try
+            {
+                arduino = new ArduinoConnector();
+            }
+            catch (IOException exception)
+            {
+                MessageBox.Show(String.Format("Failed to connect to Arduino: {0}\n\n" +
+                                              "Inkognitor will start, but no hardware " +
+                                              "events can be received", exception.Message),
+                    "Arduino-connection failed",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+            modes = new IMode[] {
+                new BrokenMode(window, arduino, logger, files),
+                new MainMode(window, arduino, logger, files),
+                new WaitMode(window, logger, files),
+                new MaintainanceMode(window, logger, files),
+                new HackingMode(window, arduino, logger, files),
+                new EndMode(window, logger, files)
+            };
+
             window.Closed += HandleWindowClosed;
 
             foreach (IMode mode in modes)
@@ -28,7 +52,9 @@ namespace Inkognitor
             commandInterface.AddListener(this);
             (commandInterface.Provider as CommandServer).Start();
 
-            modes[currentMode].Enter(window, logger, files);
+            modes[currentMode].Enter();
+
+            window.Show();
         }
 
         [CommandListener("next_mode", Description="Enter the next mode")]
@@ -40,7 +66,7 @@ namespace Inkognitor
             }
         }
 
-        [CommandListener("prev_mode", Description = "Enter the revious mode")]
+        [CommandListener("prev_mode", Description = "Enter the previous mode")]
         private void PrevMode()
         {
             if (currentMode > 0)
@@ -61,7 +87,7 @@ namespace Inkognitor
             {
                 modes[currentMode].Exit();
                 currentMode = mode;
-                modes[currentMode].Enter(window, logger, files);
+                modes[currentMode].Enter();
             }));
         }
 

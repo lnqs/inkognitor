@@ -1,15 +1,18 @@
 ﻿using System;
 using System.IO;
+using SerialIO;
 
 namespace Inkognitor
 {
     public class MainMode : MainWindowMode, IDisposable
     {
         private Personality<MemoryStream> personality = new Personality<MemoryStream>();
-        private Files files;
+        private ArduinoConnector arduino;
 
-        public MainMode()
+        public MainMode(MainWindow window, ArduinoConnector arduino_, Logger logger, Files files)
+            : base(window, logger, files)
         {
+            arduino = arduino_;
             BotMayAnswer = false;
         }
         
@@ -18,10 +21,24 @@ namespace Inkognitor
 
         public override string Name { get { return "Main"; } }
 
-        public override void Enter(MainWindow window, Logger logger, Files files_)
+        public override void Enter()
         {
-            files = files_;
-            base.Enter(window, logger, files_);
+            base.Enter();
+
+            if (arduino != null)
+            {
+                arduino.KeysTurned += HandleKeysTurned;
+            }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            if (arduino != null)
+            {
+                arduino.KeysTurned -= HandleKeysTurned;
+            }
         }
 
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)
@@ -52,6 +69,11 @@ namespace Inkognitor
                     logger.ChatLog.Log("Inkognitor: {0}", response);
                 }
             }
+        }
+
+        private void HandleKeysTurned(object sender, EventArgs e)
+        {
+            FireFinishedEvent();
         }
 
         [CommandListener("say", Description = "Outputs text via the speech-synthesizer")]

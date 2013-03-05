@@ -10,7 +10,7 @@ namespace Inkognitor
 
         string Name { get; }
 
-        void Enter(MainWindow window, Logger logger, Files files);
+        void Enter();
         void Exit();
         void Quit();
     }

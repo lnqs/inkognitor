@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace Inkognitor
 {
     public class MaintainanceMode : MainWindowMode
     {
-        private Files files;
         private Command activeCommand;
+
+        public MaintainanceMode(MainWindow window, Logger logger, Files files) : base(window, logger, files) { }
 
         public override string Name { get { return "Maintainance"; } }
         public override string DefaultText { get { return CommandNames; } }
         private string CommandNames
         {
             get { return String.Join("\n", files.MaintainanceCommandNames); }
-        }
-
-        public override void Enter(MainWindow window, Logger logger, Files files_)
-        {
-            files = files_;
-            base.Enter(window, logger, files_);
         }
 
         protected override void HandleUserInput(object sender, MainWindow.TextEnteredEventArgs e)

@@ -136,6 +136,10 @@
       <Project>{9276E761-D5B3-4A07-BC37-213CE62C66F2}</Project>
       <Name>Hacking</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SerialIO\SerialIO.csproj">
+      <Project>{945D1981-8596-4258-BB42-7A060954B277}</Project>
+      <Name>SerialIO</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Bot\DefaultPredicates.xml">

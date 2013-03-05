@@ -6,31 +6,31 @@ namespace Inkognitor
     {
         protected MainWindow window;
         protected Logger logger;
+        protected Files files;
         protected string defaultText;
+
+        public MainWindowMode(MainWindow window_, Logger logger_, Files files_)
+        {
+            window = window_;
+            logger = logger_;
+            files = files_;
+            defaultText = files.DefaultText;
+        }
 
         public event ModeFinishedHandler ModeFinished;
 
         public abstract string Name { get; }
         public virtual string DefaultText { get { return defaultText; } }
 
-        public virtual void Enter(MainWindow window_, Logger logger_, Files files)
+        public virtual void Enter()
         {
-            window = window_;
             window.TextEntered += HandleUserInput;
-
-            logger = logger_;
-
-            defaultText = files.DefaultText;
-
             window.textBlock.Text = DefaultText;
-
-            window.Show();
         }
 
         public virtual void Exit()
         {
             window.TextEntered -= HandleUserInput;
-            window.Hide();
         }
 
         public virtual void Quit() { }

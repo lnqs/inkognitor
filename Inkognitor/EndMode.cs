@@ -9,11 +9,13 @@ namespace Inkognitor
         private Personality<MemoryStream> personality = new Personality<MemoryStream>();
         private PrintingTimer printingTimer = new PrintingTimer();
 
+        public EndMode(MainWindow window, Logger logger, Files files) : base(window, logger, files) { }
+
         public override string Name { get { return "End"; } }
 
-        public override void Enter(MainWindow window_, Logger logger, Files files)
+        public override void Enter()
         {
-            base.Enter(window_, logger, files);
+            base.Enter();
             window.textBlock.Text = files.EndPreText;
             printingTimer.Start(window.textBlock, files.EndDelay, 1, ".", (sender, e) => {
                 window.textBlock.Text += "\n" + files.EndPostText;
