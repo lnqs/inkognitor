@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Game x="0" y="0" width="2048" height="1572">
-  <BlockIndicator x="585" y="144" width="400" height="200" />
-  <HitsLeftIndicator x="1700" y="190" width="150" height="100" />
-  <CodeArea x="212" y="374" width="1594" height="994">
+<Game x="0" y="0" width="1024" height="768">
+  <BlockIndicator x="292" y="72" width="200" height="100" />
+  <HitsLeftIndicator x="850" y="85" width="75" height="50" />
+  <CodeArea x="106" y="187" width="797" height="480">
     <Grid width="4" height="6" />
-    <Block width="400" height="200" />
+    <Block width="200" height="97" />
   </CodeArea>
-  <StatusArea x="216" y="1379" width="1588" height="65" />
+  <StatusArea x="108" y="673" width="794" height="32" />
 </Game>

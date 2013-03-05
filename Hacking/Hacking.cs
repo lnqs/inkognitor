@@ -16,8 +16,8 @@ namespace Hacking
         private const string WindowName = "Inkognitor";
         private const string BackgroundFile = "Resources/Game/Background.png";
         private const string FontFile = "Resources/GUI/Font.ttf";
-        private const double HitsLeftFontSize = 120.0f;
-        private const double StatusFontSize = 60.0f;
+        private const double HitsLeftFontSize = 50.0f;
+        private const double StatusFontSize = 25.0f;
         private const int HitsPerLevel = 10;
         private const int MaxErrors = 3;
 
@@ -52,11 +52,14 @@ namespace Hacking
                 background = sourceSurface.CreateScaledSurface(layout.Scale);
             }
 
-            codeArea = new CodeArea(layout.CodeBlockCount, layout.CodeArea, layout.CodeBlockSize);
+            Surface codeAreaBackground = new Surface(layout.CodeArea);
+            codeAreaBackground.Blit(background, new Point(0, 0), layout.CodeArea.NegativeTranslated(layout.Offset));
+            codeArea = new CodeArea(layout.CodeBlockCount, layout.CodeArea, layout.CodeBlockSize, codeAreaBackground);
 
             hitsLeftDisplay = new TextSprite(new SdlDotNet.Graphics.Font(
                     FontFile, (int)(HitsLeftFontSize * layout.Scale)));
             hitsLeftDisplay.Position = layout.HitsLeftIndicator.Location;
+            hitsLeftDisplay.Color = Color.Black;
             statusDisplay = new TextSprite(new SdlDotNet.Graphics.Font(
                     FontFile, (int)(StatusFontSize * layout.Scale)));
 
@@ -163,11 +166,11 @@ namespace Hacking
         {
             if (warning)
             {
-                statusDisplay.Color = Color.IndianRed;
+                statusDisplay.Color = Color.Red;
             }
             else
             {
-                statusDisplay.Color = Color.DarkGray;
+                statusDisplay.Color = Color.Black;
             }
             statusDisplay.Text = message;
             statusDisplay.Center = layout.StatusArea.Center();

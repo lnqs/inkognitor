@@ -10,13 +10,15 @@ namespace Hacking
         private CodeBlockPersonalities blockPersonalities;
         private CodeBlockGrid blocks;
         private Cursor cursor;
+        private Surface background;
         private Surface surface;
 
         private Random random = new Random();
 
-        public CodeArea(Size blockCount, Rectangle area, Size blockSize)
+        public CodeArea(Size blockCount, Rectangle area, Size blockSize, Surface background_)
         {
             blockPersonalities = new CodeBlockPersonalities(blockSize);
+            background = background_;
             surface = new Surface(area);
             blocks = new CodeBlockGrid(blockCount.Width, blockCount.Height, area.Size, blockSize, blockPersonalities);
 
@@ -50,7 +52,7 @@ namespace Hacking
             blocks.Update(e);
             cursor.Position = blocks[cursor.GridX, cursor.GridY].Position;
 
-            surface.Fill(Color.Black); // No transparency here, it's too slow
+            surface.Blit(background);
             foreach (CodeBlock block in blocks)
             {
                 surface.Blit(block.Surface, block.Position);
@@ -165,6 +167,7 @@ namespace Hacking
             blocks.Dispose();
             cursor.Dispose();
             surface.Dispose();
+            background.Dispose();
             GC.SuppressFinalize(this);
         }
     }
