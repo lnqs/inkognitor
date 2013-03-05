@@ -34,15 +34,32 @@ namespace Inkognitor
 
         private void inputBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key.Equals(Key.Up))
+            if (e.Key.Equals(Key.OemComma))
+            {
+                // Work around problem with the keyboard to be used
+                inputBox.Text += ".";
+                inputBox.CaretIndex = Int32.MaxValue;
+                e.Handled = true;
+            }
+            else if (e.Key.Equals(Key.Up))
             {
                 double offset = scrollViewer.VerticalOffset - ScrollingSpeed;
                 scrollViewer.ScrollToVerticalOffset(offset);
+                e.Handled = true;
             }
             else if (e.Key.Equals(Key.Down))
             {
                 double offset = scrollViewer.VerticalOffset + ScrollingSpeed;
-                scrollViewer.ScrollToVerticalOffset(offset);   
+                scrollViewer.ScrollToVerticalOffset(offset);
+                e.Handled = true;
+            }
+            else if (e.Key.Equals(Key.Left))
+            {
+                e.Handled = true;
+            }
+            else if (e.Key.Equals(Key.Right))
+            {
+                e.Handled = true;
             }
         }
 
