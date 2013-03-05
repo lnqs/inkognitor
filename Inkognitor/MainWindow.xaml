@@ -1,35 +1,43 @@
 ﻿<Window x:Class="Inkognitor.MainWindow"
+        xmlns:l="clr-namespace:Inkognitor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Inkognitor" Cursor="None" Loaded="Window_Loaded"
         Background="Black" WindowStyle="None" WindowState="Maximized">
     <Window.Resources>
+        <l:PercentageConverter x:Key="PercentageConverter"/>
         <Style TargetType="{x:Type Label}">
-            <Setter Property="Control.Foreground" Value="Green" />
-            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#SquareFont" />
+            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#Seagram tfb" />
             <Setter Property="TextElement.FontSize" Value="24" />
         </Style>
         <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="Control.Foreground" Value="Green" />
-            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#SquareFont" />
+            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#Seagram tfb" />
             <Setter Property="TextElement.FontSize" Value="24" />
         </Style>
         <Style TargetType="{x:Type TextBox}">
-            <Setter Property="Control.Foreground" Value="Green" />
-            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#SquareFont" />
+            <Setter Property="TextElement.FontFamily" Value="Resources/GUI/#Seagram tfb" />
             <Setter Property="TextElement.FontSize" Value="24" />
         </Style>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel Name="dockPanel">
         <DockPanel.Background>
-            <ImageBrush ImageSource="Resources/GUI/Background.png" Stretch="Uniform" />
+            <ImageBrush ImageSource="Resources/GUI/Background.png" />
         </DockPanel.Background>
-        <TextBox Height="23" Name="inputBox" KeyDown="inputBox_KeyDown" PreviewKeyDown="inputBox_PreviewKeyDown"
-                 Cursor="None" Background="Transparent" BorderThickness="0" DockPanel.Dock="Bottom">
-        </TextBox>
+        <Grid Name="grid" DockPanel.Dock="Bottom" Margin="30"
+              Width="{Binding Converter={StaticResource PercentageConverter}, ElementName=dockPanel, Path=ActualWidth, ConverterParameter=95}"
+              Height="{Binding Converter={StaticResource PercentageConverter}, ElementName=dockPanel, Path=ActualHeight, ConverterParameter=25}">
+            <Grid.Background>
+                <ImageBrush ImageSource="Resources/GUI/Textbox.png" />
+            </Grid.Background>
+            <TextBox Name="inputBox" KeyDown="inputBox_KeyDown" PreviewKeyDown="inputBox_PreviewKeyDown" TextWrapping="Wrap"
+                     Cursor="None" Background="Transparent" BorderThickness="0"
+                     Width="{Binding Converter={StaticResource PercentageConverter}, ElementName=grid, Path=ActualWidth, ConverterParameter=84}"
+                     Height="{Binding Converter={StaticResource PercentageConverter}, ElementName=grid, Path=ActualHeight, ConverterParameter=57}" />
+        </Grid>
         <Label Name="titleLabel" Content="- Inkognitor -" Cursor="None" HorizontalContentAlignment="Center" DockPanel.Dock="Top" />
         <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Hidden">
-            <TextBlock Name="textBlock" Cursor="None" TextWrapping="Wrap" Margin="20" />
+            <TextBlock Name="textBlock" Cursor="None" TextWrapping="Wrap"
+                       Margin="{Binding Converter={StaticResource PercentageConverter}, ElementName=dockPanel, Path=ActualHeight, ConverterParameter=15}" />
         </ScrollViewer>
     </DockPanel>
 </Window>

@@ -67,6 +67,7 @@
     <Compile Include="Files.cs" />
     <Compile Include="HackingMode.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="PercentageConverter.cs" />
     <Compile Include="PrintingTimer.cs" />
     <Compile Include="EffectApplyingWaveMemoryStream.cs" />
     <Compile Include="WaitMode.cs" />
@@ -109,6 +110,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources\GUI\Background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GUI\Textbox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
