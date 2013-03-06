@@ -38,7 +38,9 @@ REQUESTS = {
 def communicate_inkognitor(data):
     sock = socket.create_connection((INKOGNITOR_ADDRESS, INKOGNITOR_PORT))
     try:
+        print 'Sending to Inkognitor'
         sock.sendall(data + '\n')
+        print 'Receiving data from Inkognitor'
         return sock.makefile().readline()
     finally:
         sock.close()
