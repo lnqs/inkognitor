@@ -13,7 +13,7 @@ LISTENING_ADDRESS = '0.0.0.0'
 LISTENING_PORT = 8080
 INKOGNITOR_ADDRESS = '127.0.0.1'
 INKOGNITOR_PORT = 13135
-CHATLOG = 'Chat.log'
+CHATLOG = '../Inkognitor/bin/Release/Chat.log'
 SOCKET_TIMEOUT = 3
 
 
@@ -73,9 +73,9 @@ def main_view(request):
     try:
         data['current_mode'] = communicate_inkognitor(REQUESTS['mode'])
         data['maintainance_may_start'] = communicate_inkognitor(
-		    REQUESTS['show_maintainance_may_start']).strip() == 'True'
+            REQUESTS['show_maintainance_may_start']).strip() == 'True'
         data['bot_may_answer'] = communicate_inkognitor(
-		    REQUESTS['show_bot_may_answer']).strip() == 'True'
+            REQUESTS['show_bot_may_answer']).strip() == 'True'
     except socket.error as e:
         data['message'] = 'Error: Communication with Inkognitor failed: {}'.format(e)
 
