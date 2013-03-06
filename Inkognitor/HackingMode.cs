@@ -12,8 +12,9 @@ namespace Inkognitor
 
         private MainWindow mainWindow;
         private HackingGame hackingGame;
-        private Thread gameThread;
+        private Thread hackingGameThread;
         private SwitchGame switchGame;
+        private Thread switchGameThread;
 
         public HackingMode(MainWindow window, ArduinoConnector arduino, Logger logger, Files files)
         {
@@ -25,14 +26,17 @@ namespace Inkognitor
                     false, false, false);
             hackingGame.LevelChanged += HandleLevelChanged;
 
-            gameThread = new Thread(hackingGame.Run);
-            gameThread.Start();
+            hackingGameThread = new Thread(hackingGame.Run);
+            hackingGameThread.Start();
 
             hackingGame.Suspend();
             hackingGame.HideWindow();
 
-            switchGame = new SwitchGame(arduino);
-            switchGame.MistakeMade += HandleSwitchGameMistakeMade;
+            if (arduino != null)
+            {
+                switchGame = new SwitchGame(arduino, WinLevel);
+                switchGame.MistakeMade += HandleSwitchGameMistakeMade;
+            }
         }
 
         public event ModeFinishedHandler ModeFinished;
@@ -44,14 +48,26 @@ namespace Inkognitor
             hackingGame.Reset();
             hackingGame.Resume();
             hackingGame.ShowWindow();
-            switchGame.Start();
+
+            if (switchGame != null)
+            {
+                switchGameThread = new Thread(switchGame.Run);
+                switchGameThread.Start();
+            }
+
             mainWindow.Hide();
         }
 
         public void Exit()
         {
             mainWindow.Show();
-            switchGame.Stop();
+
+            if (switchGame != null)
+            {
+                switchGame.Stop();
+                switchGameThread.Join();
+            }
+
             hackingGame.Suspend();
             hackingGame.HideWindow();
         }
@@ -59,7 +75,7 @@ namespace Inkognitor
         public void Quit()
         {
             hackingGame.Quit();
-            gameThread.Join();
+            hackingGameThread.Join();
         }
 
         private void HandleLevelChanged(object sender, HackingGame.LevelChangedEventArgs e)

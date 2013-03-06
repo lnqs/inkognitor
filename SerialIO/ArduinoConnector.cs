@@ -122,9 +122,7 @@ namespace SerialIO
 
         public void Dispose() 
         {
-
             _port.Dispose();
-
         }
     }
 }
