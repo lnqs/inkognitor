@@ -8,6 +8,7 @@ namespace Inkognitor
         private Personality<DataCorruptingWaveMemoryStream> personality
                 = new Personality<DataCorruptingWaveMemoryStream>();
         private ArduinoConnector arduino;
+        private bool firstPatchCompleted = false;
 
         public BrokenMode(MainWindow window, ArduinoConnector arduino_, Logger logger, Files files) : base(window, logger, files)
         {
@@ -62,7 +63,14 @@ namespace Inkognitor
 
         private void HandlePatchCompleted(object sender, EventArgs e)
         {
-            FireFinishedEvent();
+            if (!firstPatchCompleted)
+            {
+                firstPatchCompleted = true;
+            }
+            else
+            {
+                FireFinishedEvent();
+            }
         }
 
         public void Dispose()
