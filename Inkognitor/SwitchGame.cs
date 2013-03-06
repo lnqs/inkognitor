@@ -14,7 +14,7 @@ namespace Inkognitor
         private Switch[] switches = new Switch[12];
         ArduinoConnector arduino;
         private bool running = true;
-        private Random random;
+        private Random random = new Random();
         private int maxLevel;
 
         public SwitchGame(ArduinoConnector arduino_, int maxLevel_)
