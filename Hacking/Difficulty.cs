@@ -5,7 +5,7 @@ namespace Hacking
     public class Difficulty
     {
         private static int MaxLevel = 6;
-        private static double MaxSpeed = 400.0;
+        private static double MaxSpeed = 300.0;
         private static double MaxErrorProbability = 0.5;
 
         private double errorCodeBlockProbability;

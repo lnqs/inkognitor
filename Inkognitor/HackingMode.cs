@@ -27,6 +27,7 @@ namespace Inkognitor
             hackingGame.LevelChanged += HandleLevelChanged;
 
             hackingGameThread = new Thread(hackingGame.Run);
+            hackingGameThread.Name = "HackingGame";
             hackingGameThread.Start();
 
             hackingGame.Suspend();
@@ -52,6 +53,7 @@ namespace Inkognitor
             if (switchGame != null)
             {
                 switchGameThread = new Thread(switchGame.Run);
+                switchGameThread.Name = "SwitchGame";
                 switchGameThread.Start();
             }
 

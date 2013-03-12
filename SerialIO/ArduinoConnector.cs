@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports;
 using System.Threading;
+using System.Diagnostics;
 
 namespace SerialIO
 {
@@ -13,7 +14,7 @@ namespace SerialIO
     }
     public class ArduinoConnector :IDisposable
     {
-        const int KeyTurnThreshhold = 2600;
+        const int KeyTurnThreshhold = 500;
 
         public event EventHandler<EventArgsWithPort> SwitchPressed;
         public event EventHandler KeysTurned;
@@ -32,12 +33,13 @@ namespace SerialIO
         public void Init() 
         {
             _port.DataReceived += (_port_DataReceived);
+            _port.NewLine = "\n";
             _port.Open();
         }
 
         public void SetLight(int index, bool state)
         { 
-            var buffer = new byte[]{(byte)index,(byte)(state?0xFF:0)};
+            var buffer = new byte[]{(byte)index,(byte)(state?1:0)};
             _port.Write(buffer, 0, 2);
         }
 
@@ -47,6 +49,7 @@ namespace SerialIO
             {
                 string content = _port.ReadLine();
                 int port;
+                Debug.WriteLine("serial data: " + content);
                 if (int.TryParse(content, out port)) 
                 {
                     if (port >= 0 && port < 12)
@@ -67,6 +70,7 @@ namespace SerialIO
             }
         }
 
+ /*
         int lastKey= -1;
         DateTime turnTime = DateTime.MaxValue;
         private void keyTurned(int port)
@@ -82,6 +86,35 @@ namespace SerialIO
             {
                 lastKey = port;
                 turnTime = DateTime.Now.AddMilliseconds(KeyTurnThreshhold);
+            }
+        }
+*/
+
+        private DateTime key1Turned = DateTime.MaxValue;
+        private DateTime key2Turned = DateTime.MaxValue;
+        private void keyTurned(int port)
+        {
+            if (port == 14)
+            {
+                key1Turned = DateTime.Now;
+            }
+            else
+            {
+                key2Turned = DateTime.Now;
+            }
+
+            if (key1Turned != DateTime.MaxValue && key2Turned != DateTime.MaxValue)
+            {
+                TimeSpan diff = key1Turned - key2Turned;
+                if (diff.Duration().Milliseconds <= KeyTurnThreshhold)
+                {
+                    try
+                    {
+                        KeysTurned(this, EventArgs.Empty);
+                    }
+                    catch (NullReferenceException)
+                    { }
+                }
             }
         }
 

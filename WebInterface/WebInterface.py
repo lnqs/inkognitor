@@ -10,8 +10,8 @@ from wsgiref.simple_server import make_server
 
 
 LISTENING_ADDRESS = '0.0.0.0'
-LISTENING_PORT = 8080
-INKOGNITOR_ADDRESS = '127.0.0.1'
+LISTENING_PORT = 80
+INKOGNITOR_ADDRESS = ''
 INKOGNITOR_PORT = 13135
 CHATLOG = '../Inkognitor/bin/Release/Chat.log'
 SOCKET_TIMEOUT = 3
@@ -91,13 +91,15 @@ def chatlog_view(request):
         'loglines': [],
         'message:': ''
     }
+
+    data['message'] = ''
     
     try:
         with open(CHATLOG, 'r') as f:
             data['loglines'] = f.readlines()
     except Exception as e:
         data['message'] = 'Error: Couldn\'t read logfile: {}'.format(e)
-
+        
     return data
 
 

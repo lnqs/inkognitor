@@ -15,17 +15,19 @@ namespace Inkognitor
         private Files files = new Files();
         private CommandDispatcher commandInterface = new CommandDispatcher(new CommandServer(IPAddress.Any, CommandPort));
         private IMode[] modes;
-        private int currentMode = 0;
+        private int currentMode = 3;
         private ArduinoConnector arduino;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             try
             {
-                arduino = new ArduinoConnector();
+                arduino = new ArduinoConnector("COM3");
+                arduino.Init();
             }
             catch (IOException exception)
             {
+                arduino = null;
                 MessageBox.Show(String.Format("Failed to connect to Arduino: {0}\n\n" +
                                               "Inkognitor will start, but no hardware " +
                                               "events can be received", exception.Message),

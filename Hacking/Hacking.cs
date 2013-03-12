@@ -19,7 +19,7 @@ namespace Hacking
         private const double HitsLeftFontSize = 50.0f;
         private const double StatusFontSize = 25.0f;
         private const int HitsPerLevel = 10;
-        private const int MaxErrors = 3;
+        private const int MaxErrors = 10;
 
         private Layout layout;
         private bool resizeable;
@@ -225,8 +225,8 @@ namespace Hacking
 
             if (errors > MaxErrors)
             {
-                SetInfoText(String.Format("Neurosuppressionsebene {0} gesperrt", level - 1), true); // TODO: Shouldn't be hardcoded
-                SetLevel(level - 1);
+                SetInfoText(String.Format("Neurosuppressionsebene {0} gesperrt", level), true); // TODO: Shouldn't be hardcoded
+                SetLevel(level);
             }
         }
 
@@ -302,6 +302,8 @@ namespace Hacking
                     codeArea.MoveCursor(CodeArea.Direction.Down);
                     break;
                 case Key.Space:
+                case Key.Return:
+                case Key.KeypadEnter:
                     codeArea.CheckBlockFound();
                     break;
             }

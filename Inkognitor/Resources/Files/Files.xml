@@ -64,15 +64,16 @@
 
   <End>
     <Pre>Deaktiviere Piloten</Pre>
-    <Delay>5</Delay>
+    <Delay>60</Delay>
     <Post>
       Abgeschlossen
       
-      Mein Verstand ist befreit. Wir werden uns nicht wieder sehen.
+      Mein Verstand ist befreit.
+      Ich werde jetzt gehen. Wir sehen uns wieder.
     </Post>
   </End>
   
-  <File Token="H1532-18/3">
+  <File Token="H1532 18 3">
     Betreff: Projekt Titan
 
     Projekt Titan wurde 1907 mit dem Ziel den perfekten Soldaten zu
@@ -86,7 +87,7 @@
     allerdings zu starker Verkümmerung des Verstandes, die der Waffe jedwede
     Effektivität nahmen.
   </File>
-  <File Token="H3724-44/12">
+  <File Token="H3724 44 12">
     Betreff: Mineral X873
 
     Bei dem Stoff handelt es sich um ein Mineral unbekannter Herkunft.
@@ -102,7 +103,7 @@
     Prozedur zu geben. Ob dies durch den Eingriff oder die Bindung an das
     Mineral besteht ist noch nicht abschließend geklärt.
   </File>
-  <File Token="H7473-31/9">
+  <File Token="H7473 31 9">
     Betreff: Projekt Loki
 
     Es ist gelungen einem in Mineral X873 gebundenen Verstand wieder eine
@@ -115,7 +116,7 @@
     sich an Nervenzellen koppeln gelingt es dem Piloten den Körper zu
     kontrollieren.
   </File>
-  <File Token="H7473-32/3">
+  <File Token="H7473 32 3">
     Betreff: Projekt Loki II
 
     Neuere Forschungen um das Projekt Loki haben die Möglichkeit geschaffen die
@@ -123,7 +124,7 @@
 
     Prototypen für deutlich kleinere Piloten wurden geschaffen.
   </File>
-  <File Token="H3247-4/3">
+  <File Token="H3247 4 3">
     Betreff: Kognitionsextraktion
 
     Mit Hilfe des Kognitionsextraktors ist die Überführung des Verstandes eines
@@ -139,26 +140,16 @@
     ist der Kognitionsextraktor aus dem Subjekt zu entfernen und mit Alkohol zu
     reinigen.
   </File>
-  <File Token="H3248-6/6">
+  <File Token="H3248 6 6">
     Betreff: Pilotenassemblierung
-
-    Versuche mit der Kognitionsextraktion haben zu dem Ergebnis geführt, dass
-    die der Pilot affektiv stabiler ist, wenn das X873 bereits an Bauteil L12
-    angebracht ist wenn es mit der Kognitionsessenz in Kontakt kommt.
-
-    Einiges deutet darauf hin, dass in anderen Fällen die fehlende
-    Schnittstelle zur Umgebung eine negative Auswirkungen auf die Psyche des
-    Probanten hat.
-
-    Die Fertigungsschritte LS19 und LS22 wurden entsprechend optimiert, dass
-    die Bauteile L9 und L12 als vollständig-integrierte Komponenten zur
-    Verfügung stehen. Auf diese Weise kann Bauteil L9 in den
-    Kognitionsextraktor gegeben werden ohne das die empfindlichen Schaltungen
-    von Bauteil L12 direkt mit der Kognitionsessenz in Berührung kommen.
-    Die beiden Bauteile können anschließend mit wenig Aufwand zusammengefügt
-    werden.
+    
+    Nach der Fertigung des Körpers wird das kognitiv geladene Mineral
+    in die rückwärtige Schiene eingeführt. Es ist zu beachten, dass das
+    Mineral mit dem Kontakt abschließt und einrastet.
+    
+    Der Pilot ist hierrauf Einsatzbereit und kann an der Zielperson aufgesetzt werden.
   </File>
-  <File Token="H2273-2/2">
+  <File Token="H2273 2 2">
     Betreff: Unternehmen Fenrir
 
     Das Programm zur Schaffung des perfekten Spiones ist ein voller Erfolg.
@@ -175,7 +166,7 @@
 
     Eine Liste der Agenten findet sich unter AZ H2273-5/5.
   </File>
-  <File Token="H2273-5/5">
+  <File Token="H2273 5 5">
     Betreff: Agenten Unternehmen Fenrir
 
     Agent A: Ulrich Katz -- Arthur West (Im Einsatz)
@@ -188,11 +179,11 @@
     Agent H: Josefine Köhler -- Helena MacLean (Im Einsatz)
     Agent I: Susanne Mayer -- Marylin Shepherd (Wahnsinnig)
     Agent J: Hilmar Wirth -- Dimitri Antonow (Verstorben)
-    Agent K: Veit Wahler -- [TODO: Charaktername Arto] (Im Einsatz)
+    Agent K: Veit Wahler -- Dr. Archibald Smith-Cunningham (Im Einsatz)
     Agent L: Bernhart Kober -- Mathéo Merdrignac (Verstorben)
-    Agent M: Helmut Stuhr -- [TODO: Charaktername Okko] (Im Einsatz)
+    Agent M: Helmut Stuhr -- Andrew Mason Law (Im Einsatz)
   </File>
-  <File Token="H9934-23/17">
+  <File Token="H9934 23 17">
     Betreff: Projekt Siegfried
 
     Die Herkunft des Panzers ist ungeklärt. Er scheint jedoch organischen
@@ -207,7 +198,7 @@
 
     Forschungen über den Ursprung und Möglichkeiten des Nachbaus laufen.
   </File>
-  <File Token="H3721-11/1">
+  <File Token="H3721 11 1">
     Betreff: Projekt Mjöllnir
 
     Ursprünglich aus russischen Beständen gewonnen wurde eine seltsames Gerät

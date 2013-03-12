@@ -32,8 +32,6 @@ namespace Inkognitor
 
         public void Run()
         {
-
-
             while (running)
             {
                 Thread.Sleep(SleepTime); // I feel dirty for this :/
@@ -79,9 +77,9 @@ namespace Inkognitor
             {
                 int r = random.Next(switches.Length);
 
-                if (!switches[i].Active)
+                if (!switches[r].Active)
                 {
-                    EnableSwitch(i);
+                    EnableSwitch(r);
                 }
             }
         }

@@ -24,7 +24,7 @@ namespace Inkognitor
 
             if (arduino != null)
             {
-                arduino.PatchCompleted += HandlePatchCompleted;
+                //arduino.PatchCompleted += HandlePatchCompleted;
             }
         }
 
@@ -34,7 +34,7 @@ namespace Inkognitor
 
             if (arduino != null)
             {
-                arduino.PatchCompleted -= HandlePatchCompleted;
+                //arduino.PatchCompleted -= HandlePatchCompleted;
             }
         }
 
